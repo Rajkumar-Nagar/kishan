@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SocketProvider, StreamVideoProvider } from "@/providers";
-import "@stream-io/video-react-sdk/dist/css/styles.css";
+// import "@stream-io/video-react-sdk/dist/css/styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SocketProvider>
-          {/* <StreamVideoProvider> */}
-          {children}
-          {/* </StreamVideoProvider> */}
+          <StreamVideoProvider>
+            {children}
+          </StreamVideoProvider>
         </SocketProvider>
       </body>
     </html>

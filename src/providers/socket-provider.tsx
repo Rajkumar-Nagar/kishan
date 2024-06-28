@@ -18,7 +18,7 @@ export const useSocket = () => {
 }
 
 
-const SocketProvider: React.FC<React.PropsWithChildren> = () => {
+const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [socket, setSocket] = React.useState(null);
     const [isConnected, setIsConnected] = React.useState(false);
 
@@ -40,7 +40,9 @@ const SocketProvider: React.FC<React.PropsWithChildren> = () => {
     }, [])
 
     return (
-        <SocketContext.Provider value={{ socket, isConnected }} />
+        <SocketContext.Provider value={{ socket, isConnected }} >
+            {children}
+        </SocketContext.Provider>
     )
 }
 

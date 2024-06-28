@@ -9,8 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@livekit/components-react": "^2.3.3",
+    "@livekit/components-styles": "^1.0.12",
     "@stream-io/node-sdk": "^0.2.6",
     "@stream-io/video-react-sdk": "^1.2.10",
+    "livekit-server-sdk": "^2.5.0",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
