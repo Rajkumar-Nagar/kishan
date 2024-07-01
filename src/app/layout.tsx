@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { SocketProvider, StreamVideoProvider } from "@/providers";
+// import "@stream-io/video-react-sdk/dist/css/styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className=" flex flex-col w-screen h-screen ">
-        {children}
-        </div>
+
+        <SocketProvider>
+          <StreamVideoProvider>
+            <div className=" flex flex-col w-screen h-screen ">
+              {children}
+            </div>
+          </StreamVideoProvider>
+        </SocketProvider>
       </body>
     </html>
   );
