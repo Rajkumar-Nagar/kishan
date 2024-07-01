@@ -29,6 +29,18 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
         io.on('connection', (socket) => {
             console.log('socket connected', socket.id);
 
+            socket.on('join-room', (data) => {
+                console.log('join-room', data);
+                socket.join(data.room);
+                socket.to(data.room).emit('join-room', data);
+            });
+
+            socket.on('leave-room', (data) => {
+                console.log('leave-room', data);
+                socket.leave(data.room);
+                socket.to(data.room).emit('leave-room', data);
+            });
+
             socket.on('disconnect', () => {
                 console.log('socket disconnected', socket.id);
             });
