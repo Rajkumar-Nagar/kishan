@@ -2,8 +2,7 @@ import React from 'react'
 
 function page() {
   return (
-    <div>hii </div>
-    
+    <div>Ai helper</div>
   )
 }
 
