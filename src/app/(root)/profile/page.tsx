@@ -4,9 +4,9 @@ import { CldImage } from 'next-cloudinary';
 
 export default function UploadPage() {
   const [imageId, setImageId] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
-  const uploadImage = async (file) => {
+  const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'rajkumar264');
@@ -24,12 +24,12 @@ export default function UploadPage() {
       setImageId(data.public_id);
     } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'An error occurred');
     }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       uploadImage(file);
     }

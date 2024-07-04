@@ -1,6 +1,13 @@
 import React from 'react'
 
-function Dropdown({Setquantity,quntity,fiels,nameDrop}) {
+interface DropdownProps {
+    Setquantity: (value: string) => void;
+    quntity: string;
+    fields: string[];
+    nameDrop: string;
+}
+
+function Dropdown({ Setquantity, quntity, fields, nameDrop }: DropdownProps) {
     return (
         <select
             id="product"
@@ -12,7 +19,7 @@ function Dropdown({Setquantity,quntity,fiels,nameDrop}) {
                 Select a {`${nameDrop}`}
             </option>
             {
-                fiels.map((item, index) => (
+                fields.map((item, index) => (
                     <option key={index} value={`${item}`}>{item}</option>
                 ))
             }

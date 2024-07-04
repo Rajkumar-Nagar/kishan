@@ -1,26 +1,12 @@
 "use client"
 
 import Dropdown from '@/components/ui/Dropdown';
-import { useIsSpeaking } from '@livekit/components-react';
+import { IStatesWithDistricts, statesWithDistricts, crops } from '@/data';
 import Image from 'next/image';
 import React, { useState } from 'react'
 
 
-const crops = [
-    "Wheat",
-    "Rice",
-    "Maize (Corn)",
-    "Bajra (Pearl Millet)",
-    "Jowar (Sorghum)",
-    "Pulses (e.g., Chickpeas, Lentils)",
-    "Sugarcane",
-    "Cotton",
-    "Soybean",
-    "Mustard"
-];
-
 const Quantity = [
-
     "100",
     "200",
     "300",
@@ -37,15 +23,6 @@ const Quantity = [
     "10000"
 ]
 
-const statesWithDistricts = {
-    "Rajasthan": ["Ajmer", "Jaipur", "Jodhpur", "Udaipur", "Kota"],
-    "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala", "Bathinda"],
-    "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain"],
-    "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga"],
-    "Haryana": ["Faridabad", "Gurgaon", "Rohtak", "Hisar", "Panipat"],
-    "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Meerut"]
-};
-
 
 function Page() {
 
@@ -54,7 +31,7 @@ function Page() {
     const [mandiOption, setmandiOption] = useState("")
     const [grading, setgrading] = useState("false")
 
-    const [state, setstate] = useState<keyof typeof statesWithDistricts>("Rajasthan")
+    const [state, setstate] = useState<IStatesWithDistricts>("Rajasthan")
     const [distict, setdistict] = useState("")
 
 
@@ -90,7 +67,7 @@ function Page() {
                             <Dropdown
                                 Setquantity={setselectProduct}
                                 quntity={selectProduct}
-                                fiels={crops}
+                                fields={crops}
                                 nameDrop="Product" />
                         </div>
 
@@ -109,7 +86,7 @@ function Page() {
                                 <Dropdown
                                     Setquantity={setquantity}
                                     quntity={quantity}
-                                    fiels={Quantity}
+                                    fields={Quantity}
                                     nameDrop="Quantity" />
                             </div>
 
@@ -132,7 +109,7 @@ function Page() {
                                 <Dropdown
                                     Setquantity={setmandiOption}
                                     quntity={mandiOption}
-                                    fiels={["Online All india Mandi", "Online Mini Mandi", "Direct to Vendor"]}
+                                    fields={["Online All india Mandi", "Online Mini Mandi", "Direct to Vendor"]}
                                     nameDrop="Option" />
                             </div>
 
@@ -152,9 +129,9 @@ function Page() {
                             <div className="sellingoption w-[48%]">
                                 <h1 className=" text-[#002f34] text-xl my-2">State</h1>
                                 <Dropdown
-                                    Setquantity={setstate}
+                                    Setquantity={(v: string) => setstate(v as IStatesWithDistricts)}
                                     quntity={state}
-                                    fiels={Object.keys(statesWithDistricts)}
+                                    fields={Object.keys(statesWithDistricts)}
                                     nameDrop="Option" />
                             </div>
 
@@ -163,7 +140,7 @@ function Page() {
                                 <Dropdown
                                     Setquantity={setdistict}
                                     quntity={distict}
-                                    fiels={statesWithDistricts[state]}
+                                    fields={statesWithDistricts[state]}
                                     nameDrop="Option" />
                             </div>
 
@@ -198,7 +175,7 @@ function Page() {
                                 <Dropdown
                                     Setquantity={setgrading}
                                     quntity={grading}
-                                    fiels={["Yes Grading is complete", "No Grading is not complete"]}
+                                    fields={["Yes Grading is complete", "No Grading is not complete"]}
                                     nameDrop="Grading" />
                             </div>
                         </div>
