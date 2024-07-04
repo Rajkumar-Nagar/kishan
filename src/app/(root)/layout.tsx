@@ -8,10 +8,10 @@ export default function RootLayout({
 }>) {
   return (
     <div className=" flex flex-col w-screen h-screen ">
-          <Navbar />
-          <div className="h-full flex-1">
-            {children}
-          </div>
-        </div>
+      <Navbar />
+      <div className="h-full flex-1">
+        {children}
+      </div>
+    </div>
   );
 }

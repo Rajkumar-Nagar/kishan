@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,9 +18,8 @@ const config = {
       },
     },
     extend: {
-
-      height:{
-body:"calc(100vh - 3rem)"
+      height: {
+        body: "calc(100vh - 4rem)"
       },
       colors: {
         border: "hsl(var(--border))",

@@ -2,9 +2,8 @@
 
 import Link from "next/link"
 
-
 import { useState } from "react";
-import { loginServerAction } from "../../Actions/loginAction";
+import { loginServerAction } from "@/actions/loginAction";
 import { useRouter } from "next/navigation";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";

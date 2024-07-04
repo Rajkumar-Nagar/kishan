@@ -18,46 +18,46 @@ import Image from "next/image"
 
 
 
-const services: { title: string; href: string;image: string ;description: string }[]  = [
+const services: { title: string; href: string; image: string; description: string }[] = [
   {
     title: "Online Mandi",
-    href: "/service/Mandi",
+    href: "/services/mandi",
     image: "/shopingCart.png",
     description: "Sell and buy your crops online. Licensed individuals can place bids for buying crops.",
   },
   {
     title: "Crop Rate Dashboard",
-    href: "/service/Croprate",
+    href: "/services/crop-rates",
     image: "/chart.png",
     description: "View and analyze crop rates with graphs. Check today's rates for different mandis.",
   },
   {
     title: "AI Bot Assistance",
-    href: "/service/Aihelper",
+    href: "/services/ai-helper",
     image: "/ai.png",
     description: "Ask any question and get solutions. Upload images to diagnose and find solutions for crop diseases.",
   },
   {
     title: "Transport Booking",
-    href: "/service/Transport",
+    href: "/services/transport",
     image: "/truck.png",
     description: "Book trucks or pickups for transportation to mandis. Options to book individually or with partners.",
   },
   {
-    title: "Labor Booking",
-    href: "/service/Labor",
+    title: "Labour Booking",
+    href: "/services/labour",
     image: "/workers.png",
-    description: "Hire labor for farming work.",
+    description: "Hire labour for farming work.",
   },
   {
     title: "Farmer Community",
-    href: "/service/Community",
+    href: "/services/community",
     image: "/shopingCart.png",
     description: "Ask questions and communicate with other farmers.",
   },
   {
     title: "Land Transactions",
-    href: "/service/Land",
+    href: "/services/land",
     image: "/location.png",
     description: "Buy farming land on a permanent basis. Annual rental options with bidding available.",
   },
@@ -70,7 +70,7 @@ export default function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
 
-      <NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
@@ -85,11 +85,11 @@ export default function NavigationMenuDemo() {
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {services.map((component) => (
                 <ListItem
-                key={component.title}
-                title={component.title}
-                href={component.href}
-                imageUrl={component.image} 
-              >
+                  key={component.title}
+                  title={component.title}
+                  href={component.href}
+                  imageUrl={component.image}
+                >
                   {component.description}
                 </ListItem>
               ))}
@@ -98,22 +98,22 @@ export default function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/ContactUs" legacyBehavior passHref>
+          <Link href="/contact-us" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact 
+              Contact
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
 
 
         <NavigationMenuItem>
-          <Link href="/About" legacyBehavior passHref>
+          <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About 
+              About
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-       
+
       </NavigationMenuList>
     </NavigationMenu>
   )
@@ -121,13 +121,13 @@ export default function NavigationMenuDemo() {
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children,imageUrl, ...props }, ref) => {
- console.log(imageUrl)
+  React.ComponentPropsWithoutRef<"a"> & { imageUrl: string; }
+>(({ className, title, children, imageUrl, ...props }, ref) => {
+  console.log(imageUrl)
   return (
     <li className="flex items-center transition-colors rounded-md cursor-pointer hover:bg-accent hover:text-accent-foreground">
 
-      <Image src={imageUrl} width={50} height={50} className="px-2" alt={"reload"}/>
+      <Image src={imageUrl} width={50} height={50} className="px-2" alt={"reload"} />
       <NavigationMenuLink asChild>
         <a
           ref={ref}

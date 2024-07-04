@@ -4,10 +4,10 @@ import React from 'react'
 
 function page() {
   return (
- <div className='w-full h-full !overflow-x-hidden'>
-<CarouselDemo/>
- </div>
-  
+    <div className='w-full h-full !overflow-x-hidden'>
+      <CarouselDemo />
+    </div>
+
   )
 }
 

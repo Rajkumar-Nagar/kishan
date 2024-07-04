@@ -1,14 +1,11 @@
-
 "use client"
 
-import { signIn } from "@/auth";
 import Link from "next/link";
 import { useState } from "react";
-import { handelSignInActions } from "../../Actions/SignInActinon";
+import { handelSignInActions } from "@/actions/SignInActinon";
 
 export default function SignIn() {
 
-  // const [err, seterr] = useState(false)
   const [errMessage, seterrMessage] = useState("")
 
   const checkFilled = (field: any) => {
@@ -16,7 +13,7 @@ export default function SignIn() {
       seterrMessage(`please enter the ${field}`)
     }
   }
-  const handelSignIn = async (formdata: any) => {
+  const handelSignIn = async (formdata: FormData) => {
 
     const { name, phoneNumber, email, Address, password, confirm_Password } = Object.fromEntries(formdata.entries());
 

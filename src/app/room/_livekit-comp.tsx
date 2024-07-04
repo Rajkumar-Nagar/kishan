@@ -14,7 +14,7 @@ import {
 } from "@livekit/components-react";
 import { Track } from "livekit-client";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const LiveKitComp = ({ token, room }: { token: string; room: string }) => {
 
@@ -22,6 +22,17 @@ const LiveKitComp = ({ token, room }: { token: string; room: string }) => {
 
 
     const { socket } = useSocket();
+
+    const handleRoomJoin = useCallback(() => {
+        if (!socket) return;
+        socket.emit('join-room', { room, name: searchParams?.get('name') });
+    }, [socket, room, searchParams])
+
+    const handleRoomLeave = useCallback(() => {
+        if (!socket) return;
+        socket.emit('leave-room', { room, name: searchParams?.get('name') });
+    }, [socket, room, searchParams])
+
 
     useEffect(() => {
         if (!socket) return;
@@ -40,17 +51,9 @@ const LiveKitComp = ({ token, room }: { token: string; room: string }) => {
             socket.off('join-room');
             socket.off('leave-room');
         }
-    }, [socket])
+    }, [socket, handleRoomLeave])
 
-    const handleRoomJoin = () => {
-        if (!socket) return;
-        socket.emit('join-room', { room, name: searchParams?.get('name') });
-    }
 
-    const handleRoomLeave = () => {
-        if (!socket) return;
-        socket.emit('leave-room', { room, name: searchParams?.get('name') });
-    }
 
     return (
         <LayoutContextProvider>
