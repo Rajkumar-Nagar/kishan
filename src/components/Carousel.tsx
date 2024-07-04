@@ -74,7 +74,7 @@ const servicesData = [
 export default function CarouselDemo() {
 
   return (
-    <Carousel className="w-full relative h-full  "
+    <Carousel className="w-full relative h-full z-10"
       plugins={[
         Autoplay({
           delay: 5000,

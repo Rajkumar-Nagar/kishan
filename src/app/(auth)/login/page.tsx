@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import InputOTPPattern from "@/components/OtpModel";
+import { checkEmptyField } from "@/lib/utils";
 
 
 export default function SignIn() {
@@ -15,17 +16,15 @@ export default function SignIn() {
   const [errMessage, seterrMessage] = useState("")
   const router = useRouter()
 
-  const checkFilled = (field: any) => {
-    if (!field) {
-      seterrMessage(`please enter the ${field}`)
-    }
-  }
-  const handelSignIn = async (formdata: any) => {
 
-    const { phoneNumber, password } = Object.fromEntries(formdata.entries());
+  const handelSignIn = async (formdata: FormData) => {
 
-    checkFilled(phoneNumber);
-    checkFilled(password);
+    const data = Object.fromEntries(formdata.entries());
+
+    const err = checkEmptyField(data);
+    seterrMessage(err);
+
+    const { phoneNumber, password } = data;
 
     if (!!errMessage) {
       return
@@ -42,7 +41,7 @@ export default function SignIn() {
 
 
   return (
-    <div className="mainContainer w-full flex flex-row h-full   -z-10"
+    <div className="mainContainer w-full flex flex-row h-full"
       style={{
         backgroundImage: "url(/signIn.jpg)",
         backgroundSize: 'cover',
@@ -56,13 +55,14 @@ export default function SignIn() {
         style={{ zIndex: 1 }}
       /> */}
 
-      <div className="relative backdrop-blur-sm w-full h-full flex  z-10 rounded-md p-8 text-white">
+      <div className="relative backdrop-blur-sm w-full h-full flex p-8 text-white">
 
-        <div className="w-full h-full shadow-lg flex" >
-          <div className="form w-1/3 flex flex-col items-center rounded-md  pt-6 bg-[#7ab96c]">
+        <div className="w-full h-full shadow-lg flex rounded-md overflow-hidden" >
+
+          <div className="form w-1/3 flex flex-col items-center pt-6 bg-[#7ab96c]">
 
             <div className="welcome">
-              <Image alt="reload" width={150} height={150} src={"/loginLogo.png"} />
+              <Image alt="reload" width={150} height={150} src={"/LoginLogo.png"} />
             </div>
 
             <form
@@ -88,7 +88,7 @@ export default function SignIn() {
               </label>
 
               <Button className={buttonVariants({ variant: "Login" })}>
-                <Link href="/">Login</Link>
+                Login
               </Button>
 
             </form>
@@ -105,7 +105,7 @@ export default function SignIn() {
 
           </div>
 
-          <div className="photo_container rounded-md w-2/3 bg-orange-300 h-full"
+          <div className="photo_container  w-2/3 bg-orange-300 h-full"
             style={{
               backgroundImage: "url(/signIn.jpg)",
               backgroundSize: 'cover',
@@ -114,6 +114,7 @@ export default function SignIn() {
             }}>
 
           </div>
+
         </div>
 
       </div>
