@@ -86,7 +86,7 @@ export default function SignIn() {
 
               <div className="w-full py-6">
                 <Button variant={"Login"}>
-                  <Link href="/">Resister</Link>
+                  Resister
                 </Button>
               </div>
 
