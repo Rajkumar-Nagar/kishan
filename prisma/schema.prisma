@@ -21,9 +21,78 @@ model User {
   email       String? @unique
   address     String
   password    String
-
+  licence     Boolean @default(false)
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("users")
 }
+
+model Product {
+
+ id           String  @id @default(auto()) @map("_id") @db.ObjectId
+ pesonalInfo  User  @relation(field:[pesonalInfoId],references:[id])
+ pesonalInfoId  Int
+ ProductInfo  ProductInfo @relation(field:[productInfoId],references: [id])
+productInfoId       Int
+ locationInfo        LocationInfo  @relation(fields: [locationInfoId], references: [id])
+locationInfoId      Int
+qualityMetrics      QualityMetrics @relation(fields: [qualityMetricsId], references: [id])
+  qualityMetricsId    Int
+  harvestStorage      HarvestStorage @relation(fields: [harvestStorageId], references: [id])
+  harvestStorageId    Int
+   media               Media          @relation(fields: [mediaId], references: [id])
+  mediaId             Int
+   additionalServices  AdditionalServices @relation(fields: [additionalServicesId], references: [id])
+  additionalServicesId Int
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+   
+}
+
+model ProductInfo {
+  id                  Int       @id @default(autoincrement())
+  cropName            String
+  variety             String
+  quantityAvailable   String
+  expectedPrice       Float
+  isSold              Boolean @default(false)
+}
+
+model locationInfo{
+  id                  Int       @id @default(autoincrement())
+  farmLocation        String
+  districtCity        String
+  state               String
+}
+
+model QualityMetrics {
+  id                  Int       @id @default(autoincrement())
+  moistureContent     Float?
+  grainSize           String?
+  color               String
+  purity              Float
+  certifications      String?
+}
+
+model HarvestStorage {
+  id                  Int       @id @default(autoincrement())
+  harvestDate         DateTime
+  storageConditions   String
+  storageLocation     String
+}
+
+model Media {
+  id                  Int       @id @default(autoincrement())
+  photos              []      
+  videos              []      
+  videoTourLink       String?
+}
+
+model AdditionalServices {
+  id                  Int       @id @default(autoincrement())
+  sampleRequest       Boolean   @default(false)
+  liveStreaming       Boolean   @default(false)
+}
+

@@ -18,11 +18,12 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        Login: "w-full bg-[#fff] text-[black] hover:bg-[#d4d1cb] hover:text-[#ffff]",
+        Login: "w-full bg-[#4e7c52] text-[white] hover:bg-[#3d823b] hover:text-[#ffff]",
         link: "text-primary underline-offset-4 hover:underline",
+        Profile:"w-full h-4 border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-[#ffff]"
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-8 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",

@@ -43,7 +43,7 @@ export default function SignIn() {
 
 
   return (
-    <div className="mainContainer w-full flex flex-row h-full   -z-10"
+    <div className="mainContainer w-full flex flex-row h-full"
       style={{
         backgroundImage: "url(/signIn.jpg)",
         backgroundSize: 'cover',
@@ -57,10 +57,11 @@ export default function SignIn() {
         style={{ zIndex: 1 }}
       /> */}
 
-      <div className="relative backdrop-blur-sm w-full h-full flex  z-10 rounded-md p-8 text-white">
+      <div className="relative backdrop-blur-sm w-full h-full flex p-8 text-white">
 
-        <div className="w-full h-full shadow-lg flex" >
-          <div className="form w-1/3 flex flex-col items-center rounded-md  pt-6 bg-[#7ab96c]">
+        <div className="w-full h-full shadow-lg flex rounded-md overflow-hidden" >
+
+          <div className="form w-1/3 flex flex-col items-center pt-6 bg-[#7ab96c]">
 
             <div className="welcome">
               <Image alt="reload" width={150} height={150} src={"/loginLogo.png"} />
@@ -106,7 +107,7 @@ export default function SignIn() {
 
           </div>
 
-          <div className="photo_container rounded-md w-2/3 bg-orange-300 h-full"
+          <div className="photo_container  w-2/3 bg-orange-300 h-full"
             style={{
               backgroundImage: "url(/signIn.jpg)",
               backgroundSize: 'cover',
@@ -115,6 +116,7 @@ export default function SignIn() {
             }}>
 
           </div>
+          
         </div>
 
       </div>
