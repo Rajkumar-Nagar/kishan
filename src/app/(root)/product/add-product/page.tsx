@@ -225,7 +225,7 @@ function Page() {
                                         Go Home
                                     </Link>
 
-                                    <Button variant={"Login"} onClick={()=>{setConformation(false)}}>
+                                    <Button variant={"Login"} onClick={() => { setConformation(false) }}>
                                         Add Another product
                                     </Button>
 
