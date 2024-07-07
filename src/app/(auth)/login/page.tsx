@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { loginServerAction } from "@/actions/loginAction";
 import { useRouter } from "next/navigation";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -14,31 +14,38 @@ import { checkEmptyField } from "@/lib/utils";
 export default function SignIn() {
 
   const [errMessage, seterrMessage] = useState("")
+  const [isloading, setIsloading] = useState(false)
   const router = useRouter()
 
 
-  const handelSignIn = async (formdata: FormData) => {
+  const handelSignIn = async (e:React.FormEvent<HTMLFormElement>) => {
 
+    e.preventDefault()
+    const formdata = new FormData(e.target as any)
     const data = Object.fromEntries(formdata.entries());
 
     const err = checkEmptyField(data);
-    seterrMessage(err);
+
+    if(err){
+      seterrMessage(err)
+      return
+    };
 
     const { phoneNumber, password } = data;
-
+   
     if (!!errMessage) {
       return
     }
 
     try {
-
+      setIsloading(true)
       await loginServerAction(formdata);
+      setIsloading(false)
       router.replace("/")
     } catch (error) {
       seterrMessage("invalid credential")
     }
   }
-
 
   return (
     <div className="mainContainer w-full flex flex-row h-full"
@@ -66,7 +73,7 @@ export default function SignIn() {
             </div>
 
             <form
-              action={handelSignIn}
+              onSubmit={handelSignIn}
               className="flex flex-col justify-center items-center space-y-2  pt-6 pb-4"
             >
               <label className="flex flex-col space-y-1">
@@ -87,8 +94,10 @@ export default function SignIn() {
                 <InputOTPPattern />
               </label>
 
-              <Button className={buttonVariants({ variant: "Login" })}>
-                Login
+              <Button disabled={isloading} className={buttonVariants({ variant: "Login" })}>
+                {
+                  isloading ? "loading... " : "Login"
+                }
               </Button>
 
             </form>

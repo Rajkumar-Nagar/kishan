@@ -85,7 +85,7 @@ export default function CarouselDemo() {
           <CarouselItem key={index}>
             <div className=" h-body w-full ">
               <div
-                className="relative h-full w-full"
+                className="relative h-full w-full object-cover"
                 style={{
                   backgroundImage: `url(${item.imgurl})`,
                   backgroundSize: 'cover',

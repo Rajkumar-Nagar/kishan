@@ -1,8 +1,9 @@
+import { ThreeDCardDemo } from '@/components/addProduct'
 import React from 'react'
 
 function About() {
   return (
-    <div>About</div>
+    <ThreeDCardDemo/>
   )
 }
 

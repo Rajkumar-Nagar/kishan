@@ -1,31 +1,45 @@
 "use server"
 
 import { signIn } from "@/auth";
+import prisma from "@/lib/prisma";
+import { error } from "console";
+import { NextResponse } from "next/server";
+import bcrypt from "bcrypt"
 
 export const handelSignInActions = async (formdata: FormData) => {
-  const { name, phoneNumber, email, Address, password, confirm_Password } = Object.fromEntries(formdata.entries());
+  const { name, phoneNumber, email, address, password } = Object.fromEntries(formdata.entries()) as Record<string,string>;
 
-  const response = await fetch("http://localhost:3000/api/auth/signUp", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name,
-      phoneNumber: phoneNumber,
-      email,
-      address: Address,
-      password
-    }),
-  })
-
-
-  if (!response.ok) {
-    console.log("Loged in Error")
-    return
+  console.log(name, phoneNumber, email, address, password )
+  if (!name || !phoneNumber || !address || !password) {
+    throw new Error( 'Please fill all required filled')
   }
 
-  const data = await response.json();
+  const findUser = await prisma.user.findUnique({
+    where: {
+      phoneNumber ,
+    }
+  })
+
+  if (findUser) {
+     throw new Error('user is already resistered')
+  }
+
+  const saltRounds = parseInt(process.env.SALT_ROUND!, 10);
+  if (isNaN(saltRounds)) {
+    throw new Error('Invalid SALT_ROUND environment variable');
+  }
+
+  const hashPassword = await bcrypt.hash(password, saltRounds);
+
+  const newUser = await prisma.user.create({
+    data: {
+      name,
+      phoneNumber,
+      email,
+      address,
+      password: hashPassword,
+    }
+  });
 
   const result = await signIn('credentials', {
     redirect: false,

@@ -55,6 +55,7 @@ function Navbar() {
 
 
 
+
             {/* <div className="profile flex items-center justify-center gap-1">
                 <Image alt='' src={"/user.png"} width={30} height={30} />
                 <Link href={"/login"} className='font-semibold underline text-[#4a9129]'>Login</Link>

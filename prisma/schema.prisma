@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-   previewFeatures = ["driverAdapters"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -18,81 +18,90 @@ model User {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   phoneNumber String  @unique
-  email       String? @unique
+  email       String?
   address     String
   password    String
   licence     Boolean @default(false)
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+
+  aadhar_number     String?
+  current_location  String?
+  additional_number String?
+  aadharphotos      String[] @default([])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
 
   @@map("users")
 }
 
 model Product {
-
- id           String  @id @default(auto()) @map("_id") @db.ObjectId
- pesonalInfo  User  @relation(field:[pesonalInfoId],references:[id])
- pesonalInfoId  Int
- ProductInfo  ProductInfo @relation(field:[productInfoId],references: [id])
-productInfoId       Int
- locationInfo        LocationInfo  @relation(fields: [locationInfoId], references: [id])
-locationInfoId      Int
-qualityMetrics      QualityMetrics @relation(fields: [qualityMetricsId], references: [id])
-  qualityMetricsId    Int
-  harvestStorage      HarvestStorage @relation(fields: [harvestStorageId], references: [id])
-  harvestStorageId    Int
-   media               Media          @relation(fields: [mediaId], references: [id])
-  mediaId             Int
-   additionalServices  AdditionalServices @relation(fields: [additionalServicesId], references: [id])
-  additionalServicesId Int
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
-   
+  id                   String             @id @default(auto()) @map("_id") @db.ObjectId
+  pesonalInfo          User               @relation(fields: [pesonalInfoId], references: [id])
+  pesonalInfoId        String             @db.ObjectId
+  ProductInfo          ProductInfo        @relation(fields: [productInfoId], references: [id])
+  productInfoId        String             @db.ObjectId
+  locationInfo         LocationInfo       @relation(fields: [locationInfoId], references: [id])
+  locationInfoId       String             @db.ObjectId
+  qualityMetrics       QualityMetrics     @relation(fields: [qualityMetricsId], references: [id])
+  qualityMetricsId     String             @db.ObjectId
+  harvestStorage       HarvestStorage     @relation(fields: [harvestStorageId], references: [id])
+  harvestStorageId     String             @db.ObjectId
+  media                Media              @relation(fields: [mediaId], references: [id])
+  mediaId              String             @db.ObjectId
+  additionalServices   AdditionalServices @relation(fields: [additionalServicesId], references: [id])
+  additionalServicesId String             @db.ObjectId
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
 }
 
 model ProductInfo {
-  id                  Int       @id @default(autoincrement())
-  cropName            String
-  variety             String
-  quantityAvailable   String
-  expectedPrice       Float
-  isSold              Boolean @default(false)
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  cropName          String
+  variety           String
+  quantityAvailable String
+  expectedPrice     String
+  units             String    @default("kg")
+  isSold            Boolean   @default(false)
+  Product           Product[]
 }
 
-model locationInfo{
-  id                  Int       @id @default(autoincrement())
-  farmLocation        String
-  districtCity        String
-  state               String
+model LocationInfo {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  districtCity String
+  state        String
+  city         String
+  village      String
+  pincode      String
+  Product      Product[]
 }
 
 model QualityMetrics {
-  id                  Int       @id @default(autoincrement())
-  moistureContent     Float?
-  grainSize           String?
-  color               String
-  purity              Float
-  certifications      String?
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  moistureContent String?
+  grainSize       String?
+  color           String
+  purity          String
+  Product         Product[]
 }
 
 model HarvestStorage {
-  id                  Int       @id @default(autoincrement())
-  harvestDate         DateTime
-  storageConditions   String
-  storageLocation     String
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  harvestDate     DateTime
+  storageLocation String
+  Product         Product[]
 }
 
 model Media {
-  id                  Int       @id @default(autoincrement())
-  photos              []      
-  videos              []      
-  videoTourLink       String?
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  photos  String[]
+  videos  String[]
+  Product Product[]
 }
 
 model AdditionalServices {
-  id                  Int       @id @default(autoincrement())
-  sampleRequest       Boolean   @default(false)
-  liveStreaming       Boolean   @default(false)
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  sampleRequest Boolean   @default(false)
+  liveStreaming Boolean   @default(false)
+  Product       Product[]
 }
-

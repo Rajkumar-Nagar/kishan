@@ -5,20 +5,30 @@ import { useState } from "react";
 import { handelSignInActions } from "@/actions/SignInActinon";
 import { Button } from "@/components/ui/button";
 import { checkEmptyField } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+
 
 export default function SignIn() {
 
+  const router = useRouter()
   const [errMessage, seterrMessage] = useState("")
+  const [isloading, setIsloading] = useState(false)
 
 
-  const handelSignIn = async (formdata: FormData) => {
 
+  const handelSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formdata = new FormData(e.target as HTMLFormElement)
     const data = Object.fromEntries(formdata.entries());
 
     const err = checkEmptyField(data);
-    seterrMessage(err);
 
-    const { name, phoneNumber, email, Address, password, confirm_Password } = data;
+    if (err) {
+      seterrMessage(err);
+      return
+    }
+
+    const { password, confirm_Password } = data;
 
     if (password != confirm_Password) {
       seterrMessage("please enter same password");
@@ -29,9 +39,17 @@ export default function SignIn() {
       return
     }
 
-    const actionResponse = await handelSignInActions(formdata)
+    setIsloading(true)
 
-    return actionResponse
+    try {
+      const actionResponse = await handelSignInActions(formdata)
+      router.replace("/")
+    } catch (error) {
+      seterrMessage((error as Error).message)
+    }
+    finally {
+      setIsloading(false)
+    }
 
   }
 
@@ -53,12 +71,12 @@ export default function SignIn() {
             </div> */}
 
             <form
-              action={handelSignIn}
+              onSubmit={handelSignIn}
               className="flex flex-col justify-center items-center space-y-2 "
             >
               <label className="flex flex-col space-y-1">
                 Name
-                <input name="Name" type="text" className="w-60 h-8 rounded-sm text-black px-2 " />
+                <input name="name" type="text" className="w-60 h-8 rounded-sm text-black px-2 " />
               </label>
               <label className="flex flex-col space-y-1">
                 Phone Number
@@ -70,7 +88,7 @@ export default function SignIn() {
               </label>
               <label className="flex flex-col space-y-1">
                 Address
-                <input name="Address" type="text" className="w-60 h-8 rounded-sm text-black px-2 " />
+                <input name="address" type="text" className="w-60 h-8 rounded-sm text-black px-2 " />
               </label>
 
               <label className="flex flex-col space-y-1">
@@ -85,8 +103,11 @@ export default function SignIn() {
 
 
               <div className="w-full py-6">
-                <Button variant={"Login"}>
-                  Resister
+
+                <Button disabled={isloading} >
+                  {
+                    isloading ? "loading..." : "Resister"
+                  }
                 </Button>
               </div>
 
