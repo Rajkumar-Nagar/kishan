@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import { SocketProvider } from "@/providers";
 import { SessionProvider } from "next-auth/react"
 import StoreProvider from "@/providers/StoreProvider";
 // import "@stream-io/video-react-sdk/dist/css/styles.css";
@@ -25,11 +23,9 @@ export default function RootLayout({
 
         <SessionProvider>
           <StoreProvider>
-            <SocketProvider>
-              <div className=" flex flex-col w-screen h-screen ">
-                {children}
-              </div>
-            </SocketProvider>
+            <div className=" flex flex-col w-screen h-screen ">
+              {children}
+            </div>
           </StoreProvider>
         </SessionProvider>
       </body>
