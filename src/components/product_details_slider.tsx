@@ -1,6 +1,5 @@
 import * as React from "react"
 
-import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
     CarouselContent,
@@ -12,11 +11,11 @@ import Image from "next/image"
 
 export function Product_details_slider() {
     return (
-        <Carousel className="w-[70%] h-96 bg-slate-400 relative">
+        <Carousel className=" w-full h-full relative rounded-md overflow-hidden">
             <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                     <CarouselItem key={index}>
-                        <div className=" h-96 w-full relative">
+                        <div className="w-full h-[550px] bg-black relative">
                             <Image
                                 className="w-full h-full"
                                 src="/Ai.jpg"

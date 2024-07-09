@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import {
     Carousel,
     CarouselContent,
@@ -10,8 +9,6 @@ import {
 import { ThreeDCardDemo } from "./addProduct"
 
 export async function CarouselSize() {
-
-    const product = await prisma?.product.findMany()
 
     return (
         <Carousel

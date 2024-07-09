@@ -77,6 +77,8 @@ export function ThreeDCardDemo() {
                     <CardItem
                         translateZ="60"
                         className="w-full"
+                        as={Link}
+                        href="http://localhost:3000/product/45809421"
                     >
                         <Button variant={"Login"}>
                             Details

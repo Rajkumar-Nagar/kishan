@@ -13,7 +13,7 @@ import Link from 'next/link'
 
 async function page() {
 
-  const product = await prisma?.product.findMany()
+  // const product = await prisma?.product.findMany()
 
   return (
     <div className='w-full h-full'>
