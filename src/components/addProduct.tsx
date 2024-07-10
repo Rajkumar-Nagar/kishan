@@ -25,7 +25,7 @@ export function ThreeDCardDemo() {
 
                 <div className="space-y-3">
 
-                    <div className="flex justify-between items-center mt-3">
+                    <div className="flex justify-between items-center mt-2">
                         <CardItem
                             translateZ="50"
                             className="text-base font-bold text-[#2e054e] dark:text-white"
@@ -49,7 +49,7 @@ export function ThreeDCardDemo() {
                     </div>
 
 
-                    <div className="flex items-center gap-2 ">
+                    <div className="flex items-center gap-2 pb-2">
                         <CardItem
                             translateZ="60"
                             className="text-sm font-semibold text-[#74667f] dark:text-white"
@@ -71,8 +71,6 @@ export function ThreeDCardDemo() {
                             Graded
                         </CardItem>
                     </div>
-
-
 
                     <CardItem
                         translateZ="60"

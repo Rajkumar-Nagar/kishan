@@ -301,7 +301,7 @@ function Page() {
                 </div>
 
                 <div className='w-full flex justify-center items-center '>
-                    <Link href={"/"} className='w-36 py-1 flex items-center justify-center rounded-md  border-[1px] border-gray-500 gap-2'>
+                    <Link href={"/product/productlist"} className='w-36 py-1 flex items-center justify-center rounded-md  border-[1px] border-gray-500 gap-2'>
                         <h1 className='text-[#002f34] text-base font-semibold'>See more</h1>
                         <Image width={16} height={1} alt='reload' src={"/down.png"} />
                     </Link>
