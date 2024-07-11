@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const faq = [
     {
@@ -27,36 +27,41 @@ const faq = [
 
 const Faqfield = ({ item, setaskqustied, askqustied }) => {
 
-    const [show, setshow] = useState(false);
 
+    const ref = useRef<HTMLDivElement>(null)
+
+    const [maxheight, setMaxheight] = useState("0px")
+    const [show, setshow] = useState(false);
 
     const handelshow = () => {
         setaskqustied(item.question)
         setshow(!show)
-
     }
 
+    const isopened = (askqustied == item.question) && show
+
+    useEffect(() => {
+
+        const height = ref.current?.scrollHeight
+        setMaxheight(!isopened ? "0px" : height + "px")
+
+    }, [isopened])
+
+
     return (
-        <button onClick={handelshow} className="faq  w-full border-b-2 py-3">
+        <button onClick={handelshow} className="faq w-full border-b-2 py-3">
             <div className='flex items-center justify-between'>
                 <h1 className='text-[#2e054e] test-xl font-semibold'> {`Q.${item.question}`}</h1>
-                {
-                    !(askqustied == item.question && (show)) ? (
-                        <Image width={16} height={16} alt='reload' src={"/down.png"} />
-                    ):(
-                        <Image width={16} height={16} alt='reload' src={"/arrow.png"} />
-                    )
-                }
+                <Image width={16} height={16} alt='reload' src={isopened ? "/arrow.png" : "/down.png"} />
 
             </div>
-
-            {(askqustied == item.question && (show)) &&
-                < p className='text-[#888] text-start px-4' >
-                    {item.answer}
-                </p >
-            }
-
-        </button >
+            <div className='text-[#888] text-start px-4 overflow-hidden transition-all duration-150 ease-in-out' ref={ref}
+                style={{
+                    maxHeight: maxheight,
+                }}>
+                {item.answer}
+            </div>
+        </button>
     )
 }
 

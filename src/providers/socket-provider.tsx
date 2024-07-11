@@ -36,8 +36,18 @@ const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         })
         setSocket(socketInstance);
 
-        return () => socketInstance.disconnect();
+        const handleSocketLeft = () => {
+            socketInstance.emit('user-left');
+        }
+
+        window.addEventListener('beforeunload', handleSocketLeft);
+
+        return () => {
+            socketInstance.disconnect();
+            window.removeEventListener('beforeunload', handleSocketLeft);
+        }
     }, [])
+
 
     return (
         <SocketContext.Provider value={{ socket, isConnected }} >

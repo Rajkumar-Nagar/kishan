@@ -17,7 +17,7 @@ function Page() {
     return (
         <div className="maincontainer w-full h-full">
             <div className="crousalcontainer w-full justify-center  flex  px-20 py-8">
-                <div className="topbox w-full h-full  flex justify-center gap-5">
+                <div className="topbox w-full h-full  flex justify-center gap-5 relative">
 
                     <div className='w-[60%] h-full space-y-3'>
                         <div className='w-full h-[500px]'>
@@ -139,7 +139,7 @@ function Page() {
                     </div>
 
 
-                    <div className='w-[30%] space-y-5'>
+                    <div className='w-[30%] space-y-5  sticky top-20 h-full'>
                         <div className="basicdetails w-full h-72 py-5 px-5 space-y-2  rounded-md border-[1px] ">
                             <div className="firstrow  rounded-md flex items-center justify-between ">
                                 <h1 className='text-xl font-semibold text-[#2e054e]'>Wheat (गेहूं)</h1>
@@ -249,22 +249,22 @@ function Page() {
                             </div>
 
 
-                            <div className="chatandcall flex items-center justify-between">
+                            <div className="chatandcall flex flex-wrap gap-3">
 
-                                <div className="chat flex items-center text-base hover:bg-[#5ddbbc] hover:text-[#ffff] hover:border-black cursor-pointer font-semibold text-[#2e054e] justify-center py-1 w-[48%] border-2 rounded-md gap-2">
+                                <div className="chat flex-grow flex items-center text-base hover:bg-[#5ddbbc] hover:text-[#ffff] hover:border-black cursor-pointer font-semibold text-[#2e054e] justify-center py-1  border-2 rounded-md gap-4">
                                     <Image
-                                        width={40}
-                                        height={40}
+                                        width={30}
+                                        height={30}
                                         alt='reload'
                                         src={"/message1.png"}
                                     />
                                     <span >Message</span>
                                 </div>
 
-                                <div className="chat flex items-center text-base hover:bg-[#5ddbbc] hover:text-[#ffff] hover:border-black cursor-pointer font-semibold text-[#2e054e] justify-center py-1 w-[48%] border-2 rounded-md gap-2">
+                                <div className="chat flex-grow flex items-center text-base hover:bg-[#5ddbbc] hover:text-[#ffff] hover:border-black cursor-pointer font-semibold text-[#2e054e] justify-center py-1  border-2 rounded-md gap-4">
                                     <Image
-                                        width={30}
-                                        height={30}
+                                        width={20}
+                                        height={20}
                                         alt='reload'
                                         src={"/phone3.png"}
                                     />
@@ -285,6 +285,7 @@ function Page() {
 
                         </div>
                     </div>
+
                 </div>
             </div>
 

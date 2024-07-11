@@ -636,7 +636,6 @@ function Page() {
                                                 <FileUploader setUploadImages={setUploadImages} _id={"image11"} />
                                                 <FileUploader setUploadImages={setUploadImages} _id={"image12"} />
 
-
                                             </div>
                                         </div>
 

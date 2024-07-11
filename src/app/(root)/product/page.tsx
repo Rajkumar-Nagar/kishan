@@ -124,8 +124,8 @@ function PrductList() {
     const [sortSelectedType, setsortSelectedType] = useState("Relevance")
 
     return (
-        <div className="maincontainer w-full py-10 flex gap-6 justify-center">
-            <div className="leftpart w-[23%] rounded-md space-y-3 ">
+        <div className="maincontainer w-full py-10 flex gap-6 justify-center relative">
+            <div className="leftpart w-[23%] rounded-md space-y-3 sticky top-20 h-full">
 
                 <div className="pricerange  py-3 px-5 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
@@ -406,11 +406,11 @@ function PrductList() {
 
                 </div>
 
-                <div className="listedpart w-full"
+                <div className="listedpart w-full "
                     style={{
                         display: "grid",
                         gap: 5,
-                        gridTemplateColumns: "repeat(3, 1fr)",
+                        gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
                     }}
                 >
                     <ThreeDCardDemo />

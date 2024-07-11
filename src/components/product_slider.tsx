@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel"
 import { ThreeDCardDemo } from "./addProduct"
 
-export async function CarouselSize() {
+export  function CarouselSize() {
 
     return (
         <Carousel

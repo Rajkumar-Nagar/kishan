@@ -10,18 +10,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         Login: "w-full bg-[#4e7c52] text-[white] hover:bg-[#3d823b] hover:text-[#ffff] active:bg-green-800",
         addproduct:"w-full text-foreground bg-background hover:bg-[#3d823b] hover:text-[#ffff] rounded-md",
         link: "text-primary underline-offset-4 hover:underline",
-        Profile:"w-full border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-[#ffff]"
+        Profile: "w-full border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-[#ffff]"
       },
       size: {
         default: "h-8 px-4 py-2",
