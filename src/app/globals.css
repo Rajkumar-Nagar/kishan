@@ -59,10 +59,14 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
 }
 
 @layer components {
   .Pinput {
-    @apply h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2  focus:outline-none focus:border-2 focus:border-blue-300 ;
+    @apply h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300;
   }
 }
