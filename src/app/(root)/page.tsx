@@ -11,10 +11,11 @@ import { Prisma } from '@prisma/client'
 import { CarouselSize } from '@/components/product_slider'
 import Link from 'next/link'
 
-function page() {
+async function page() {
 
-  // const product = await prisma?.product.findMany()
+  const user = await auth();
 
+  console.log(user)
   return (
     <div className='w-full h-full'>
       <CarouselDemo />

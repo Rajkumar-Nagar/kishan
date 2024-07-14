@@ -11,9 +11,6 @@ import React, { useState } from 'react'
 
 
 function Page() {
-
-
-
     return (
         <div className="maincontainer w-full h-full">
             <div className="crousalcontainer w-full justify-center  flex  px-20 py-8">

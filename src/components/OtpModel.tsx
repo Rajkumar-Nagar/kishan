@@ -8,7 +8,7 @@ import {
 
 export default function InputOTPPattern() {
   return (
-    <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+    <InputOTP maxLength={6} className="w-full" pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
