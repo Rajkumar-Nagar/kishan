@@ -74,8 +74,6 @@ const CheckBox = ({ crop }) => {
 
 const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlist }) => {
 
-
-
     const handeltype = () => {
         setsortSelectedType(title)
         setshowSortlist(false)
@@ -99,10 +97,10 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
     )
 }
 
+
 function PrductList() {
 
     const [prizeLimit, setPrizeLimit] = useState("")
-
 
     const [cropvarityshow, setCropvarityshow] = useState(false)
     const [prizeshow, setPrizeshow] = useState(false)
@@ -240,7 +238,6 @@ function PrductList() {
                                     <button id='Harvest' onClick={() => { setHarvestdateshow(true) }} className='text-[#2e054e] font-semibold text-base '>+</button>
                                 )
                         }
-
                     </div>
 
                     {
@@ -391,7 +388,6 @@ function PrductList() {
                         {
                             showSortlist && (
                                 <div className="dropdowncontainer z-50 shadow-xl w-60 bg-white border-[1px] rounded-md top-12 right-3 absolute">
-
                                     <SortType title={"Relevance"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
                                     <SortType title={"Price : low to high"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
                                     <SortType title={"Price : Hight to low"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
@@ -400,7 +396,6 @@ function PrductList() {
                                 </div>
                             )
                         }
-
 
                     </button>
 

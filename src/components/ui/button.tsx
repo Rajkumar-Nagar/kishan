@@ -17,7 +17,7 @@ const buttonVariants = cva(
         Login: "w-full bg-[#4e7c52] text-[white] hover:bg-[#3d823b] hover:text-[#ffff] active:bg-green-800",
         addproduct:"w-full text-foreground bg-background hover:bg-[#3d823b] hover:text-[#ffff] rounded-md",
         link: "text-primary underline-offset-4 hover:underline",
-        Profile: "w-full border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-[#ffff]"
+        Profile: "w-full border border-green-500 text-green-500 rounded-full hover:bg-[#7e9dca] hover:text-white"
       },
       size: {
         default: "h-8 px-4 py-2",

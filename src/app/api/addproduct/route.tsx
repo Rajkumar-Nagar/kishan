@@ -70,6 +70,10 @@ export async function POST(request: NextRequest) {
             },
         })
 
+        if (!updateUsers) {
+            return NextResponse.json({ error: "User detailed updatation failed" }, { status: 400 })
+        }
+
         const productInfo = await prisma.productInfo.create({
             data: {
                 cropName,
@@ -79,7 +83,7 @@ export async function POST(request: NextRequest) {
                 expectedPrice,
             },
         });
-        
+
         const locationInfo = await prisma.locationInfo.create({
             data: {
                 city,

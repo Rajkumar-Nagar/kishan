@@ -4,14 +4,18 @@ import { CldImage, CldVideoPlayer } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
+import { getBgImageUser } from '@/actions/getBgImageUser'
+import { useSession } from 'next-auth/react'
 
 
-const FileUploader = ({ setUploadImages, setUploadVideos, videoFile, _id }) => {
+const FileUploader = ({ setUploadImages, profile, setbackgroundImage, handelBgImage, imageUploader, profileUploader, _id }) => {
 
     const [imageId, setImageId] = useState("")
     const [videoId, setVideoId] = useState("")
     const [error, setError] = useState('');
     const [isloading, setIsloading] = useState(false)
+
+    const { data: session, status } = useSession()
 
 
     const handleDelete = () => {
@@ -22,7 +26,7 @@ const FileUploader = ({ setUploadImages, setUploadVideos, videoFile, _id }) => {
         });
         setImageId("")
     };
-    
+
     useEffect(() => {
         if (imageId) {
             setUploadImages((prev) => [...prev, imageId]);
@@ -52,11 +56,29 @@ const FileUploader = ({ setUploadImages, setUploadVideos, videoFile, _id }) => {
                 throw new Error(`Upload failed with status ${res.status}`);
             }
             const data = await res.json();
-
+              console.log(data)
             return data.public_id
         } catch (err) {
             console.error(err);
             setError(err instanceof Error ? err.message : 'An error occurred');
+        }
+    };
+
+    const handleProfilechange = async (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const data = await uploadImage(file, "image");
+            if (status === "authenticated") {
+                if (!profile) {
+
+                    const updateduser = await getBgImageUser(session?.user.id, data)
+                    //redux added 
+                }
+               if(setbackgroundImage){
+                setbackgroundImage(data)
+               }
+                setIsloading(false)
+            }
         }
     };
 
@@ -81,19 +103,37 @@ const FileUploader = ({ setUploadImages, setUploadVideos, videoFile, _id }) => {
     return (
 
         <>
-            <div className="photobox1 relative w-28 h-28 border-2 flex items-center justify-center rounded-md">
 
-                {
-                    (imageId || videoId) &&
-                    <button onClick={handleDelete} className='absolute -top-2 -right-2'>
-                        <Image alt="reload" width={20} height={20} src={"/remove.png"} />
-                    </button>
-                }
+            {
+                profileUploader && (
+                    <>
+                        <label htmlFor={`${_id}`} className='h-full w-full cursor-pointer flex items-center justify-center'>
+                            {
+                                isloading ? "Loding ...." : (
+                                    <Image width={20} height={20} src={"/photo.png"} alt='reload' />
+                                )
+                            }
+                        </label>
+                        <input
+                            type="file"
+                            id={`${_id}`}
+                            className='hidden'
+                            onChange={handleProfilechange} />
+                    </>
+                )
+            }
+            {
+                imageUploader &&
+                <div className="photobox1 relative w-28 h-28 border-2 flex items-center justify-center rounded-md">
+                    {
+                        (imageId) &&
+                        <button onClick={handleDelete} className='absolute -top-2 -right-2'>
+                            <Image alt="reload" width={20} height={20} src={"/remove.png"} />
+                        </button>
+                    }
 
-                {
-                    !videoFile ? (
+                    {
                         imageId ? (
-
                             <CldImage
                                 alt="Uploaded Image"
                                 src={imageId}
@@ -123,39 +163,10 @@ const FileUploader = ({ setUploadImages, setUploadVideos, videoFile, _id }) => {
                                     onChange={handleFileChangeforImage} />
                             </>
                         )
-                    ) : (
+                    }
 
-                        videoId ? (
-
-                            <CldVideoPlayer
-                                width="200"
-                                height="200"
-                                src={videoId}
-                            />
-
-                        ) : (
-
-                            <>
-                                <label htmlFor={`${_id}`} className='h-full w-full cursor-pointer flex items-center justify-center'>
-                                    {
-                                        isloading ? "Loding ...." : (
-                                            <Image width={30} height={30} src={"/video.png"} alt='reload' />
-                                        )
-                                    }
-                                </label>
-
-                                <input
-                                    type="file"
-                                    id={`${_id}`}
-                                    className="hidden"
-                                    accept="video/*"
-                                    onChange={handleFileChangeforVideo}
-                                />
-                            </>
-                        )
-
-                    )}
-            </div >
+                </div >
+            }
 
             {error && <p className="text-red-500 mt-2">{error}</p>}
         </>

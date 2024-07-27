@@ -7,8 +7,11 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import { ThreeDCardDemo } from "./addProduct"
+import prisma from "@/lib/prisma"
 
-export  function CarouselSize() {
+export async function CarouselSize() {
+
+    const product = await prisma?.product.findMany()
 
     return (
         <Carousel
@@ -17,10 +20,10 @@ export  function CarouselSize() {
             }}
             className="w-full "
         >
-            <CarouselContent>
-                {Array.from({ length: 10 }).map((_, index) => (
+            <CarouselContent className="space-x-4">
+                {product?.map((item,index) => (
                     <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
-                        <ThreeDCardDemo />
+                        <ThreeDCardDemo item={item}/>
                     </CarouselItem>
                 ))}
             </CarouselContent>

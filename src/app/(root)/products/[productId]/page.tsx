@@ -1,16 +1,36 @@
-"use client"
+// "use client"
 
+import { getDataFromId } from '@/actions/productId.actio'
 import Faq from '@/components/Faq'
 import { Product_details_slider } from '@/components/product_details_slider'
 import { CarouselSize } from '@/components/product_slider'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { Dateconverter } from '@/utils/dateconverter'
+import Title from '@/components/ui/title'
+// import React, { useEffect, useState } from 'react'
 
 
 
+async function Page({ params }: { params: { productId: string } }) {
 
-function Page() {
+    const poductDetails = await getDataFromId(params.productId, "product")
+    console.log("productDetails is ", poductDetails)
+
+    const response = await fetch("http://localhost:3000/api/fetchProduct", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            poductDetails
+        )
+    })
+    const crop = await response.json();
+    if (!response.ok) {
+        throw new Error("product details fetching failed")
+    }
+
     return (
         <div className="maincontainer w-full h-full">
             <div className="crousalcontainer w-full justify-center  flex  px-20 py-8">
@@ -18,7 +38,7 @@ function Page() {
 
                     <div className='w-[60%] h-full space-y-3'>
                         <div className='w-full h-[500px]'>
-                            <Product_details_slider />
+                            <Product_details_slider crop={crop} />
                         </div>
 
                         <div className="cropdetails pt-16 space-y-6">
@@ -37,7 +57,7 @@ function Page() {
                                         gridRow: "1 / 2",
                                     }}>
                                     <h1 className='text-[#888]'>Harvest Date</h1>
-                                    <h1 className='text-[#2e054e]'>Oct 2017</h1>
+                                    <h1 className='text-[#2e054e]'>{Dateconverter(crop.HarvestStorage.harvestDate)}</h1>
                                 </div>
 
                                 <div className="detailsbox flex flex-col items-center justify-center border-b-2"
@@ -46,7 +66,7 @@ function Page() {
                                         gridRow: "1 / 2"
                                     }}>
                                     <h1 className='text-[#888]'>Listed Date</h1>
-                                    <h1 className='text-[#2e054e]'>Noc 2018</h1>
+                                    <h1 className='text-[#2e054e]'>{Dateconverter(poductDetails.createdAt)}</h1>
                                 </div>
                                 <div className="detailsbox flex flex-col justify-center items-center border-b-2"
                                     style={{
@@ -55,7 +75,7 @@ function Page() {
                                     }}>
 
                                     <h1 className='text-[#888]'>Storage Location</h1>
-                                    <h1 className='text-[rgb(46,5,78)]'>Baran</h1>
+                                    <h1 className='text-[rgb(46,5,78)]'>{crop?.HarvestStorage?.storageLocation}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -63,7 +83,7 @@ function Page() {
                                         gridRow: "2 / 3"
                                     }}>
                                     <h1 className='text-[#888]'>Grading </h1>
-                                    <h1 className='text-[#2e054e]'>Yes</h1>
+                                    <h1 className='text-[#2e054e]'>{crop?.QualityMetrics?.purity === 'Yes Grading is complete' ? "Yes" : "No"}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex items-center justify-center flex-col"
                                     style={{
@@ -71,7 +91,7 @@ function Page() {
                                         gridRow: "2 / 3"
                                     }}>
                                     <h1 className='text-[#888]'>Color</h1>
-                                    <h1 className='text-[#2e054e]'>white</h1>
+                                    <h1 className='text-[#2e054e]'>{crop?.QualityMetrics?.color}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -111,7 +131,7 @@ function Page() {
                                         gridRow: "4 / 5"
                                     }}>
                                     <h1 className='text-[#888]'>State</h1>
-                                    <h1 className='text-[#2e054e]'>Rajsathan</h1>
+                                    <h1 className='text-[#2e054e]'>{crop?.LocationInfo?.state}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -119,7 +139,7 @@ function Page() {
                                         gridRow: "4 / 5"
                                     }}>
                                     <h1 className='text-[#888]'>village</h1>
-                                    <h1 className='text-[#2e054e]'>katawer</h1>
+                                    <h1 className='text-[#2e054e]'>{crop?.LocationInfo?.village}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -127,7 +147,7 @@ function Page() {
                                         gridRow: " 4/ 5"
                                     }}>
                                     <h1 className='text-[#888]'>distict</h1>
-                                    <h1 className='text-[#2e054e]'>Baran</h1>
+                                    <h1 className='text-[#2e054e]'>{crop?.LocationInfo?.districtCity}</h1>
                                 </div>
                             </div>
 
@@ -139,7 +159,7 @@ function Page() {
                     <div className='w-[30%] space-y-5  sticky top-20 h-full'>
                         <div className="basicdetails w-full h-72 py-5 px-5 space-y-2  rounded-md border-[1px] ">
                             <div className="firstrow  rounded-md flex items-center justify-between ">
-                                <h1 className='text-xl font-semibold text-[#2e054e]'>Wheat (गेहूं)</h1>
+                                <h1 className='text-xl font-semibold text-[#2e054e]'>{crop?.ProductInfo?.cropName}</h1>
 
                                 <div className='flex items-center gap-4'>
                                     <Image
@@ -161,17 +181,17 @@ function Page() {
                             <div className="secondrow flex items-center gap-8">
                                 <div className='flex items-center gap-2'>
                                     <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>5000 kg </h1>
+                                    <h1 className='text-base font-semibold text-[#64566f]'>{`${crop?.ProductInfo?.quantityAvailable} kg `}</h1>
                                 </div>
 
                                 <div className='flex items-center gap-2'>
                                     <h1 className='text-base font-semibold text-[#2e054e]'>Varity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>Basmati </h1>
+                                    <h1 className='text-base font-semibold text-[#64566f]'>{crop?.ProductInfo?.variety} </h1>
                                 </div>
                             </div>
 
                             <div className="secondrow flex items-center gap-8">
-                                <h1 className='text-2xl font-bold text-[#2e054e]'>₹ 5000/kg </h1>
+                                <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${crop?.ProductInfo?.expectedPrice} / ${crop?.ProductInfo?.units}`}</h1>
                             </div>
 
 
@@ -211,7 +231,9 @@ function Page() {
                                         width="15"
                                         alt="thumbnail"
                                     />
-                                    <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">katawer,baran,rajsathan,325223</span>
+                                    <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
+                                        ` ${crop?.LocationInfo.village}, ${crop?.LocationInfo.districtCity},${crop?.LocationInfo.state},${crop?.LocationInfo.pincode}`
+                                    }</span>
                                 </div>
                             </div>
 
@@ -224,7 +246,7 @@ function Page() {
 
                                 </div>
                                 <div className='space-y-1'>
-                                    <h1 className='text-xl font-semibold text-[#2e054e]'>Rajkumar Nagar</h1>
+                                    <h1 className='text-xl font-semibold text-[#2e054e]'>{crop?.User.name}</h1>
 
                                     <div className='flex items-center gap-2'>
                                         <span className='text-base text-[#2e054e]'>5</span>
@@ -277,7 +299,9 @@ function Page() {
                                     width="15"
                                     alt="thumbnail"
                                 />
-                                <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">katawer,baran,rajsathan,325223</span>
+                                <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
+                                    ` ${crop?.LocationInfo.village}, ${crop?.LocationInfo.districtCity},${crop?.LocationInfo.state},${crop?.LocationInfo.pincode}`
+                                }</span>
                             </div>
 
                         </div>
@@ -288,18 +312,14 @@ function Page() {
 
             <div className="listedProduct my-10 ">
 
-                <div className=' mx-32 relative border-b-2 flex justify-center  border-[#2e054e] '>
-                    <div className=' absolute -bottom-9 bg-white p-4 text-3xl text-[#2e054e] font-semibold text-center'>
-                        Similar Crops
-                    </div>
-                </div>
+                <Title content={"Similar Crops"} />
 
-                <div className='w-full px-20 pt-4'>
+                <div className='w-full px-20 py-7'>
                     <CarouselSize />
                 </div>
 
                 <div className='w-full flex justify-center items-center '>
-                    <Link href={"/product/productlist"} className='w-36 py-1 flex items-center justify-center rounded-md  border-[1px] border-gray-500 gap-2'>
+                    <Link href={"/products"} className='w-36 py-1 flex items-center justify-center rounded-md  border-[1px] border-gray-500 gap-2'>
                         <h1 className='text-[#002f34] text-base font-semibold'>See more</h1>
                         <Image width={16} height={1} alt='reload' src={"/down.png"} />
                     </Link>
@@ -316,7 +336,7 @@ function Page() {
                 <Faq />
             </div>
 
-            <div className='w-full h-60 bg-green-400 flex items-center justify-center'>
+            <div className='w-full h-60 bg-green-400 flex  items-center justify-center'>
                 <h1>Footer</h1>
             </div>
         </div>

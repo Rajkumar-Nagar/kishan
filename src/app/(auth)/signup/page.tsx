@@ -48,8 +48,7 @@ export default function SignIn() {
 
       router.replace("/")
     } catch (error) {
-      seterrMessage(error.Message)
-
+      seterrMessage(error.message)
     }
     finally {
       setIsloading(false)
@@ -98,7 +97,7 @@ export default function SignIn() {
                 <input name="phoneNumber" maxLength={10} type="text" onChange={handlePhoneNumberChange} className="w-60 h-8 rounded-sm text-black px-2 w-full " />
               </label>
               <label className="flex flex-col w-full space-y-1">
-                Email
+                Email(optional)
                 <input name="email" type="email" className="h-8 w-full rounded-sm text-black px-2 " />
               </label>
               <label className="flex flex-col w-full space-y-1">

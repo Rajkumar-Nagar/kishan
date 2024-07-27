@@ -12,6 +12,7 @@ import React, { useState } from 'react'
 
 import party from "party-js";
 import Link from 'next/link';
+import Successfull from '@/components/successfull';
 
 
 const Quantity = [
@@ -107,7 +108,7 @@ function Page() {
             return;
         }
         if (aadharphotos.length != 2) {
-            seterror("please upload  aadhar  front and back both photos ")
+            seterror("please upload  aadhar  front and back both photos")
             return;
         }
         if (uploadImages.length < 5) {
@@ -120,7 +121,6 @@ function Page() {
             return;
         }
         try {
-
             setisloading(true)
             const response = await fetch("http://localhost:3000/api/addproduct", {
                 method: "POST",
@@ -184,62 +184,12 @@ function Page() {
 
             {
                 conformation ? (
-                    <div className="addedconfirmation w-full h-full"
-                        style={{
-                            backgroundImage: "url(/welcome.jpg)",
-                            backgroundSize: 'cover',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundPosition: 'center',
-                        }}
-                    >
-
-                        <div className=" backdrop-blur-sm flex justify-center items-center w-full h-full  p-8">
-
-                            <div className="imagebox w-[80%] overflow-hidden rounded-md h-[80%] bg-white flex items-center">
-                                <div className="photo_container  w-1/2  h-full"
-                                    style={{
-                                        backgroundImage: "url(/welcome.jpg)",
-                                        backgroundSize: 'cover',
-                                        backgroundRepeat: 'no-repeat',
-                                        // backgroundPosition: '',
-                                    }}>
-
-                                </div>
-
-                                <div className=' flex flex-col space-y-3 items-center px-6'>
-
-                                    <div className='flex items-center gap-4'>
-                                        <Image alt="reload" width={150} height={150} src={"/party.png"} />
-                                        <h1 className='text-green-500 font-semibold text-3xl'> Congratulations!</h1>
-                                    </div>
-
-                                    <h1 className=' text-[#002f34] text-xl'>
-                                        Your crop has been successfully added to our platform.
-                                    </h1>
-
-                                    <p className=' text-[#002f34] text-xs'>
-                                        Thank you for your contribution. Together, let's make farming more efficient and profitable!"
-                                    </p>
-
-                                    <Link href={"/"} className=' text-[#002f34] text-base underline ' >
-                                        Go Home
-                                    </Link>
-
-                                    <Button variant={"Login"} onClick={() => { setConformation(false) }}>
-                                        Add Another product
-                                    </Button>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
+                    <Successfull product setConformation={setConformation} title={" Your crop has been successfully added to our platform."} imgurl="/welcome.jpg"/>
                 ) : (
 
                     <div className="maincontainer flex  justify-center w-full ">
                         <div className="frombox w-[70%] rounded-3xl border-2 shadow-lg overflow-hidden my-4">
-                            <div className="header h-32 w-full flex flex-row "
+                            <div className="header h-60 w-full flex flex-row "
                                 style={{
                                     backgroundImage: "url(/natural.jpg)",
                                     backgroundSize: 'cover',
@@ -259,9 +209,10 @@ function Page() {
 
 
                             <div className="personal_information px-14 py-10 border-b-[1px]">
-                                <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Personal Information</h1>
+                                <h1 className="tagline  text-[rgb(0,47,52)] font-semibold text-2xl ">Personal Information</h1>
 
                                 <div className=" personal_informationfield mt-4 px-5 space-y-2">
+
                                     <div className="aadhar_number">
 
                                         <div className='flex items-center'>
@@ -319,7 +270,7 @@ function Page() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"fornt"} />
+                                            <FileUploader setUploadImages={setAadharphotos} _id={"fornt"} imageUploader/>
 
                                         </div>
 
@@ -330,7 +281,7 @@ function Page() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"back"} />
+                                            <FileUploader setUploadImages={setAadharphotos} _id={"back"} imageUploader />
 
                                         </div>
                                     </div>
@@ -522,7 +473,10 @@ function Page() {
                                     <div className="color_grading  flex justify-between items-center">
 
                                         <div className="color w-[48%]">
-                                            <h1 className=" text-[#002f34] text-xl my-2">Color</h1>
+                                            <div className='flex items-center'>
+                                                <h1 className=" text-[#002f34] text-xl my-2">Color</h1>
+                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                            </div>
                                             <input
                                                 type="text"
                                                 className='Pinput w-full'
@@ -623,18 +577,18 @@ function Page() {
                                             </div>
                                             <div className="photobox flex flex-wrap gap-4">
 
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image1"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image2"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image3"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image4"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image5"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image6"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image7"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image8"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image9"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image10"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image11"} />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image12"} />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image1"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image2"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image3"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image4"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image5"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image6"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image7"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image8"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image9"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image10"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image11"} imageUploader />
+                                                <FileUploader setUploadImages={setUploadImages} _id={"image12"}  imageUploader/>
 
                                             </div>
                                         </div>
@@ -647,8 +601,8 @@ function Page() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
                                             <div className="video flex flex-wrap gap-4">
-                                                <FileUploader setUploadVideos={setUploadVideos} videoFile _id={"video1"} />
-                                                <FileUploader setUploadVideos={setUploadVideos} videoFile _id={"video2"} />
+                                                {/* <FileUploader setUploadVideos={setUploadVideos} videoFile _id={"video1"} />
+                                                <FileUploader setUploadVideos={setUploadVideos} videoFile _id={"video2"} /> */}
                                             </div>
                                         </div>
                                     </div>

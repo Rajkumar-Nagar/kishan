@@ -86,7 +86,6 @@ const BiddingBoard: React.FC<BiddingBoardProps> = ({ room, name, userId }) => {
         socket.emit(SE.UPDATE_BID, { room, timestamps, paused });
     }, [timestamps.created_at, timestamps.updated_at, socket, paused])
 
-
     const handleBidding = useCallback((price: number) => {
         dispatch(bidActions.setCurrentBid(currentBid + price));
         const at = Date.now();

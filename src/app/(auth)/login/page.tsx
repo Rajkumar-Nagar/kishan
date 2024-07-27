@@ -49,6 +49,9 @@ export default function SignIn() {
     } catch (error) {
       seterrMessage("invalid credential")
     }
+    finally{
+      setIsloading(false)
+    }
   }
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +83,7 @@ export default function SignIn() {
         style={{ zIndex: 1 }}
       /> */}
 
-      <div className="relative backdrop-blur-sm w-full h-full flex md:p-8 p-6 text-white">
+      <div className="relative backdrop-blur-sm w-full h-full flex md:p-8 sm:p-6 p-0  text-white">
 
         <div className="w-full h-full shadow-lg  flex flex-col md:flex-row rounded-md overflow-hidden" >
 

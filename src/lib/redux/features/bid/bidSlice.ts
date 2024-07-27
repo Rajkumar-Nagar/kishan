@@ -30,7 +30,7 @@ const initialState: BidSliceState = {
     }
 };
 
-export const bidSlice = createSlice({
+const bidSlice = createSlice({
     name: "bidRoom",
     initialState,
     reducers: {
@@ -79,4 +79,5 @@ export const bidSlice = createSlice({
 });
 
 export const bidActions = bidSlice.actions;
+export default bidSlice.reducer
 

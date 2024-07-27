@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+import { signOut } from "next-auth/react"
 
 import {
     NavigationMenu,
@@ -16,54 +17,64 @@ import {
 } from "@/components/ui/navigation-menu"
 import Image from "next/image"
 import { Button } from "./ui/button"
+import { useRouter } from "next/navigation"
+import { CldImage } from "next-cloudinary"
+import { account } from "@/data"
 
 
-const account = [
-    {
-        title: "Add New Crop",
-        url: "/product/add-product",
-        image: "/plus.png"
-    },
-    {
-        title: "Saved Crops",
-        url: "/",
-        image: "/save.png"
-    },
-    {
-        title: "Apply for License",
-        url: "/",
-        image: "/licence.png"
-    },
-    {
-        title: "Your Listed Products",
-        url: "/",
-        image: "/report.png"
-    },
+// const account = [
+//     {
+//         title: "Add New Crop",
+//         url: "/products/add-product",
+//         image: "/plus.png"
+//     },
+//     {
+//         title: "Saved Crops",
+//         url: "/",
+//         image: "/save.png"
+//     },
+//     {
+//         title: "Apply for License",
+//         url: "/license",
+//         image: "/licence.png"
+//     },
+//     {
+//         title: "Your Listed Products",
+//         url: "/",
+//         image: "/report.png"
+//     },
+// ]
 
-]
-
-const security = [
-    {
-        title: "Help",
-        url: "/",
-        image: "/help.png"
-    },
-    {
-        title: "Setting",
-        url: "/",
-        image: "/settings.png"
-    },
-    {
-        title: "Terms & Condition",
-        url: "/",
-        image: "/terms.png"
-    },
-]
+// const security = [
+//     {
+//         title: "Help",
+//         url: "/",
+//         image: "/help.png"
+//     },
+//     {
+//         title: "Setting",
+//         url: "/",
+//         image: "/settings.png"
+//     },
+//     {
+//         title: "Terms & Condition",
+//         url: "/",
+//         image: "/terms.png"
+//     },
+// ]
 
 
-export default function ProfileDemo() {
 
-    
+
+export default function ProfileDemo({ user }) {
+
+    const router = useRouter()
+
+    const handleLogout = async () => {
+        await signOut()
+        router.push("/")
+    }
+
     return (
         <NavigationMenu>
             <NavigationMenuList>
@@ -91,57 +102,67 @@ export default function ProfileDemo() {
                                 <div className="box1 w-full border-b-[1px] border-gray-500 py-2 px-1">
                                     <div className="topPart flex gap-2">
 
-                                        <div className="image w-10 h-10 rounded-full bg-pink-400">
-
-                                        </div>
+                                        {
+                                            user?.avatar &&
+                                            <CldImage
+                                                alt="Uploaded Image"
+                                                src={user?.avatar}
+                                                width={"170"}
+                                                height={"170"}
+                                                className='w-14 h-14 rounded-full'
+                                                crop={{
+                                                    type: 'auto',
+                                                    source: true
+                                                }}
+                                            />
+                                        }
 
                                         <div className="content space-y-1">
-                                            <h1 className="text-xl font-bold text-black">Rajkumar Nagar</h1>
+                                            <h1 className="text-xl font-bold text-black">{user.name}</h1>
                                             <p className="text-xs font-semibold text-[#5c5050]">I am a weat farmer and garlic also </p>
                                         </div>
                                     </div>
 
                                     <div className="profilebutton px-2 mt-2">
-                                        <Button variant={"Profile"}>
-                                            <Link href={"/"}>View Profile</Link>
-                                        </Button>
+                                        <Link href={"/profile?type=Saved_Crops"}>
+                                            <Button variant={"Profile"} >
+                                                View Profile
+                                            </Button>
+                                        </Link>
                                     </div>
+
                                 </div>
 
 
                                 <div className="box2 flex flex-col  py-4 border-b-[1px] border-gray-500">
 
                                     {
-                                        account.map((item, index) => (
-                                            <Link key={index} href={item.url} className="px-4 py-2 hover:bg-gray-500 gap-2 hover:text-[#fff] rounded-md flex items-center cursor-pointer">
+                                        account.slice(0,4).map((item, index) => (
+                                            <Link key={index} href={item.url} className="px-4 py-2 gap-2 text-[#002f34] hover:bg-[#7e9dca] hover:text-white rounded-md flex items-center cursor-pointer">
                                                 <Image alt='' src={item.image} width={25} height={25} />
-                                                <span className="    text-[#002f34] text-base ">{item.title}</span>
+                                                <span className="text-base ">{item.title}</span>
                                             </Link>
                                         ))
                                     }
-
                                 </div>
 
                                 <div className="box2 flex flex-col  py-4 border-b-[1px] border-gray-500">
                                     {
-                                        security.map((item, index) => (
-                                            <Link key={index} href={item.url} className="px-4 py-2 hover:bg-gray-500 gap-2 hover:text-[#fff] rounded-md flex items-center cursor-pointer">
+                                        account.slice(5,7).map((item, index) => (
+                                            <Link key={index} href={item.url} className="px-4 text-[#002f34] py-2 hover:bg-[#7e9dca] hover:text-white  gap-2 rounded-md flex items-center cursor-pointer">
                                                 <Image alt='' src={item.image} width={20} height={20} />
-                                                <span className="    text-[#002f34] text-base ">{item.title}</span>
+                                                <span className="     text-base ">{item.title}</span>
                                             </Link>
                                         ))
                                     }
                                 </div>
 
-                                <div className=" text-center flex hover:bg-gray-500 gap-2 cursor-pointer  hover:text-[#fff] items-center justify-center py-1">
-                                    <Link href={"/"} className="px-2 py-2  rounded-md flex items-center gap-2 ">
+                                <div className=" text-center flex text-[#002f34] hover:bg-[#7e9dca] hover:text-white gap-2 cursor-pointer  items-center justify-center py-1">
+                                    <button onClick={handleLogout} className="px-2 py-2  rounded-md flex items-center gap-2 ">
                                         <Image alt='' src={"/logout.png"} width={20} height={20} />
-                                        <span className="    text-[#002f34] text-base ">Logout</span>
-                                    </Link>
+                                        <span className="text-base ">Logout</span>
+                                    </button>
                                 </div>
-
-
-
 
                             </div>
 

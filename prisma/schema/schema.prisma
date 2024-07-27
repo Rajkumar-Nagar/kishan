@@ -21,7 +21,10 @@ model User {
   email       String?
   address     String
   password    String
-  licence     Boolean @default(false)
+  is_licence     Boolean @default(false)
+
+  avatar          String?
+  backgroundImage String?
 
   aadhar_number     String?
   current_location  String?
@@ -30,30 +33,63 @@ model User {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Product   Product[]
   bids      Bids[]
+
+  licence     Licence?      @relation(fields: [licenceId], references: [id])
+  licenceId   String?       @db.ObjectId
+  saveProducts SaveProduct[]
+  products    Product[]
 
   @@map("users")
 }
 
 model Product {
   id                   String             @id @default(auto()) @map("_id") @db.ObjectId
-  pesonalInfo          User               @relation(fields: [pesonalInfoId], references: [id],onDelete: Cascade)
+  pesonalInfo          User               @relation(fields: [pesonalInfoId], references: [id], onDelete: Cascade)
   pesonalInfoId        String             @db.ObjectId
-  ProductInfo          ProductInfo        @relation(fields: [productInfoId], references: [id],onDelete: Cascade)
+  ProductInfo          ProductInfo        @relation(fields: [productInfoId], references: [id], onDelete: Cascade)
   productInfoId        String             @db.ObjectId
-  locationInfo         LocationInfo       @relation(fields: [locationInfoId], references: [id],onDelete: Cascade)
+  locationInfo         LocationInfo       @relation(fields: [locationInfoId], references: [id], onDelete: Cascade)
   locationInfoId       String             @db.ObjectId
-  qualityMetrics       QualityMetrics     @relation(fields: [qualityMetricsId], references: [id],onDelete: Cascade)
+  qualityMetrics       QualityMetrics     @relation(fields: [qualityMetricsId], references: [id], onDelete: Cascade)
   qualityMetricsId     String             @db.ObjectId
-  harvestStorage       HarvestStorage     @relation(fields: [harvestStorageId], references: [id],onDelete: Cascade)
+  harvestStorage       HarvestStorage     @relation(fields: [harvestStorageId], references: [id], onDelete: Cascade)
   harvestStorageId     String             @db.ObjectId
-  media                Media              @relation(fields: [mediaId], references: [id],onDelete: Cascade)
+  media                Media              @relation(fields: [mediaId], references: [id], onDelete: Cascade)
   mediaId              String             @db.ObjectId
-  additionalServices   AdditionalServices @relation(fields: [additionalServicesId], references: [id],onDelete: Cascade)
+  additionalServices   AdditionalServices @relation(fields: [additionalServicesId], references: [id], onDelete: Cascade)
   additionalServicesId String             @db.ObjectId
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
+  SaveProduct          SaveProduct[]
+}
+
+model Licence {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  mandiType       String
+  mandiState      String?
+  madiDistict     String?
+  state           String
+  distict         String
+  village         String
+  city            String
+  pincode         String
+  work            String
+  income          String
+  storagePlace    String
+  storageLocation String
+  storageImages   String[] @default([])
+  diclaration     Boolean  @default(false)
+  terms_condition Boolean  @default(false)
+  user            User[]
+}
+
+model SaveProduct {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String  @db.ObjectId
+  productId String  @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductInfo {
@@ -69,7 +105,7 @@ model ProductInfo {
 
 model LocationInfo {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  districtCity String    
+  districtCity String
   state        String
   city         String
   village      String

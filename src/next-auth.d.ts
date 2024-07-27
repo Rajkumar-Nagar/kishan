@@ -7,7 +7,8 @@ declare module "next-auth" {
     user: {
       // The user's postal address
       address: string,
-      phoneNumber:string
+      phoneNumber:string,
+      backgroundImage:string|null,
     } & DefaultSession["user"]
   }
 }

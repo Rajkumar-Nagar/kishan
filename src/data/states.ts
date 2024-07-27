@@ -7,4 +7,5 @@ export const statesWithDistricts = {
     "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Meerut"]
 };
 
+
 export type IStatesWithDistricts = keyof typeof statesWithDistricts;
