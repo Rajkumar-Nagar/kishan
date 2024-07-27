@@ -7,8 +7,7 @@ import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 import { Slider } from '@/components/ui/slider'
 import { DatePickerDemo } from '@/components/daterangepicker'
-import { ThreeDCardDemo } from '@/components/addProduct'
-
+import ProductCard from "@/components/product-card";
 
 const CheckBox = ({ crop }) => {
 
@@ -408,14 +407,14 @@ function PrductList() {
                         gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
                     }}
                 >
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
-                    <ThreeDCardDemo />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
 
                 </div>
 

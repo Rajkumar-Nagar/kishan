@@ -1,22 +1,12 @@
-// "use client"
-
 import CarouselDemo from '@/components/Carousel'
-import { Carousel } from '@/components/ui/carousel'
 import React from 'react'
-import { useSession } from "next-auth/react"
-import { auth } from '@/auth'
-import { ThreeDCardDemo } from '@/components/addProduct'
 import Image from 'next/image'
-import { Prisma } from '@prisma/client'
 import { CarouselSize } from '@/components/product_slider'
 import Link from 'next/link'
 import Title from '@/components/ui/title'
 
 async function page() {
 
-  // const user = await auth();
-
-  // console.log(user)
 
   return (
     <div className='w-full h-full'>

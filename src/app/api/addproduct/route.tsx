@@ -74,55 +74,14 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "User detailed updatation failed" }, { status: 400 })
         }
 
-        const productInfo = await prisma.productInfo.create({
-            data: {
-                cropName,
-                variety,
-                units,
-                quantityAvailable,
-                expectedPrice,
-            },
-        });
-
-        const locationInfo = await prisma.locationInfo.create({
-            data: {
-                city,
-                pincode,
-                village,
-                districtCity,
-                state,
-            },
-        });
-
-        const qualityMetrics = await prisma.qualityMetrics.create({
-            data: {
-                moistureContent,
-                grainSize,
-                color,
-                purity,
-            },
-        });
-
-        const harvestStorage = await prisma.harvestStorage.create({
-            data: {
-                harvestDate: new Date(harvestDate),
-                storageLocation,
-            },
-        });
-
-        const media = await prisma.media.create({
-            data: {
-                photos,
-                videos,
-            },
-        });
-
-        const additionalServices = await prisma.additionalServices.create({
-            data: {
-                sampleRequest,
-                liveStreaming,
-            },
-        });
+        const [productInfo, locationInfo, qualityMetrics, harvestStorage, media, additionalServices] = await prisma.$transaction([
+            prisma.productInfo.create({ data: { cropName, variety, units, quantityAvailable, expectedPrice } }),
+            prisma.locationInfo.create({ data: { city, pincode, village, districtCity, state } }),
+            prisma.qualityMetrics.create({ data: { moistureContent, grainSize, color, purity } }),
+            prisma.harvestStorage.create({ data: { harvestDate: new Date(harvestDate), storageLocation } }),
+            prisma.media.create({ data: { photos, videos } }),
+            prisma.additionalServices.create({ data: { sampleRequest, liveStreaming } })
+        ]);
 
         const product = await prisma.product.create({
             data: {

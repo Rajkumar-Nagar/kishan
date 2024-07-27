@@ -1,26 +1,26 @@
 "use client"
-import { getListedproduct } from "@/actions/listedProduct"
-import { ThreeDCardDemo } from "@/components/addProduct"
+import { getProducts } from "@/actions/product.actions"
+import ProductCard from "@/components/product-card"
+import { ProductType } from "@/lib/types"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 
 
 function ListedCrops() {
-  const [listedCrops, setlistedCrops] = useState([])
+  const [listedCrops, setlistedCrops] = useState<ProductType[]>([])
 
   const { data } = useSession()
 
   const userID = data?.user.id
-  
+
   useEffect(() => {
-    if(!userID){
-      return
-    }
+    if (!userID) return
+
     const handleListedProduct = async () => {
       try {
-        const ListedProduct = await getListedproduct(userID)
+        const ListedProduct = await getProducts(userID)
         setlistedCrops(ListedProduct)
-      } catch (error) {
+      } catch (error: any) {
         console.error(error.message)
       }
     }
@@ -46,7 +46,7 @@ function ListedCrops() {
             >
               {
                 listedCrops.map((item, index) => (
-                  <ThreeDCardDemo item={item} key={index} />
+                  <ProductCard product={item} key={index} />
                 ))
               }
             </div>

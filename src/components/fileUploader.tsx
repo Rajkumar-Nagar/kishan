@@ -2,45 +2,42 @@
 
 import { CldImage, CldVideoPlayer } from 'next-cloudinary'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
-import { Button } from './ui/button'
+import React, { useState } from 'react'
 import { getBgImageUser } from '@/actions/getBgImageUser'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
+type FileUploaderProps = {
+    onUpload?: (imageId: string) => void
+    onDelete?: (imageId: string) => void
+    profile?: boolean
+    imageUploader?: boolean
+    profileUploader?: boolean
+    type?: "image" | "video"
+}
 
-const FileUploader = ({ setUploadImages, profile, setbackgroundImage, handelBgImage, imageUploader, profileUploader, _id }) => {
+const FileUploader = ({
+    onUpload,
+    onDelete,
+    profile,
+    imageUploader,
+    profileUploader,
+    type = "image"
+}: FileUploaderProps) => {
 
-    const [imageId, setImageId] = useState("")
-    const [videoId, setVideoId] = useState("")
+    const _id = Math.random().toString(36).substring(7);
+    const [publicId, setPublicId] = useState("")
     const [error, setError] = useState('');
     const [isloading, setIsloading] = useState(false)
-
+    const router = useRouter()
     const { data: session, status } = useSession()
 
-
     const handleDelete = () => {
-        setUploadImages((prev) => {
-            const allcrops = [...prev]
-            const newCard = allcrops.filter((id) => id !== imageId);
-            return newCard;
-        });
-        setImageId("")
+        onDelete?.(publicId)
+        setPublicId("")
     };
 
-    useEffect(() => {
-        if (imageId) {
-            setUploadImages((prev) => [...prev, imageId]);
-        }
-    }, [imageId]);
-
-    useEffect(() => {
-        if (imageId) {
-            setUploadVideos((prev) => [...prev, videoId]);
-        }
-    }, [videoId]);
-
-
-    const uploadImage = async (file, type) => {
+    const uploadImage = async (file: File, type: 'video' | 'image') => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', 'rajkumar264');
@@ -56,7 +53,6 @@ const FileUploader = ({ setUploadImages, profile, setbackgroundImage, handelBgIm
                 throw new Error(`Upload failed with status ${res.status}`);
             }
             const data = await res.json();
-              console.log(data)
             return data.public_id
         } catch (err) {
             console.error(err);
@@ -64,41 +60,32 @@ const FileUploader = ({ setUploadImages, profile, setbackgroundImage, handelBgIm
         }
     };
 
-    const handleProfilechange = async (e) => {
+    const handleProfilechange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const data = await uploadImage(file, "image");
+            const data = await uploadImage(file, type);
             if (status === "authenticated") {
                 if (!profile) {
-
                     const updateduser = await getBgImageUser(session?.user.id, data)
+                    router.refresh()
                     //redux added 
                 }
-               if(setbackgroundImage){
-                setbackgroundImage(data)
-               }
+                onUpload?.(data);
                 setIsloading(false)
             }
         }
     };
 
-    const handleFileChangeforImage = async (e) => {
+    const handleFileChangeforImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const data = await uploadImage(file, "image");
-            setImageId(data)
+            const data = await uploadImage(file, type);
+            setPublicId(data);
+            onUpload?.(data);
             setIsloading(false)
         }
     };
 
-    const handleFileChangeforVideo = async (e) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const data = await uploadImage(file, "video");
-            setVideoId(data)
-            setIsloading(false)
-        }
-    };
 
     return (
 
@@ -126,17 +113,17 @@ const FileUploader = ({ setUploadImages, profile, setbackgroundImage, handelBgIm
                 imageUploader &&
                 <div className="photobox1 relative w-28 h-28 border-2 flex items-center justify-center rounded-md">
                     {
-                        (imageId) &&
+                        (publicId) &&
                         <button onClick={handleDelete} className='absolute -top-2 -right-2'>
                             <Image alt="reload" width={20} height={20} src={"/remove.png"} />
                         </button>
                     }
 
                     {
-                        imageId ? (
+                        publicId ? (
                             <CldImage
                                 alt="Uploaded Image"
-                                src={imageId}
+                                src={publicId}
                                 width={"112"}
                                 height={"112"}
                                 className='w-full h-full '

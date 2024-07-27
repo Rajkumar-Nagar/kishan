@@ -20,7 +20,7 @@ const producSlice = createSlice({
             if (index === -1) {
                 state.saved_item.push(item);
             } else {
-                state.saved_item = state.saved_item.filter((savedItem) => savedItem.id !== item.id);
+                state.saved_item.splice(index, 1);
             }
         },
 
@@ -28,4 +28,4 @@ const producSlice = createSlice({
 });
 
 export const productActions = producSlice.actions;
-export default producSlice.reducer;
+export const productReducer = producSlice.reducer;

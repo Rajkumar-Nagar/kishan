@@ -1,18 +1,11 @@
 "use client"
 
-import { auth } from '@/auth';
 import FileUploader from '@/components/fileUploader';
 import Dropdown from '@/components/ui/Dropdown';
 import { Button } from '@/components/ui/button';
-import { IStatesWithDistricts, statesWithDistricts, crops, Icrops } from '@/data';
-import { METHODS } from 'http';
-import { Corben } from 'next/font/google';
-import Image from 'next/image';
+import { IStatesWithDistricts, statesWithDistricts, crops, ICrops } from '@/data';
 import React, { useState } from 'react'
-
-import party from "party-js";
-import Link from 'next/link';
-import Successfull from '@/components/successfull';
+import Successfull from '@/components/Successfull';
 
 
 const Quantity = [
@@ -44,7 +37,7 @@ function Page() {
     const [aadhar_number, setAadhar_number] = useState("")
     const [current_location, setCurrent_location] = useState("")
     const [additional_number, setAdditional_number] = useState("")
-    const [aadharphotos, setAadharphotos] = useState([])
+    const [aadharphotos, setAadharphotos] = useState<string[]>([])
 
 
     const [selectProduct, setselectProduct] = useState("")
@@ -55,8 +48,8 @@ function Page() {
     const [mandiOption, setmandiOption] = useState("")
 
 
-    const [uploadImages, setUploadImages] = useState([])
-    const [uploadVideos, setUploadVideos] = useState([])
+    const [uploadImages, setUploadImages] = useState<string[]>([])
+    const [uploadVideos, setUploadVideos] = useState<string[]>([])
 
     const [city, setCity] = useState("")
     const [village, setVillage] = useState("")
@@ -79,7 +72,7 @@ function Page() {
     console.log(selectProduct)
 
 
-    const handleAadharNumber = (e) => {
+    const handleAadharNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, ''); // Remove existing spaces
         if (value.length > 12) return; // Limit to 12 digits
 
@@ -94,7 +87,7 @@ function Page() {
         setAadhar_number(formattedValue);
     }
 
-    const handelMobilNumber = (e) => {
+    const handelMobilNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, ''); // Remove existing spaces
         if (value.length > 10) return; // Limit to 12 digits
         setAdditional_number(value)
@@ -176,15 +169,32 @@ function Page() {
         }
     }
 
+    const handleImageUpload = {
+        Add: (image: string) => {
+            setUploadImages([...uploadImages, image])
+        },
+        Delete: (image: string) => {
+            setUploadImages(uploadImages.filter((img) => img !== image))
+        }
+    }
+
+    const handleAadharImage = {
+        Add: (image: string) => {
+            setAadharphotos(prev => [...prev, image])
+        },
+        Delete: (image: string) => {
+            setAadharphotos(prev => prev.filter((item) => item !== image))
+        }
+    }
+
 
 
     return (
 
         <>
-
             {
                 conformation ? (
-                    <Successfull product setConformation={setConformation} title={" Your crop has been successfully added to our platform."} imgurl="/welcome.jpg"/>
+                    <Successfull product setConformation={setConformation} title={" Your crop has been successfully added to our platform."} imgurl="/welcome.jpg" />
                 ) : (
 
                     <div className="maincontainer flex  justify-center w-full ">
@@ -270,7 +280,7 @@ function Page() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"fornt"} imageUploader/>
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
 
                                         </div>
 
@@ -280,9 +290,7 @@ function Page() {
                                                 <h1 className=" text-[#002f34] text-xl my-2">Aadhar back Photo</h1>
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
-
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"back"} imageUploader />
-
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
                                         </div>
                                     </div>
 
@@ -302,7 +310,7 @@ function Page() {
                                         </div>
 
                                         <Dropdown
-                                            Setquantity={(v: string) => setselectProduct(v as Icrops)}
+                                            Setquantity={setselectProduct}
                                             quntity={selectProduct}
                                             fields={Object.keys(crops)}
                                             nameDrop="Product" />
@@ -317,7 +325,7 @@ function Page() {
                                             <Dropdown
                                                 Setquantity={setVarity}
                                                 quntity={varity}
-                                                fields={crops[selectProduct]}
+                                                fields={crops[selectProduct as ICrops]}
                                                 nameDrop="varity" />
                                         </div>
 
@@ -577,18 +585,19 @@ function Page() {
                                             </div>
                                             <div className="photobox flex flex-wrap gap-4">
 
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image1"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image2"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image3"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image4"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image5"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image6"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image7"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image8"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image9"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image10"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image11"} imageUploader />
-                                                <FileUploader setUploadImages={setUploadImages} _id={"image12"}  imageUploader/>
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+
 
                                             </div>
                                         </div>

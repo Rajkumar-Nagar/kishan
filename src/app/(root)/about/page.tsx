@@ -1,10 +1,11 @@
-import { ThreeDCardDemo } from '@/components/addProduct'
 import React from 'react'
 
-function About() {
+const page = () => {
   return (
-    <ThreeDCardDemo/>
+    <div>
+
+    </div>
   )
 }
 
-export default About
+export default page

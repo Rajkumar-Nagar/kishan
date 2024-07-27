@@ -3,41 +3,39 @@
 import { getDataFromId } from "@/actions/productId.actio"
 import FileUploader from "@/components/fileUploader"
 import { Button } from "@/components/ui/button"
+import { User } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { CldImage } from "next-cloudinary"
 import { useRouter } from "next/navigation"
-
 import { useEffect, useState } from "react"
 
 
 function ProfileEdit() {
+    const [user, setuser] = useState<User | null>(null)
+
+    const { data } = useSession()
+    const userID = data?.user.id
 
 
-    const [user, setuser] = useState(null)
-
-  const { data } = useSession()
-  const userID = data?.user.id
-  
-  
     useEffect(() => {
-        if(!userID)return
-         getDataFromId(userID,"user")
-         .then((user)=>{
-            setuser(user)
-            if(user){
-                setname(user.name)
-                setavatar(user.avatar)
-                setemail(user.email)
-                setcurrentAddress(user.address)
-                setphoneNumber(user.phoneNumber)
-            }
-         })
+        if (!userID) return
+        getDataFromId(userID, "user")
+            .then((user) => {
+                setuser(user)
+                if (user) {
+                    setname(user.name)
+                    setavatar(user.avatar)
+                    setemail(user.email)
+                    setcurrentAddress(user.address)
+                    setphoneNumber(user.phoneNumber)
+                }
+            })
     }, [userID])
-    
-    
+
+
     const router = useRouter()
 
-    const [avatar, setavatar] = useState( "")
+    const [avatar, setavatar] = useState("")
 
     const [profileError, setprofileError] = useState("")
     const [profileLoading, setprofileLoading] = useState(false)
@@ -47,14 +45,16 @@ function ProfileEdit() {
     const [email, setemail] = useState("")
     const [currentAddress, setcurrentAddress] = useState("")
 
-    const handelPhoneNumber = (e) => {
-        let value = e.target.value.replace(/\D/g, ''); // Remove existing spaces
-        if (value.length > 10) return; // Limit to 12 digits
+
+    const handelPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 10) return;
         setphoneNumber(value)
     }
 
 
     const handelUpdatedProfile = async () => {
+        if (!userID) return
         if (!name || !phoneNumber || !currentAddress) {
             setprofileError("please fill name,phoneNumber,and address")
             return
@@ -78,7 +78,7 @@ function ProfileEdit() {
                         email,
                         address: currentAddress,
                         avatar,
-                        _id: user?.id
+                        _id: userID
                     }
                 )
             })
@@ -89,15 +89,16 @@ function ProfileEdit() {
             const updateduser = response.json()
             setprofileLoading(false)
             router.refresh()
-        
-        } catch (error) {
+
+        } catch (error: any) {
             console.log(error.message)
         } finally {
             setprofileLoading(false)
         }
-
-
     }
+
+
+    if (!user) return <h1>loading...</h1>
 
     return (
         <>
@@ -105,7 +106,7 @@ function ProfileEdit() {
             <div className="editdetails rounded-md border-2 shadow-lg py-10">
                 <div className="prodfilePhotochage flex items-center  h-full justify-center relative">
                     {
-                        user?.avatar ?
+                        avatar ?
                             <CldImage
                                 alt="Uploaded Image"
                                 src={avatar}
@@ -124,14 +125,14 @@ function ProfileEdit() {
                     }
 
                     <button className="editbutton bg-gray-300 rounded-full p-2 absolute -bottom-5 ">
-                        <FileUploader setbackgroundImage={setavatar} _id={"avatar"} profileUploader profile />
+                        <FileUploader onUpload={img => setavatar(img)} onDelete={() => setavatar("")} profileUploader profile />
                     </button>
                 </div>
 
                 <div className="editcontent flex flex-col gap-3 mt-12">
                     <label htmlFor="name" className='flex flex-col w-[70%] m-auto text-[#002f34] text-base font-semibold'>
                         Name
-                        <input type="text" id='name' value={name}  onChange={(e) => setname(e.target.value)} className='  h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300' />
+                        <input type="text" id='name' value={name} onChange={(e) => setname(e.target.value)} className='  h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300' />
                     </label>
                     <label htmlFor="Phone_Number" className='flex flex-col w-[70%] m-auto text-[#002f34] text-base font-semibold'>
                         Phone Number
@@ -159,7 +160,7 @@ function ProfileEdit() {
                         Cancel
                     </button>
                     <Button onClick={handelUpdatedProfile} className="cancle bg w-32 rounded-md h-11 flex items-center justify-center">
-                        {profileLoading ? "...loading" : "Submit"}
+                        {profileLoading ? "Loading..." : "Submit"}
                     </Button>
                 </div>
 

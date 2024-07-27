@@ -16,6 +16,6 @@ export const crops = {
     "Soybean (सोयाबीन)": ["JS 335", "PK 472", "MACS 450", "NRC 37"],
     "Mustard (सरसों)": ["Pusa Bold", "Rohini", "NRCHB 101", "Varuna"],
     "Garlic (लहसुन)": ["Yamuna Safed", "G1", "G50", "G282"]
-}
+};
 
-export type Icrops = keyof typeof crops;
+export type ICrops = keyof typeof crops;

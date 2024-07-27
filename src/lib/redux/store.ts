@@ -1,29 +1,30 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import bidSlice from './features/bid/bidSlice';
-import producSlice from './features/product/productslice';
+import { bidReducer, productReducer } from './features';
 import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
-    key: 'product',
+    key: 'root',
     storage,
+    blacklist: ['bid'],
 }
 
-const persistedReducer = persistReducer(persistConfig, producSlice)
-
 const rootReducer = combineReducers({
-    bid: bidSlice,
-    product: persistedReducer,
+    bid: bidReducer,
+    product: productReducer,
 });
 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
+});
 
-export const makeStore = () => {
-    return configureStore({
-        reducer: rootReducer,
-    });
-};
-
-export type AppStore = ReturnType<typeof makeStore>;
+export const persistor = persistStore(store);
+export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore["dispatch"];

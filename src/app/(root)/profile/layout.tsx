@@ -1,7 +1,5 @@
-
 import { account } from '@/data';
 import { getDataFromId } from '@/actions/productId.actio';
-import { CldImage } from 'next-cloudinary';
 import FileUploader from '@/components/fileUploader';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -9,15 +7,14 @@ import Buttonbox from '@/components/profile/Buttonbox';
 import { auth } from '@/auth';
 import Link from 'next/link';
 import CImage from '@/components/Cimage';
+import { redirect } from 'next/navigation';
 
-async function Profile({ children }) {
+async function Profile({ children }: { children: React.ReactNode }) {
 
     const session = await auth()
-    if (!session?.user) {
-        return null
-    }
+    if (!session?.user) redirect("/login")
 
-    const user=await getDataFromId(session.user.id,"user")
+    const user = await getDataFromId(session.user.id, "user")
 
     return (
         <div className="maincontainer pt-10 rounded-md overflow-hidden flex items-center justify-center gap-6">
@@ -29,15 +26,15 @@ async function Profile({ children }) {
                                 <CImage
                                     alt="Uploaded Image"
                                     src={user?.backgroundImage}
-                                    width={"300"}
-                                    height={"100"}
+                                    width={300}
+                                    height={100}
                                     className='w-full h-full'
                                     crop={{ type: 'auto', source: true }}
                                 />
                             </div>
                         )}
                         <div className="editbutton bg-gray-300 rounded-full p-2 absolute top-3 right-3">
-                            <FileUploader _id={"bg"} profileUploader />
+                            <FileUploader profileUploader />
                         </div>
                         <div className="profileImage absolute -bottom-12">
                             {
@@ -54,7 +51,7 @@ async function Profile({ children }) {
                                         }}
                                     /> : (
                                         <div className="profile w-24 h-24 rounded-full bg-gray-600 flex items-center justify-center">
-                                            <h1 className="text-[#002f34] text-xl font-semibold">{user?.name.slice(0, 1)}</h1>
+                                            <h1 className="text-[#002f34] text-xl font-semibold">{user?.name?.slice(0, 1)}</h1>
                                         </div>
                                     )
                             }

@@ -8,28 +8,24 @@ import { Button } from "./ui/button";
 import { CldImage } from "next-cloudinary";
 import { useAppDispatch, useAppSelector } from "@/lib/redux";
 import { productActions } from "@/lib/redux/features";
+import { ProductType } from "@/lib/types";
 
 
-export function ThreeDCardDemo({ item }) {
+export default function ProductCard({ product }: { product: ProductType }) {
 
     const dispatch = useAppDispatch();
-    const savedItem = useAppSelector((state) => state.product);
-
+    const savedItem = useAppSelector((state) => state.product.saved_item);
 
     const handleSavedItem = () => {
-        dispatch(productActions.addSavedItem(item))
+        dispatch(productActions.addSavedItem(product))
     }
 
-    const ischecked = savedItem.saved_item.findIndex((items) => items.id === item.id);
+    const ischecked = savedItem.findIndex((items) => items.id === product.id);
 
-    console.log("this is status", item?.id)
-
-    console.log("Saved item is this : ", savedItem.saved_item)
-
-    const [product, setproduct] = useState(null)
-    const [loading, setloading] = useState(true)
+    const [loading, setloading] = useState(false)
 
     const fetchdata = async () => {
+        setloading(true)
         try {
             setloading(true)
             const response = await fetch("http://localhost:3000/api/fetchProduct", {
@@ -38,14 +34,14 @@ export function ThreeDCardDemo({ item }) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(
-                    item
+                    product
                 )
             })
             if (!response.ok) {
                 throw new Error("product Fethcing unsuccesfully")
             }
             const data = await response.json();
-            setproduct(data);
+            // setproduct(data);
         } catch (error) {
             console.log(error)
         } finally {
@@ -54,11 +50,8 @@ export function ThreeDCardDemo({ item }) {
     }
 
     useEffect(() => {
-        fetchdata()
+        // fetchdata()
     }, [])
-
-
-
 
     return (
         <CardContainer className="inter-var relative min-w-80 ">
@@ -76,7 +69,7 @@ export function ThreeDCardDemo({ item }) {
 
                     <CldImage
                         alt="Uploaded Image"
-                        src={product?.Media.photos[0]}
+                        src={product.media.photos[0]}
                         width={"1000"}
                         height={"1000"}
                         className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
@@ -140,7 +133,7 @@ export function ThreeDCardDemo({ item }) {
                             translateZ="60"
                             className="text-sm font-semibold text-[#74667f] dark:text-white"
                         >
-                            {product?.ProductInfo.purity === 'No Grading is not complete' ? ", Graded(Yes)" : ", Graded(No)"}
+                            {product?.qualityMetrics.purity === 'No Grading is not complete' ? ", Graded(Yes)" : ", Graded(No)"}
                         </CardItem>
                     </div>
 
@@ -168,7 +161,7 @@ export function ThreeDCardDemo({ item }) {
                             alt="thumbnail"
                         />
                         <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
-                            ` ${product?.LocationInfo.village}, ${product?.LocationInfo.districtCity},${product?.LocationInfo.state},${product?.LocationInfo.pincode}`
+                            ` ${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
                         }</span>
 
                     </CardItem>

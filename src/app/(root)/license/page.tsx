@@ -1,6 +1,6 @@
 "use client"
 import FileUploader from '@/components/fileUploader';
-import Successfull from '@/components/successfull';
+import Successfull from '@/components/Successfull';
 import { Button } from '@/components/ui/button';
 import Dropdown from '@/components/ui/Dropdown';
 import { Income, IStatesWithDistricts, Profession, statesWithDistricts } from '@/data';
@@ -19,7 +19,7 @@ function licenc() {
 
     const [aadhar_number, setAadhar_number] = useState("")
     const [additional_number, setAdditional_number] = useState("")
-    const [aadharphotos, setAadharphotos] = useState([])
+    const [aadharphotos, setAadharphotos] = useState<string[]>([])
     const [current_location, setCurrent_location] = useState("")
 
     const [city, setCity] = useState("")
@@ -33,13 +33,13 @@ function licenc() {
     const [income, setincome] = useState("")
     const [storagefield, setstoragefield] = useState("")
     const [storageLocation, setStorageLocation] = useState("")
-    const [storagelocaitonMedia, setstoragelocaitonMedia] = useState([])
+    const [storagelocaitonMedia, setstoragelocaitonMedia] = useState<string[]>([])
 
 
     const [diclaration, setDiclaration] = useState(false);
     const [tems_condition, settems_condition] = useState(false)
 
-    const handleAadharNumber = (e) => {
+    const handleAadharNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, ''); // Remove existing spaces
         if (value.length > 12) return; // Limit to 12 digits
 
@@ -54,7 +54,7 @@ function licenc() {
         setAadhar_number(formattedValue);
     }
 
-    const handelMobilNumber = (e) => {
+    const handelMobilNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, ''); // Remove existing spaces
         if (value.length > 10) return; // Limit to 12 digits
         setAdditional_number(value)
@@ -127,16 +127,32 @@ function licenc() {
             setisloading(false)
             setconfirmation(true)
 
-        } catch (error) {
+        } catch (error: any) {
             console.log(error.message)
         } finally {
             setisloading(false)
         }
     }
 
+    const handleAadharImage = {
+        Add: (image: string) => {
+            setAadharphotos(prev => [...prev, image])
+        },
+        Delete: (image: string) => {
+            setAadharphotos(prev => prev.filter((item) => item !== image))
+        }
+    }
+
+    const handleStorageLocaitonMedia = {
+        Add: (image: string) => {
+            setstoragelocaitonMedia(prev => [...prev, image])
+        },
+        Delete: (image: string) => {
+            setstoragelocaitonMedia(prev => prev.filter((item) => item !== image))
+        }
+    }
 
     return (
-
         <>
             {
                 confirmation ? (
@@ -270,7 +286,7 @@ function licenc() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"fornt"} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
 
                                         </div>
 
@@ -281,7 +297,7 @@ function licenc() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"back"} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
 
                                         </div>
 
@@ -292,7 +308,7 @@ function licenc() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader setUploadImages={setAadharphotos} _id={"back"} />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
 
                                         </div>
                                     </div>
@@ -449,10 +465,10 @@ function licenc() {
                                         </div>
 
                                         <div className="images flex items-center justify-around">
-                                            <FileUploader setUploadImages={setstoragelocaitonMedia} _id={"storagelocaitonMedia1"} imageUploader />
-                                            <FileUploader setUploadImages={setstoragelocaitonMedia} _id={"storagelocaitonMedia2"} imageUploader />
-                                            <FileUploader setUploadImages={setstoragelocaitonMedia} _id={"storagelocaitonMedia3"} imageUploader />
-                                            <FileUploader setUploadImages={setstoragelocaitonMedia} _id={"storagelocaitonMedia4"} imageUploader />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
                                         </div>
                                     </div>
 
@@ -494,7 +510,7 @@ function licenc() {
                                 }
 
                                 <Button onClick={hadleItemAdd} disabled={isloading} variant={"Login"} className='my-9' >
-                                    {isloading ? "...loading" : "Apply"}
+                                    {isloading ? "Loading..." : "Apply"}
                                 </Button>
                             </div>
 
