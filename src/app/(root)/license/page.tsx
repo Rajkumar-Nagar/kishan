@@ -286,7 +286,7 @@ function licenc() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} preview />
 
                                         </div>
 
@@ -297,7 +297,7 @@ function licenc() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
 
                                         </div>
 
@@ -308,7 +308,7 @@ function licenc() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
 
                                         </div>
                                     </div>
@@ -465,10 +465,10 @@ function licenc() {
                                         </div>
 
                                         <div className="images flex items-center justify-around">
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} imageUploader />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
+                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
                                         </div>
                                     </div>
 

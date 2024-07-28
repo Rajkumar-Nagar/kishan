@@ -69,9 +69,6 @@ function Page() {
     const [liveStreaming, setLiveStreaming] = useState(false)
     const [setsampleRequest, setSetsampleRequest] = useState(false)
 
-    console.log(selectProduct)
-
-
     const handleAadharNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value.replace(/\D/g, ''); // Remove existing spaces
         if (value.length > 12) return; // Limit to 12 digits
@@ -280,7 +277,7 @@ function Page() {
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
 
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
 
                                         </div>
 
@@ -290,7 +287,7 @@ function Page() {
                                                 <h1 className=" text-[#002f34] text-xl my-2">Aadhar back Photo</h1>
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} imageUploader />
+                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
                                         </div>
                                     </div>
 
@@ -585,18 +582,18 @@ function Page() {
                                             </div>
                                             <div className="photobox flex flex-wrap gap-4">
 
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
-                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} imageUploader />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
+                                                <FileUploader onUpload={handleImageUpload.Add} onDelete={handleImageUpload.Delete} />
 
 
                                             </div>

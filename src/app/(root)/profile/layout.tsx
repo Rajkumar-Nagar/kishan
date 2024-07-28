@@ -1,6 +1,5 @@
 import { account } from '@/data';
 import { getDataFromId } from '@/actions/productId.actio';
-import FileUploader from '@/components/fileUploader';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Buttonbox from '@/components/profile/Buttonbox';
@@ -8,6 +7,7 @@ import { auth } from '@/auth';
 import Link from 'next/link';
 import CImage from '@/components/Cimage';
 import { redirect } from 'next/navigation';
+import Banner from './_banner';
 
 async function Profile({ children }: { children: React.ReactNode }) {
 
@@ -21,21 +21,7 @@ async function Profile({ children }: { children: React.ReactNode }) {
             <div className="leftpartContainer w-[25%] rounded-md border-2">
                 <div className="profileDetails bg-gray-200 gap-3 pb-5 border-b-[1px] flex flex-col">
                     <div className="profilePicture relative flex justify-center h-20 bg-slate-300">
-                        {user?.backgroundImage && (
-                            <div className="bgimage w-full h-full absolute">
-                                <CImage
-                                    alt="Uploaded Image"
-                                    src={user?.backgroundImage}
-                                    width={300}
-                                    height={100}
-                                    className='w-full h-full'
-                                    crop={{ type: 'auto', source: true }}
-                                />
-                            </div>
-                        )}
-                        <div className="editbutton bg-gray-300 rounded-full p-2 absolute top-3 right-3">
-                            <FileUploader profileUploader />
-                        </div>
+                        <Banner userId={user.id} bgImage={user.backgroundImage} />
                         <div className="profileImage absolute -bottom-12">
                             {
                                 user?.avatar ?

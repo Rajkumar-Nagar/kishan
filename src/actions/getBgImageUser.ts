@@ -2,7 +2,7 @@
 "use server"
 import prisma from "@/lib/prisma";
 
-export const getBgImageUser = async (id, backgroundImage) => {
+export const getBgImageUser = async (id: string, backgroundImage: string) => {
     try {
         const data = await prisma.user.update({
             where: {

@@ -3,25 +3,18 @@
 import { CldImage, CldVideoPlayer } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { getBgImageUser } from '@/actions/getBgImageUser'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 
 type FileUploaderProps = {
-    onUpload?: (imageId: string) => void
+    onUpload: (imageId: string) => void
     onDelete?: (imageId: string) => void
-    profile?: boolean
-    imageUploader?: boolean
-    profileUploader?: boolean
+    preview?: boolean
     type?: "image" | "video"
 }
 
 const FileUploader = ({
     onUpload,
     onDelete,
-    profile,
-    imageUploader,
-    profileUploader,
+    preview = true,
     type = "image"
 }: FileUploaderProps) => {
 
@@ -29,8 +22,7 @@ const FileUploader = ({
     const [publicId, setPublicId] = useState("")
     const [error, setError] = useState('');
     const [isloading, setIsloading] = useState(false)
-    const router = useRouter()
-    const { data: session, status } = useSession()
+
 
     const handleDelete = () => {
         onDelete?.(publicId)
@@ -60,100 +52,59 @@ const FileUploader = ({
         }
     };
 
-    const handleProfilechange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const data = await uploadImage(file, type);
-            if (status === "authenticated") {
-                if (!profile) {
-                    const updateduser = await getBgImageUser(session?.user.id, data)
-                    router.refresh()
-                    //redux added 
-                }
-                onUpload?.(data);
-                setIsloading(false)
-            }
-        }
-    };
 
     const handleFileChangeforImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const data = await uploadImage(file, type);
             setPublicId(data);
-            onUpload?.(data);
+            onUpload(data);
             setIsloading(false)
+            e.target.value = "";
         }
     };
 
+    if (preview && publicId) {
+        return (
+            <div className="photobox1 relative w-28 h-28 border-2 flex items-center justify-center rounded-md">
+                <CldImage
+                    alt="Uploaded Image"
+                    src={publicId}
+                    width={"112"}
+                    height={"112"}
+                    className='w-full h-full '
+                    crop={{
+                        type: 'auto',
+                        source: true
+                    }}
+                />
+                <button onClick={handleDelete} className='absolute -top-2 -right-2'>
+                    <Image alt="reload" width={20} height={20} src={"/remove.png"} />
+                </button>
+            </div>
+        )
+    }
 
     return (
 
         <>
+            <div className={`photobox1 relative ${preview && "w-28 h-28 border-2"} flex items-center justify-center rounded-md`}>
 
-            {
-                profileUploader && (
-                    <>
-                        <label htmlFor={`${_id}`} className='h-full w-full cursor-pointer flex items-center justify-center'>
-                            {
-                                isloading ? "Loding ...." : (
-                                    <Image width={20} height={20} src={"/photo.png"} alt='reload' />
-                                )
-                            }
-                        </label>
-                        <input
-                            type="file"
-                            id={`${_id}`}
-                            className='hidden'
-                            onChange={handleProfilechange} />
-                    </>
-                )
-            }
-            {
-                imageUploader &&
-                <div className="photobox1 relative w-28 h-28 border-2 flex items-center justify-center rounded-md">
-                    {
-                        (publicId) &&
-                        <button onClick={handleDelete} className='absolute -top-2 -right-2'>
-                            <Image alt="reload" width={20} height={20} src={"/remove.png"} />
-                        </button>
-                    }
+                <label htmlFor={`${_id}`} className='h-full w-full cursor-pointer flex items-center justify-center'>
+                    {isloading ? (
+                        <div className='border-2 border-orange-500 border-r-transparent w-6 h-6 rounded-full animate-spin' />
+                    ) : (
+                        <Image width={20} height={20} src={"/photo.png"} alt='reload' />
+                    )}
+                </label>
 
-                    {
-                        publicId ? (
-                            <CldImage
-                                alt="Uploaded Image"
-                                src={publicId}
-                                width={"112"}
-                                height={"112"}
-                                className='w-full h-full '
-                                crop={{
-                                    type: 'auto',
-                                    source: true
-                                }}
-                            />
-
-                        ) : (
-                            <>
-                                <label htmlFor={`${_id}`} className='h-full w-full cursor-pointer flex items-center justify-center'>
-                                    {
-                                        isloading ? "Loding ...." : (
-                                            <Image width={30} height={30} src={"/photo.png"} alt='reload' />
-                                        )
-                                    }
-                                </label>
-
-                                <input
-                                    type="file"
-                                    id={`${_id}`}
-                                    className='hidden'
-                                    onChange={handleFileChangeforImage} />
-                            </>
-                        )
-                    }
-
-                </div >
-            }
+                <input
+                    type="file"
+                    id={`${_id}`}
+                    className='hidden'
+                    onChange={handleFileChangeforImage}
+                />
+            </div >
 
             {error && <p className="text-red-500 mt-2">{error}</p>}
         </>

@@ -125,7 +125,7 @@ function ProfileEdit() {
                     }
 
                     <button className="editbutton bg-gray-300 rounded-full p-2 absolute -bottom-5 ">
-                        <FileUploader onUpload={img => setavatar(img)} onDelete={() => setavatar("")} profileUploader profile />
+                        <FileUploader onUpload={img => setavatar(img)} onDelete={() => setavatar("")} preview={false} />
                     </button>
                 </div>
 
