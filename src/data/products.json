@@ -1,0 +1,200 @@
+[
+    {
+        "id": "6693cf898c662d052e6c2f30",
+        "pesonalInfoId": "669369be03ce702226675357",
+        "productInfoId": "6693cf898c662d052e6c2f2a",
+        "locationInfoId": "6693cf898c662d052e6c2f2b",
+        "qualityMetricsId": "6693cf898c662d052e6c2f2c",
+        "harvestStorageId": "6693cf898c662d052e6c2f2d",
+        "mediaId": "6693cf898c662d052e6c2f2e",
+        "additionalServicesId": "6693cf898c662d052e6c2f2f",
+        "createdAt": "2024-07-14T13:15:53.947Z",
+        "updatedAt": "2024-07-14T13:15:53.947Z",
+        "additionalServices": {
+            "id": "6693cf898c662d052e6c2f2f",
+            "sampleRequest": true,
+            "liveStreaming": true
+        },
+        "harvestStorage": {
+            "id": "6693cf898c662d052e6c2f2d",
+            "harvestDate": "2024-07-18T00:00:00.000Z",
+            "storageLocation": "village"
+        },
+        "qualityMetrics": {
+            "id": "6693cf898c662d052e6c2f2c",
+            "moistureContent": "",
+            "grainSize": "",
+            "color": "white",
+            "purity": "No Grading is not complete"
+        },
+        "media": {
+            "id": "6693cf898c662d052e6c2f2e",
+            "photos": [
+                "listProduct/ChartAi_moemfs",
+                "listProduct/LandAi_gqcnn5",
+                "listProduct/Ai_mj7zca",
+                "listProduct/signIn_sj1dc6",
+                "listProduct/TransporntAi_os8dle"
+            ],
+            "videos": []
+        },
+        "locationInfo": {
+            "id": "6693cf898c662d052e6c2f2b",
+            "districtCity": "Jabalpur",
+            "state": "Madhya Pradesh",
+            "city": "kota",
+            "village": "katawer",
+            "pincode": "325223"
+        },
+        "pesonalInfo": {
+            "id": "669369be03ce702226675357",
+            "name": "Rajkumar Nagar",
+            "phoneNumber": "4597421387",
+            "email": "",
+            "address": "baradsan",
+            "licence": null,
+            "additional_number": ""
+        },
+        "ProductInfo": {
+            "id": "6693cf898c662d052e6c2f2a",
+            "cropName": "Sugarcane (गन्ना)",
+            "variety": "CoJ 64",
+            "quantityAvailable": "800",
+            "expectedPrice": "600",
+            "units": "ton",
+            "isSold": false
+        }
+    },
+    {
+        "id": "6694ddb18c662d052e6c2f37",
+        "pesonalInfoId": "669369be03ce702226675357",
+        "productInfoId": "6694ddb08c662d052e6c2f31",
+        "locationInfoId": "6694ddb08c662d052e6c2f32",
+        "qualityMetricsId": "6694ddb08c662d052e6c2f33",
+        "harvestStorageId": "6694ddb08c662d052e6c2f34",
+        "mediaId": "6694ddb08c662d052e6c2f35",
+        "additionalServicesId": "6694ddb08c662d052e6c2f36",
+        "createdAt": "2024-07-15T08:28:33.025Z",
+        "updatedAt": "2024-07-15T08:28:33.025Z",
+        "additionalServices": {
+            "id": "6694ddb08c662d052e6c2f36",
+            "sampleRequest": true,
+            "liveStreaming": true
+        },
+        "harvestStorage": {
+            "id": "6694ddb08c662d052e6c2f34",
+            "harvestDate": "2024-07-17T00:00:00.000Z",
+            "storageLocation": "village"
+        },
+        "qualityMetrics": {
+            "id": "6694ddb08c662d052e6c2f33",
+            "moistureContent": "",
+            "grainSize": "",
+            "color": "pink",
+            "purity": "Yes Grading is complete"
+        },
+        "media": {
+            "id": "6694ddb08c662d052e6c2f35",
+            "photos": [
+                "listProduct/TransporntAi_o6yp6y",
+                "listProduct/cropList_wo91xs",
+                "listProduct/ChartAi_lfg3hc",
+                "listProduct/LandAi_hkvt3d",
+                "listProduct/Mandi_aiiza9"
+            ],
+            "videos": []
+        },
+        "locationInfo": {
+            "id": "6694ddb08c662d052e6c2f32",
+            "districtCity": "Amritsar",
+            "state": "Punjab",
+            "city": "chabra",
+            "village": "khrli",
+            "pincode": "47297"
+        },
+        "pesonalInfo": {
+            "id": "669369be03ce702226675357",
+            "name": "Rajkumar Nagar",
+            "phoneNumber": "4597421387",
+            "email": "",
+            "address": "baradsan",
+            "licence": null,
+            "additional_number": ""
+        },
+        "ProductInfo": {
+            "id": "6694ddb08c662d052e6c2f31",
+            "cropName": "Mustard (सरसों)",
+            "variety": "Rohini",
+            "quantityAvailable": "700",
+            "expectedPrice": "5000",
+            "units": "gm",
+            "isSold": false
+        }
+    },
+    {
+        "id": "66a1310a1757b75b88f0fddf",
+        "pesonalInfoId": "6686ed7fed5af1da1512d128",
+        "productInfoId": "66a131091757b75b88f0fdd9",
+        "locationInfoId": "66a131091757b75b88f0fdda",
+        "qualityMetricsId": "66a131091757b75b88f0fddb",
+        "harvestStorageId": "66a1310a1757b75b88f0fddc",
+        "mediaId": "66a1310a1757b75b88f0fddd",
+        "additionalServicesId": "66a1310a1757b75b88f0fdde",
+        "createdAt": "2024-07-24T16:51:22.355Z",
+        "updatedAt": "2024-07-24T16:51:22.355Z",
+        "additionalServices": {
+            "id": "66a1310a1757b75b88f0fdde",
+            "sampleRequest": true,
+            "liveStreaming": true
+        },
+        "harvestStorage": {
+            "id": "66a1310a1757b75b88f0fddc",
+            "harvestDate": "2024-07-11T00:00:00.000Z",
+            "storageLocation": "village"
+        },
+        "qualityMetrics": {
+            "id": "66a131091757b75b88f0fddb",
+            "moistureContent": "",
+            "grainSize": "",
+            "color": "white",
+            "purity": "No Grading is not complete"
+        },
+        "media": {
+            "id": "66a1310a1757b75b88f0fddd",
+            "photos": [
+                "listProduct/LandAi_jx4gn9",
+                "listProduct/natural_gopggb",
+                "listProduct/welcoming_bujtql",
+                "listProduct/video_ijmjgo",
+                "listProduct/LandAi_czhdey"
+            ],
+            "videos": []
+        },
+        "locationInfo": {
+            "id": "66a131091757b75b88f0fdda",
+            "districtCity": "Ludhiana",
+            "state": "Punjab",
+            "city": "khanpur",
+            "village": "sdfkjdfsh",
+            "pincode": "ldfsjdskf"
+        },
+        "pesonalInfo": {
+            "id": "6686ed7fed5af1da1512d128",
+            "name": "Nandkishor nagar",
+            "phoneNumber": "9799086518",
+            "email": "rajkumarnagar264@gmail.com",
+            "address": "kota ,bihar",
+            "licence": null,
+            "additional_number": "4324239239"
+        },
+        "ProductInfo": {
+            "id": "66a131091757b75b88f0fdd9",
+            "cropName": "Maize (Corn) (मक्का)",
+            "variety": "Prabal",
+            "quantityAvailable": "300",
+            "expectedPrice": "432",
+            "units": "ton",
+            "isSold": false
+        }
+    }
+]

@@ -13,11 +13,17 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePickerDemo({ setHarvestDateRange }) {
+interface DatePickerDemoProps {
+    setHarvestDateRange: React.Dispatch<React.SetStateAction<Date>>
+}
+
+export function DatePickerDemo({ setHarvestDateRange }
+    : DatePickerDemoProps
+) {
     const [date, setDate] = React.useState<Date>()
 
     React.useEffect(() => {
-        setHarvestDateRange(date)
+        setHarvestDateRange(date as Date)
     }, [date])
 
 

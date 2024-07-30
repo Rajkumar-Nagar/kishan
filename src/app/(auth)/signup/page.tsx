@@ -21,7 +21,7 @@ export default function SignIn() {
   const handelSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formdata = new FormData(e.target as HTMLFormElement)
-    const data = Object.fromEntries(formdata.entries());
+    const data = Object.fromEntries(formdata.entries()) as Record<string, string>;
 
     const { password, confirm_Password, phoneNumber, name, address } = data;
 
@@ -47,8 +47,8 @@ export default function SignIn() {
       const actionResponse = await handelSignInActions(formdata)
 
       router.replace("/")
-    } catch (error) {
-      seterrMessage(error.message)
+    } catch (error: any) {
+      seterrMessage(error?.message)
     }
     finally {
       setIsloading(false)

@@ -7,25 +7,25 @@ import Link from 'next/link';
 import ProfileDemo from './ProfileDropDown';
 import { useSession } from 'next-auth/react';
 import { getDataFromId } from '@/actions/productId.actio';
+import { User } from '@prisma/client';
 
 function Navbar() {
     const [scrolled, setScrolled] = useState(false);
-    const [user, setuser] = useState(null)
+    const [user, setuser] = useState<User | null>(null)
 
 
     const { data: session, status } = useSession()
 
     useEffect(() => {
+        const handleuser = async () => {
+            if (status === "authenticated" && session?.user?.id) {
+                const updateduser = await getDataFromId(session?.user.id, "user")
+                setuser(updateduser)
+            }
+        }
         handleuser()
     }, [status, session])
 
-
-    const handleuser=async()=>{
-        if (status === "authenticated") {
-            const updateduser = await getDataFromId(session?.user.id, "user")
-            setuser(updateduser)
-        }
-    }
 
     useEffect(() => {
         const handleScroll = () => {

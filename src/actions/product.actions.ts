@@ -30,3 +30,13 @@ export const getProducts = async (userId?: string) => {
         include: productOptions
     })
 }
+
+
+export const getProductById = async (id: string) => {
+    return prisma.product.findUnique({
+        where: {
+            id
+        },
+        include: productOptions
+    })
+}

@@ -1,6 +1,10 @@
 import React from 'react'
 
-function Title({ content }) {
+interface TitleProps {
+  content: string
+}
+
+function Title({ content }: TitleProps) {
   return (
     <div className=' mx-20 relative flex justify-center items-center'>
       <div className='absolute w-full border-b-[1px] border-[#726d76]'></div>

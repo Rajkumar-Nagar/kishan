@@ -8,8 +8,14 @@ import dayjs from 'dayjs';
 import { Slider } from '@/components/ui/slider'
 import { DatePickerDemo } from '@/components/daterangepicker'
 import ProductCard from "@/components/product-card";
+import products from '@/data/products.json'
+import { ProductType } from '@/lib/types'
 
-const CheckBox = ({ crop }) => {
+interface CheckBoxProps {
+    crop: keyof typeof crops;
+}
+
+const CheckBox = ({ crop }: CheckBoxProps) => {
 
     const [show, setshow] = useState(false)
 
@@ -71,7 +77,14 @@ const CheckBox = ({ crop }) => {
 }
 
 
-const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlist }) => {
+interface SortTypeProps {
+    title: string;
+    sortSelectedType: string;
+    setsortSelectedType: (value: string) => void;
+    setshowSortlist: (value: boolean) => void;
+}
+
+const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlist }: SortTypeProps) => {
 
     const handeltype = () => {
         setsortSelectedType(title)
@@ -99,7 +112,7 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
 
 function PrductList() {
 
-    const [prizeLimit, setPrizeLimit] = useState("")
+    const [prizeLimit, setPrizeLimit] = useState(2000)
 
     const [cropvarityshow, setCropvarityshow] = useState(false)
     const [prizeshow, setPrizeshow] = useState(false)
@@ -109,13 +122,13 @@ function PrductList() {
     const [harvestdateshow, setHarvestdateshow] = useState(false)
     const [listeddateshow, setListeddateshow] = useState(false)
 
-    const [quantiyrange, setQuantiyrange] = useState("")
+    const [quantiyrange, setQuantiyrange] = useState(200)
 
-    const [harvestStarting, setharvestStarting] = useState(Date())
-    const [harvestEnd, setHarvestEnd] = useState(Date())
+    const [harvestStarting, setharvestStarting] = useState(new Date())
+    const [harvestEnd, setHarvestEnd] = useState(new Date())
 
-    const [listedDateStart, setListedDateStart] = useState(Date())
-    const [listedDateEnd, setListedDateEnd] = useState(Date())
+    const [listedDateStart, setListedDateStart] = useState(new Date())
+    const [listedDateEnd, setListedDateEnd] = useState(new Date())
 
     const [showSortlist, setshowSortlist] = useState(false)
     const [sortSelectedType, setsortSelectedType] = useState("Relevance")
@@ -145,7 +158,14 @@ function PrductList() {
                                     <h1 className='text-[#6300a3] font-semibold text-xl'>₹ 20,000</h1>
                                 </div>
                                 <div>
-                                    <SliderDemo setPrizeLimit={setPrizeLimit} min={500} max={20000} step={500} defult={2000} />
+                                    <SliderDemo
+                                        onValueChange={([val]) => setPrizeLimit(val)}
+                                        min={500}
+                                        max={20000}
+                                        step={500}
+                                        defaultValue={[2000]}
+                                        value={[prizeLimit]}
+                                    />
                                 </div>
 
                                 <div className="prize flex items-center justify-between">
@@ -180,9 +200,8 @@ function PrductList() {
                         <div className="cropcontainer py-4 space-y-4">
                             {
                                 Object.keys(crops).map((item, index) => (
-                                    <CheckBox crop={item} key={index} />
-                                )
-                                )
+                                    <CheckBox crop={item as keyof typeof crops} key={index} />
+                                ))
                             }
                         </div>
                     }
@@ -211,7 +230,14 @@ function PrductList() {
                                     <h1 className='text-[#6300a3] font-semibold text-xl'>3000 Kg</h1>
                                 </div>
                                 <div>
-                                    <SliderDemo setPrizeLimit={setQuantiyrange} min={100} max={3000} step={30} defult={200} />
+                                    <SliderDemo
+                                        value={[quantiyrange]}
+                                        onValueChange={([val]) => setQuantiyrange(val)}
+                                        min={100}
+                                        max={3000}
+                                        step={30}
+                                        defaultValue={[200]}
+                                    />
                                 </div>
 
                                 <div className="prize flex items-center justify-between">
@@ -407,14 +433,9 @@ function PrductList() {
                         gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
                     }}
                 >
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    {products.map((product, index) => (
+                        <ProductCard product={product as any} key={index} />
+                    ))}
 
                 </div>
 

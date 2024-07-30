@@ -14,7 +14,7 @@ import { ProductType } from "@/lib/types";
 export default function ProductCard({ product }: { product: ProductType }) {
 
     const dispatch = useAppDispatch();
-    const savedItem = useAppSelector((state) => state.product.saved_item);
+    const savedItem: ProductType[] = useAppSelector((state) => state.product.saved_item);
 
     const handleSavedItem = () => {
         dispatch(productActions.addSavedItem(product))

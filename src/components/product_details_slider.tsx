@@ -11,10 +11,15 @@ import {
 } from "@/components/ui/carousel"
 import Image from "next/image"
 import { CldImage } from "next-cloudinary"
+import { ProductType } from "@/lib/types"
 
-export function Product_details_slider({ crop }) {
+interface Product_details_sliderProps {
+    product: ProductType
+}
 
-    const media = crop?.Media?.photos
+export function Product_details_slider({ product }: Product_details_sliderProps) {
+
+    const media = product?.media?.photos ?? []
 
     return (
         <Carousel className=" w-full h-full relative rounded-md overflow-hidden">

@@ -14,7 +14,7 @@ async function Profile({ children }: { children: React.ReactNode }) {
     const session = await auth()
     if (!session?.user) redirect("/login")
 
-    const user = await getDataFromId(session.user.id, "user")
+    const user = await getDataFromId(session.user.id as string, "user")
 
     return (
         <div className="maincontainer pt-10 rounded-md overflow-hidden flex items-center justify-center gap-6">

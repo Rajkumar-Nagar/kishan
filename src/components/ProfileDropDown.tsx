@@ -20,6 +20,7 @@ import { Button } from "./ui/button"
 import { useRouter } from "next/navigation"
 import { CldImage } from "next-cloudinary"
 import { account } from "@/data"
+import { User } from "@prisma/client"
 
 
 // const account = [
@@ -64,9 +65,11 @@ import { account } from "@/data"
 // ]
 
 
+interface ProfileDemoProps {
+    user: User
+}
 
-
-export default function ProfileDemo({ user }) {
+export default function ProfileDemo({ user }: ProfileDemoProps) {
 
     const router = useRouter()
 
@@ -137,7 +140,7 @@ export default function ProfileDemo({ user }) {
                                 <div className="box2 flex flex-col  py-4 border-b-[1px] border-gray-500">
 
                                     {
-                                        account.slice(0,4).map((item, index) => (
+                                        account.slice(0, 4).map((item, index) => (
                                             <Link key={index} href={item.url} className="px-4 py-2 gap-2 text-[#002f34] hover:bg-[#7e9dca] hover:text-white rounded-md flex items-center cursor-pointer">
                                                 <Image alt='' src={item.image} width={25} height={25} />
                                                 <span className="text-base ">{item.title}</span>
@@ -148,7 +151,7 @@ export default function ProfileDemo({ user }) {
 
                                 <div className="box2 flex flex-col  py-4 border-b-[1px] border-gray-500">
                                     {
-                                        account.slice(5,7).map((item, index) => (
+                                        account.slice(5, 7).map((item, index) => (
                                             <Link key={index} href={item.url} className="px-4 text-[#002f34] py-2 hover:bg-[#7e9dca] hover:text-white  gap-2 rounded-md flex items-center cursor-pointer">
                                                 <Image alt='' src={item.image} width={20} height={20} />
                                                 <span className="     text-base ">{item.title}</span>

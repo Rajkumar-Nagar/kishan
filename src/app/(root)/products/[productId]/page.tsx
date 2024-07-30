@@ -8,26 +8,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Dateconverter } from '@/utils/dateconverter'
 import Title from '@/components/ui/title'
+import { getProductById } from '@/actions/product.actions'
 // import React, { useEffect, useState } from 'react'
 
 
 
 async function Page({ params }: { params: { productId: string } }) {
+    const product = await getProductById(params.productId)
 
-    const poductDetails = await getDataFromId(params.productId, "product")
-    console.log("productDetails is ", poductDetails)
-
-    const response = await fetch("http://localhost:3000/api/fetchProduct", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(
-            poductDetails
-        )
-    })
-    const crop = await response.json();
-    if (!response.ok) {
+    if (!product) {
         throw new Error("product details fetching failed")
     }
 
@@ -38,7 +27,7 @@ async function Page({ params }: { params: { productId: string } }) {
 
                     <div className='w-[60%] h-full space-y-3'>
                         <div className='w-full h-[500px]'>
-                            <Product_details_slider crop={crop} />
+                            <Product_details_slider product={product} />
                         </div>
 
                         <div className="cropdetails pt-16 space-y-6">
@@ -57,7 +46,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: "1 / 2",
                                     }}>
                                     <h1 className='text-[#888]'>Harvest Date</h1>
-                                    <h1 className='text-[#2e054e]'>{Dateconverter(crop.HarvestStorage.harvestDate)}</h1>
+                                    <h1 className='text-[#2e054e]'>{Dateconverter(product.harvestStorage.harvestDate)}</h1>
                                 </div>
 
                                 <div className="detailsbox flex flex-col items-center justify-center border-b-2"
@@ -66,7 +55,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: "1 / 2"
                                     }}>
                                     <h1 className='text-[#888]'>Listed Date</h1>
-                                    <h1 className='text-[#2e054e]'>{Dateconverter(poductDetails.createdAt)}</h1>
+                                    <h1 className='text-[#2e054e]'>{Dateconverter(product.createdAt)}</h1>
                                 </div>
                                 <div className="detailsbox flex flex-col justify-center items-center border-b-2"
                                     style={{
@@ -75,7 +64,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                     }}>
 
                                     <h1 className='text-[#888]'>Storage Location</h1>
-                                    <h1 className='text-[rgb(46,5,78)]'>{crop?.HarvestStorage?.storageLocation}</h1>
+                                    <h1 className='text-[rgb(46,5,78)]'>{product.harvestStorage?.storageLocation}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -83,7 +72,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: "2 / 3"
                                     }}>
                                     <h1 className='text-[#888]'>Grading </h1>
-                                    <h1 className='text-[#2e054e]'>{crop?.QualityMetrics?.purity === 'Yes Grading is complete' ? "Yes" : "No"}</h1>
+                                    <h1 className='text-[#2e054e]'>{product.qualityMetrics?.purity === 'Yes Grading is complete' ? "Yes" : "No"}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex items-center justify-center flex-col"
                                     style={{
@@ -91,7 +80,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: "2 / 3"
                                     }}>
                                     <h1 className='text-[#888]'>Color</h1>
-                                    <h1 className='text-[#2e054e]'>{crop?.QualityMetrics?.color}</h1>
+                                    <h1 className='text-[#2e054e]'>{product.qualityMetrics?.color}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -131,7 +120,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: "4 / 5"
                                     }}>
                                     <h1 className='text-[#888]'>State</h1>
-                                    <h1 className='text-[#2e054e]'>{crop?.LocationInfo?.state}</h1>
+                                    <h1 className='text-[#2e054e]'>{product.locationInfo?.state}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -139,7 +128,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: "4 / 5"
                                     }}>
                                     <h1 className='text-[#888]'>village</h1>
-                                    <h1 className='text-[#2e054e]'>{crop?.LocationInfo?.village}</h1>
+                                    <h1 className='text-[#2e054e]'>{product.locationInfo?.village}</h1>
                                 </div>
                                 <div className="detailsbox border-b-2 flex flex-col justify-center items-center"
                                     style={{
@@ -147,7 +136,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         gridRow: " 4/ 5"
                                     }}>
                                     <h1 className='text-[#888]'>distict</h1>
-                                    <h1 className='text-[#2e054e]'>{crop?.LocationInfo?.districtCity}</h1>
+                                    <h1 className='text-[#2e054e]'>{product.locationInfo?.districtCity}</h1>
                                 </div>
                             </div>
 
@@ -159,7 +148,7 @@ async function Page({ params }: { params: { productId: string } }) {
                     <div className='w-[30%] space-y-5  sticky top-20 h-full'>
                         <div className="basicdetails w-full h-72 py-5 px-5 space-y-2  rounded-md border-[1px] ">
                             <div className="firstrow  rounded-md flex items-center justify-between ">
-                                <h1 className='text-xl font-semibold text-[#2e054e]'>{crop?.ProductInfo?.cropName}</h1>
+                                <h1 className='text-xl font-semibold text-[#2e054e]'>{product.ProductInfo?.cropName}</h1>
 
                                 <div className='flex items-center gap-4'>
                                     <Image
@@ -181,17 +170,17 @@ async function Page({ params }: { params: { productId: string } }) {
                             <div className="secondrow flex items-center gap-8">
                                 <div className='flex items-center gap-2'>
                                     <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>{`${crop?.ProductInfo?.quantityAvailable} kg `}</h1>
+                                    <h1 className='text-base font-semibold text-[#64566f]'>{`${product.ProductInfo?.quantityAvailable} kg `}</h1>
                                 </div>
 
                                 <div className='flex items-center gap-2'>
                                     <h1 className='text-base font-semibold text-[#2e054e]'>Varity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>{crop?.ProductInfo?.variety} </h1>
+                                    <h1 className='text-base font-semibold text-[#64566f]'>{product.ProductInfo?.variety} </h1>
                                 </div>
                             </div>
 
                             <div className="secondrow flex items-center gap-8">
-                                <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${crop?.ProductInfo?.expectedPrice} / ${crop?.ProductInfo?.units}`}</h1>
+                                <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product.ProductInfo?.expectedPrice} / ${product.ProductInfo?.units}`}</h1>
                             </div>
 
 
@@ -232,7 +221,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         alt="thumbnail"
                                     />
                                     <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
-                                        ` ${crop?.LocationInfo.village}, ${crop?.LocationInfo.districtCity},${crop?.LocationInfo.state},${crop?.LocationInfo.pincode}`
+                                        ` ${product.locationInfo.village}, ${product.locationInfo.districtCity},${product.locationInfo.state},${product.locationInfo.pincode}`
                                     }</span>
                                 </div>
                             </div>
@@ -246,7 +235,7 @@ async function Page({ params }: { params: { productId: string } }) {
 
                                 </div>
                                 <div className='space-y-1'>
-                                    <h1 className='text-xl font-semibold text-[#2e054e]'>{crop?.User.name}</h1>
+                                    <h1 className='text-xl font-semibold text-[#2e054e]'>{product.pesonalInfo.name}</h1>
 
                                     <div className='flex items-center gap-2'>
                                         <span className='text-base text-[#2e054e]'>5</span>
@@ -300,7 +289,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                     alt="thumbnail"
                                 />
                                 <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
-                                    ` ${crop?.LocationInfo.village}, ${crop?.LocationInfo.districtCity},${crop?.LocationInfo.state},${crop?.LocationInfo.pincode}`
+                                    ` ${product.locationInfo.village}, ${product.locationInfo.districtCity},${product.locationInfo.state},${product.locationInfo.pincode}`
                                 }</span>
                             </div>
 

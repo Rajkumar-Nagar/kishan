@@ -101,7 +101,7 @@ export default function CarouselDemo() {
                   <h1 className="text-5xl font-bold">{item.title}</h1>
                   <p className="text-base w-1/2">{item.description}</p>
 
-                  <Button variant={"outline"}>
+                  <Button variant={"outline"} className="text-black">
                     <Link href={`${item.href}`}>Explore More</Link>
                   </Button>
 

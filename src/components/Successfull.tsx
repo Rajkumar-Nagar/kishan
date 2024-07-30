@@ -40,7 +40,7 @@ function Successfull({ ...props }) {
                         </h1>
 
                         <p className=' text-[#002f34] text-xs'>
-                            Thank you for your contribution. Together, let's make farming more efficient and profitable!"
+                            Thank you for your contribution. Together, let&apos;s make farming more efficient and profitable!
                         </p>
 
                         <Link href={"/"} className=' text-[#002f34] text-base underline ' >

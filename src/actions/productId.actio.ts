@@ -3,8 +3,9 @@
 import prisma from "@/lib/prisma";
 import { cache } from "react";
 
-export const getDataFromId = cache(async (id, title) => {
+export const getDataFromId = cache(async (id: string, title: string) => {
     try {
+        // @ts-ignore
         const data = await prisma[title].findUnique({
             where: {
                 id
