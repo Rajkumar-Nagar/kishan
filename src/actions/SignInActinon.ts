@@ -7,21 +7,21 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt"
 
 export const handelSignInActions = async (formdata: FormData) => {
-  const { name, phoneNumber, email, address, password } = Object.fromEntries(formdata.entries()) as Record<string,string>;
+  const { name, phoneNumber, email, address, password } = Object.fromEntries(formdata.entries()) as Record<string, string>;
 
-  console.log(name, phoneNumber, email, address, password )
+  console.log(name, phoneNumber, email, address, password)
   if (!name || !phoneNumber || !address || !password) {
-    throw new Error( 'Please fill all required filled')
+    throw new Error('Please fill all required filled')
   }
 
   const findUser = await prisma.user.findUnique({
     where: {
-      phoneNumber ,
+      phoneNumber,
     }
   })
 
   if (findUser) {
-     throw new Error('user is already resistered')
+    throw new Error('user is already registered')
   }
 
   const saltRounds = parseInt(process.env.SALT_ROUND!, 10);
@@ -48,7 +48,7 @@ export const handelSignInActions = async (formdata: FormData) => {
   });
 
   return {
-    message: "user resister successfully",
+    message: "user registered successfully",
     result
   }
 

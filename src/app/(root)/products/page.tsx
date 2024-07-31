@@ -139,7 +139,7 @@ function PrductList() {
 
                 <div className="pricerange  py-3 px-5 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
-                        <label htmlFor='prize' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Prize Range</label>
+                        <label htmlFor='prize' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Price Range</label>
                         {
                             prizeshow ? (
                                 <button id='prize' onClick={() => { setPrizeshow(false) }} className='text-[#2e054e] font-semibold text-base '>-</button>
@@ -182,7 +182,7 @@ function PrductList() {
 
                 <div className="coropandVarity px-5 py-3 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
-                        <label htmlFor='varity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Crop + varity</label>
+                        <label htmlFor='varity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Crop + variety</label>
                         {
                             cropvarityshow ? (
                                 <button id='varity' onClick={() => { setCropvarityshow(false) }} className='text-[#2e054e] font-semibold text-base '>-</button>
@@ -209,7 +209,7 @@ function PrductList() {
 
                 <div className="pricerange  py-3  px-5 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
-                        <label htmlFor='Qantity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Qantity Range</label>
+                        <label htmlFor='Qantity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Quantity Range</label>
                         {
                             quntityshow ? (
                                 <button id='Qantity' onClick={() => { setQuntityshow(false) }} className='text-[#2e054e] font-semibold text-base '>-</button>
@@ -389,7 +389,7 @@ function PrductList() {
 
             </div>
 
-            <div className="rightpart w-[65%] rounded-md border-2  px-5 py-4">
+            <div className="rightpart w-[65%] rounded-md border-2 space-y-2 px-5 py-4">
 
                 <div className="headerpart flex z-30 items-center justify-between">
 

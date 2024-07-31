@@ -123,7 +123,7 @@ export default function SignIn() {
 
                 <Button disabled={isloading} type="submit" variant={"Login"}>
                   {
-                    isloading ? "loading..." : "Resister"
+                    isloading ? "loading..." : "Register"
                   }
                 </Button>
               </div>

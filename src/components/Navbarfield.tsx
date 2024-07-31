@@ -18,7 +18,7 @@ import Image from "next/image"
 
 
 
-const services: { title: string; href: string; image: string; description: string }[] = [
+export const services: { title: string; href: string; image: string; description: string }[] = [
   {
     title: "Online Mandi",
     href: "/services/mandi",
@@ -70,7 +70,7 @@ export default function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
 
-        <NavigationMenuItem>
+        <NavigationMenuItem className="hidden md:block">
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
@@ -123,7 +123,6 @@ const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a"> & { imageUrl: string; }
 >(({ className, title, children, imageUrl, ...props }, ref) => {
-  console.log(imageUrl)
   return (
     <li className="flex items-center transition-colors rounded-md cursor-pointer hover:bg-accent hover:text-accent-foreground">
 

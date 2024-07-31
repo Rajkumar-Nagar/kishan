@@ -120,7 +120,7 @@ export default function SignIn() {
 
                 <Button disabled={isloading} type="submit" variant={"Login"}>
                   {
-                    isloading ? "loading..." : "Resister"
+                    isloading ? "loading..." : "Register"
                   }
                 </Button>
               </div>
@@ -134,7 +134,7 @@ export default function SignIn() {
 
             <div className="flex flex-row flex-wrap">
               <h1>Dont have a Account?</h1>
-              <Link href={"/signup"} className="underline">Resister</Link>
+              <Link href={"/signup"} className="underline">Register</Link>
             </div>
           </div>
 

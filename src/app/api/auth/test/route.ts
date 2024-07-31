@@ -11,9 +11,8 @@ export async function POST(request: NextRequest) {
             console.log(process.env.DATABASE_URL)
         )
         console.log("hellow this is working")
-        return NextResponse.json({ message: 'usser resister successfully' }, { status: 200 });
+        return NextResponse.json({ message: 'usser registered successfully' }, { status: 200 });
     } catch (error) {
-        
+
     }
 }
-  

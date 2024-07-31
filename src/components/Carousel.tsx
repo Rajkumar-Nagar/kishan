@@ -83,7 +83,7 @@ export default function CarouselDemo() {
       <CarouselContent>
         {servicesData.map((item, index) => (
           <CarouselItem key={index}>
-            <div className=" h-body w-full ">
+            <div className="h-body w-full ">
               <div
                 className="relative h-full w-full object-cover"
                 style={{
@@ -94,17 +94,17 @@ export default function CarouselDemo() {
                 }}
               >
                 <div
-                  className="absolute inset-0 bg-gray-800  bg-opacity-50 blur-md"
+                  className="absolute inset-0 flex pt-20 sm:items-center items-start justify-center px-5 sm:px-10"
                   style={{ zIndex: 1 }}
-                />
-                <div className="absolute z-10  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white space-y-4">
-                  <h1 className="text-5xl font-bold">{item.title}</h1>
-                  <p className="text-base w-1/2">{item.description}</p>
+                >
+                  <div className="w-full max-w-md md:max-w-screen-sm text-white space-y-4 px-6 py-6 backdrop-blur-md shadow-2xl bg-black/30 rounded-lg">
+                    <h1 className="text-3xl sm:text-5xl font-bold text-balance">{item.title}</h1>
+                    <p className="text-base text-balance">{item.description}</p>
 
-                  <Button variant={"outline"} className="text-black">
-                    <Link href={`${item.href}`}>Explore More</Link>
-                  </Button>
-
+                    <Button variant={"outline"} className="text-black">
+                      <Link href={`${item.href}`}>Explore More</Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -112,8 +112,8 @@ export default function CarouselDemo() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-10" />
-      <CarouselNext className="absolute right-10" />
+      <CarouselPrevious className="absolute left-5" />
+      <CarouselNext className="absolute right-5" />
     </Carousel >
   )
 }
