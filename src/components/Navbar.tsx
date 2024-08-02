@@ -10,11 +10,12 @@ import { getDataFromId } from '@/actions/productId.actio';
 import { User } from '@prisma/client';
 import { Search, CircleUserRound } from 'lucide-react';
 import { Button } from './ui/button';
+import { useScrollWindow } from '@/hooks';
+import ProfileMenu from './profile-menu';
 
 function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
     const [user, setuser] = useState<User | null>(null)
-
+    const isScrolled = useScrollWindow();
 
     const { data: session, status } = useSession()
 
@@ -29,20 +30,8 @@ function Navbar() {
     }, [status, session])
 
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const offset = window.scrollY;
-            setScrolled(offset > 15);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-
     return (
-        <div className={`navbar ${scrolled ? 'bg-green-200' : 'bg-white'} sticky top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-all ease-linear duration-150`}>
+        <div className={`navbar ${isScrolled ? 'bg-green-200' : 'bg-white'} sticky top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-all ease-linear duration-150 !pr-4`}>
             <div className="logo">
                 <div>
                     <span className='text-3xl font-bold text-[#3aed269c]'>Kis</span>
@@ -58,7 +47,7 @@ function Navbar() {
                 <NavigationMenuDemo />
             </div>
 
-            <div className='flex flex-row items-center gap-2'>
+            <div className='flex flex-row items-center gap-4'>
                 <Link href={"/ai"} className="Kalyaan flex items-center justify-center gap-1">
                     <Image alt='' src={"/sun.png"} width={30} height={30} />
                     <span className='text-2xl font-bold text-[#4a9129]'>Ai</span>
@@ -69,7 +58,7 @@ function Navbar() {
                     <span className='sr-only'>Search</span>
                 </Button> */}
 
-                <ProfileDemo user={user} />
+                <ProfileMenu user={user} />
             </div>
         </div>
     );
