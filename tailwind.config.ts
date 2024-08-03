@@ -21,6 +21,9 @@ const config = {
       height: {
         body: "calc(100vh - 4rem)"
       },
+      maxHeight: {
+        body: "calc(100vh - 4.5rem)"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

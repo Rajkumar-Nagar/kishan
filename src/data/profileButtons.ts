@@ -3,42 +3,42 @@ export const account = [
         title: "Add New Crop",
         url: "/products/add-product",
         image: "/plus.png",
-        nav:"Add New Crop"
+        nav: "Add New Crop"
     },
     {
         title: "Saved Crops",
         url: "/profile/savedCrops",
         image: "/save.png",
-        nav:"Saved_Crops"
+        nav: "Saved_Crops"
     },
     {
         title: "Apply for License",
         url: "/license",
         image: "/licence.png",
-        nav:"Apply for License"
+        nav: "Apply for License"
     },
     {
         title: "Your Listed Products",
         url: "/profile/listedCrops",
         image: "/report.png",
-        nav:"listed_product"
+        nav: "listed_product"
     },
     {
         title: "Help",
         url: "/",
         image: "/help.png",
-        nav:"Help"
+        nav: "Help"
     },
     {
-        title: "Setting",
+        title: "Settings",
         url: "/",
         image: "/settings.png",
-        nav:"Setting"
+        nav: "Setting"
     },
     {
         title: "Terms & Condition",
         url: "/",
         image: "/terms.png",
-        nav:"Terms & Condition"
+        nav: "Terms & Condition"
     },
 ]
