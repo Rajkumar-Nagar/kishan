@@ -8,6 +8,8 @@ import dayjs from 'dayjs';
 import { Slider } from '@/components/ui/slider'
 import { DatePickerDemo } from '@/components/daterangepicker'
 import ProductCard from "@/components/product-card";
+import ProductSortlist from '@/components/productSortlist'
+import { getProducts } from '@/actions/product.actions'
 
 const CheckBox = ({ crop }) => {
 
@@ -59,7 +61,6 @@ const CheckBox = ({ crop }) => {
                                 <h1>{varity}</h1>
                             </div>
                             <h1>106</h1>
-
                         </div>
 
                     ))}
@@ -87,7 +88,6 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
             >
                 {title}
             </h1>
-
             {
                 sortSelectedType == title &&
                 <Image width={16} height={1} alt='reload' src={"/check-mark.png"} />
@@ -99,6 +99,16 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
 
 function PrductList() {
 
+    const [products, setproducts] = useState([])
+
+    useEffect(() => {
+        getProducts()
+            .then((product) => {
+                setproducts(product)
+            })
+    }, [])
+
+    console.log(products)
     const [prizeLimit, setPrizeLimit] = useState("")
 
     const [cropvarityshow, setCropvarityshow] = useState(false)
@@ -383,7 +393,6 @@ function PrductList() {
                             )
                         }
 
-
                         {
                             showSortlist && (
                                 <div className="dropdowncontainer z-50 shadow-xl w-60 bg-white border-[1px] rounded-md top-12 right-3 absolute">
@@ -400,22 +409,16 @@ function PrductList() {
 
                 </div>
 
-                <div className="listedpart w-full "
+                <div className="listedpart w-full"
                     style={{
                         display: "grid",
                         gap: 5,
                         gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
                     }}
                 >
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-
+                    {products.map((item, index) => (
+                        <ProductCard key={index} product={item} />
+                    ))}
                 </div>
 
             </div>

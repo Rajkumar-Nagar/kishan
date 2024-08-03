@@ -17,6 +17,8 @@
     "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-slider": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@react-three/drei": "^9.109.2",
+    "@react-three/fiber": "^8.16.8",
     "@reduxjs/toolkit": "^2.2.6",
     "@stream-io/node-sdk": "^0.2.6",
     "@stream-io/video-react-sdk": "^1.2.10",
@@ -27,7 +29,7 @@
     "dayjs": "^1.11.11",
     "embla-carousel-autoplay": "^8.1.5",
     "embla-carousel-react": "^8.1.5",
-    "framer-motion": "^11.2.13",
+    "framer-motion": "^11.3.19",
     "input-otp": "^1.2.4",
     "livekit-server-sdk": "^2.5.0",
     "lucide-react": "^0.399.0",
@@ -42,8 +44,10 @@
     "redux-persist": "^6.0.0",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.167.0",
+    "three-globe": "^2.31.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

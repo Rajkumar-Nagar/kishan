@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { CarouselSize } from '@/components/product_slider'
 import Link from 'next/link'
 import Title from '@/components/ui/title'
+import { GlobeDemo } from '@/components/glob'
 
 async function page() {
 
@@ -12,6 +13,7 @@ async function page() {
     <div className='w-full h-full'>
       <CarouselDemo />
 
+     
       <div className="listedProduct">
 
         <Title content={"Listed Crops"} />

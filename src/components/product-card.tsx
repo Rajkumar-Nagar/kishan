@@ -9,15 +9,20 @@ import { CldImage } from "next-cloudinary";
 import { useAppDispatch, useAppSelector } from "@/lib/redux";
 import { productActions } from "@/lib/redux/features";
 import { ProductType } from "@/lib/types";
+import { useSession } from "next-auth/react";
 
 
 export default function ProductCard({ product }: { product: ProductType }) {
 
     const dispatch = useAppDispatch();
+    const { data: session, status } = useSession()
+    const user_id = session?.user?.id
+
     const savedItem = useAppSelector((state) => state.product.saved_item);
 
     const handleSavedItem = () => {
         dispatch(productActions.addSavedItem(product))
+        fetchdata()
     }
 
     const ischecked = savedItem.findIndex((items) => items.id === product.id);
@@ -25,22 +30,24 @@ export default function ProductCard({ product }: { product: ProductType }) {
     const [loading, setloading] = useState(false)
 
     const fetchdata = async () => {
-        setloading(true)
         try {
-            setloading(true)
-            const response = await fetch("http://localhost:3000/api/fetchProduct", {
+            const response = await fetch("http://localhost:3000/api/getSavedProduct", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(
-                    product
+                    {
+                        user_id,
+                        product_id: product.id
+                    }
                 )
             })
             if (!response.ok) {
                 throw new Error("product Fethcing unsuccesfully")
             }
             const data = await response.json();
+            console.log("saved item is this ", data)
             // setproduct(data);
         } catch (error) {
             console.log(error)
@@ -64,12 +71,11 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
 
             <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
-
                 <CardItem translateZ="100" className="w-full" as="button">
 
                     <CldImage
                         alt="Uploaded Image"
-                        src={product.media.photos[0]}
+                        src={product?.media?.photos[0]}
                         width={"1000"}
                         height={"1000"}
                         className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"

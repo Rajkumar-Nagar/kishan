@@ -105,7 +105,6 @@ const FileUploader = ({
                     onChange={handleFileChangeforImage}
                 />
             </div >
-
             {error && <p className="text-red-500 mt-2">{error}</p>}
         </>
     )

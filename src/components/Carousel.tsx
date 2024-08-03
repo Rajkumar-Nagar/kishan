@@ -100,10 +100,9 @@ export default function CarouselDemo() {
                 <div className="absolute z-10  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white space-y-4">
                   <h1 className="text-5xl font-bold">{item.title}</h1>
                   <p className="text-base w-1/2">{item.description}</p>
-
-                  <Button variant={"outline"}>
+                  <button className="bg-green-400 px-4 py-1 rounded-md ">
                     <Link href={`${item.href}`}>Explore More</Link>
-                  </Button>
+                  </button>
 
                 </div>
               </div>

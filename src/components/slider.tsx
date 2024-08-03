@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 type SliderProps = React.ComponentProps<typeof Slider>
 
-export function SliderDemo({ className,setPrizeLimit,min,max,step,defult, ...props }: SliderProps) {
+export function SliderDemo({ className, setPrizeLimit, min, max, step, defult, ...props }: SliderProps) {
 
     const [val, setVal] = useState([defult]);
 
