@@ -1,12 +1,19 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
+export interface Bidder {
+    id: string;
+    name: string;
+    room: string;
+    userId: string;
+}
+
 export interface BidSliceState {
     basePrice: number;
     status: "idle" | "loading" | "failed";
     currentBid: number;
     highestBidder: string;
     highestBid: number;
-    bidders: any[];
+    bidders: Bidder[];
     paused: boolean;
     default_waiting: number;
     timestamps: {

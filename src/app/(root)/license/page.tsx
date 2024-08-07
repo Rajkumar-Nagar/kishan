@@ -6,7 +6,7 @@ import Dropdown from '@/components/ui/Dropdown';
 import { Income, IStatesWithDistricts, Profession, statesWithDistricts } from '@/data';
 import React, { useState } from 'react'
 
-function licenc() {
+export default function Licence() {
 
     const [confirmation, setconfirmation] = useState(false)
     const [error, seterror] = useState("")
@@ -526,4 +526,3 @@ function licenc() {
     )
 }
 
-export default licenc

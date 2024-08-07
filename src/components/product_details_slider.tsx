@@ -11,17 +11,32 @@ import {
 } from "@/components/ui/carousel"
 import Image from "next/image"
 import { CldImage } from "next-cloudinary"
+import { ProductType } from "@/lib/types"
 
-export function Product_details_slider({ crop }) {
+interface Product_details_sliderProps {
+    product: ProductType
+}
 
-    const media = crop?.Media?.photos
+export function Product_details_slider({ product, height }: Product_details_sliderProps,) {
+
+    const media = product?.media?.photos ?? []
 
     return (
         <Carousel className=" w-full h-full relative rounded-md overflow-hidden">
             <CarouselContent>
                 {media.map((item, index) => (
                     <CarouselItem key={index}>
-                        <div className="w-full h-[550px] relative">
+                        <div className="w-full relative"
+                            style={{
+                                height: `${height}rem`
+                            }}>
+                            <div className="blackgradianrt absolute top-0 rounded-bl-lg right-0 py-3 px-3  flex items-center justify-center"
+                                style={{ background: 'linear-gradient(0deg, #00000080, #0000)' }}
+                            >
+
+                                <h1 className='text-white text-2xl'>#22800</h1>
+
+                            </div>
                             <CldImage
                                 alt="Uploaded Image"
                                 src={item}

@@ -316,7 +316,7 @@ function Page() {
                                     <div className="varity_quantity flex justify-between items-center">
                                         <div className="varity w-[48%]">
                                             <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Varity</h1>
+                                                <h1 className=" text-[#002f34] text-xl my-2">variety</h1>
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
                                             <Dropdown
@@ -347,7 +347,7 @@ function Page() {
                                         <div className="expectedPrize w-[48%] flex items-center justify-between gap-6">
                                             <div className="prize w-[60%]">
                                                 <div className='flex items-center'>
-                                                    <h1 className=" text-[#002f34] text-xl my-2">Expected Prize</h1>
+                                                    <h1 className=" text-[#002f34] text-xl my-2">Expected Price</h1>
                                                     <h1 className=" text-[#65d73b] text-xl my-2">(₹)</h1>
                                                     <span className=" text-[#da4f43] text-xl my-2">*</span>
                                                 </div>

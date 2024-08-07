@@ -19,7 +19,6 @@ const BiddingPriceButton = (
     }: BiddingPriceButtonProps
 ) => {
 
-
     return (
         <Button variant={'outline'} onClick={() => handleClick(price)} className='px-4 py-2 h-auto'>
             +{price}

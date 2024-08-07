@@ -8,10 +8,15 @@ import dayjs from 'dayjs';
 import { Slider } from '@/components/ui/slider'
 import { DatePickerDemo } from '@/components/daterangepicker'
 import ProductCard from "@/components/product-card";
-import ProductSortlist from '@/components/productSortlist'
+import products from '@/data/products.json'
+import { ProductType } from '@/lib/types'
 import { getProducts } from '@/actions/product.actions'
 
-const CheckBox = ({ crop }) => {
+interface CheckBoxProps {
+    crop: keyof typeof crops;
+}
+
+const CheckBox = ({ crop }: CheckBoxProps) => {
 
     const [show, setshow] = useState(false)
 
@@ -72,7 +77,14 @@ const CheckBox = ({ crop }) => {
 }
 
 
-const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlist }) => {
+interface SortTypeProps {
+    title: string;
+    sortSelectedType: string;
+    setsortSelectedType: (value: string) => void;
+    setshowSortlist: (value: boolean) => void;
+}
+
+const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlist }: SortTypeProps) => {
 
     const handeltype = () => {
         setsortSelectedType(title)
@@ -119,13 +131,13 @@ function PrductList() {
     const [harvestdateshow, setHarvestdateshow] = useState(false)
     const [listeddateshow, setListeddateshow] = useState(false)
 
-    const [quantiyrange, setQuantiyrange] = useState("")
+    const [quantiyrange, setQuantiyrange] = useState(200)
 
-    const [harvestStarting, setharvestStarting] = useState(Date())
-    const [harvestEnd, setHarvestEnd] = useState(Date())
+    const [harvestStarting, setharvestStarting] = useState(new Date())
+    const [harvestEnd, setHarvestEnd] = useState(new Date())
 
-    const [listedDateStart, setListedDateStart] = useState(Date())
-    const [listedDateEnd, setListedDateEnd] = useState(Date())
+    const [listedDateStart, setListedDateStart] = useState(new Date())
+    const [listedDateEnd, setListedDateEnd] = useState(new Date())
 
     const [showSortlist, setshowSortlist] = useState(false)
     const [sortSelectedType, setsortSelectedType] = useState("Relevance")
@@ -136,7 +148,7 @@ function PrductList() {
 
                 <div className="pricerange  py-3 px-5 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
-                        <label htmlFor='prize' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Prize Range</label>
+                        <label htmlFor='prize' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Price Range</label>
                         {
                             prizeshow ? (
                                 <button id='prize' onClick={() => { setPrizeshow(false) }} className='text-[#2e054e] font-semibold text-base '>-</button>
@@ -155,7 +167,14 @@ function PrductList() {
                                     <h1 className='text-[#6300a3] font-semibold text-xl'>₹ 20,000</h1>
                                 </div>
                                 <div>
-                                    <SliderDemo setPrizeLimit={setPrizeLimit} min={500} max={20000} step={500} defult={2000} />
+                                    <SliderDemo
+                                        onValueChange={([val]) => setPrizeLimit(val)}
+                                        min={500}
+                                        max={20000}
+                                        step={500}
+                                        defaultValue={[2000]}
+                                        value={[prizeLimit]}
+                                    />
                                 </div>
 
                                 <div className="prize flex items-center justify-between">
@@ -172,7 +191,7 @@ function PrductList() {
 
                 <div className="coropandVarity px-5 py-3 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
-                        <label htmlFor='varity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Crop + varity</label>
+                        <label htmlFor='varity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Crop + variety</label>
                         {
                             cropvarityshow ? (
                                 <button id='varity' onClick={() => { setCropvarityshow(false) }} className='text-[#2e054e] font-semibold text-base '>-</button>
@@ -190,9 +209,8 @@ function PrductList() {
                         <div className="cropcontainer py-4 space-y-4">
                             {
                                 Object.keys(crops).map((item, index) => (
-                                    <CheckBox crop={item} key={index} />
-                                )
-                                )
+                                    <CheckBox crop={item as keyof typeof crops} key={index} />
+                                ))
                             }
                         </div>
                     }
@@ -200,7 +218,7 @@ function PrductList() {
 
                 <div className="pricerange  py-3  px-5 border-2 rounded-md">
                     <div className='flex items-center justify-between'>
-                        <label htmlFor='Qantity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Qantity Range</label>
+                        <label htmlFor='Qantity' className='text-[#2e054e] font-semibold text-base cursor-pointer'>Quantity Range</label>
                         {
                             quntityshow ? (
                                 <button id='Qantity' onClick={() => { setQuntityshow(false) }} className='text-[#2e054e] font-semibold text-base '>-</button>
@@ -221,7 +239,14 @@ function PrductList() {
                                     <h1 className='text-[#6300a3] font-semibold text-xl'>3000 Kg</h1>
                                 </div>
                                 <div>
-                                    <SliderDemo setPrizeLimit={setQuantiyrange} min={100} max={3000} step={30} defult={200} />
+                                    <SliderDemo
+                                        value={[quantiyrange]}
+                                        onValueChange={([val]) => setQuantiyrange(val)}
+                                        min={100}
+                                        max={3000}
+                                        step={30}
+                                        defaultValue={[200]}
+                                    />
                                 </div>
 
                                 <div className="prize flex items-center justify-between">
@@ -373,7 +398,7 @@ function PrductList() {
 
             </div>
 
-            <div className="rightpart w-[65%] rounded-md border-2  px-5 py-4">
+            <div className="rightpart w-[65%] rounded-md border-2 space-y-2 px-5 py-4">
 
                 <div className="headerpart flex z-30 items-center justify-between">
 
@@ -416,9 +441,10 @@ function PrductList() {
                         gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
                     }}
                 >
-                    {products.map((item, index) => (
-                        <ProductCard key={index} product={item} />
+                    {products.map((product, index) => (
+                        <ProductCard product={product as any} key={index} />
                     ))}
+
                 </div>
 
             </div>

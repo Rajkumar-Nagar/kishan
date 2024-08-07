@@ -11,7 +11,7 @@ import React from 'react'
 
 function page() {
     return (
-        <div className="maincontianer">
+        <div className="maincontianer dark">
             <div className="w-[100%]  h-[50rem]   bg-black">
 
                 <ShootingStarsAndStarsBackgroundDemo >
@@ -22,6 +22,7 @@ function page() {
 
 
             <div className="afterHeader bg-[#1a1a1a] w-full py-5 pt-10 px-24">
+
 
                 <div className="manditime">
                     <h1 className='text-white text-3xl font-semibold'>Mandi Timing Cards</h1>
@@ -155,14 +156,12 @@ function page() {
                         <h1 className='text-white text-3xl font-semibold'>Sold Crops</h1>
                         <h1 className='text-white text-3xl font-semibold'>Sorted It</h1>
                     </div>
-
                     <ExpandableCardDemo />
                 </div>
 
                 <div className="soldProduct mt-4">
                     <h1 className='text-white text-3xl font-semibold pb-5'>Step to Sold Crops</h1>
                     <CardHoverEffectDemo />
-
                 </div>
 
                 <div className="soldProduct mt-4">
@@ -171,7 +170,9 @@ function page() {
                 </div>
 
             </div>
-        </div>
+
+
+        </div >
     )
 }
 export default page

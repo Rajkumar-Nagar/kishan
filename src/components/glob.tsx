@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { useDarkTheme } from "@/hooks";
 
 const World = dynamic(() => import("./ui/globe").then((m) => m.World), {
     ssr: false,
@@ -393,6 +394,8 @@ export function GlobeDemo() {
             color: colors[Math.floor(Math.random() * (colors.length - 1))],
         },
     ];
+
+    // useDarkTheme()
 
     return (
         <div className="flex flex-row  items-center justify-center h-full  md:h-auto dark:bg-black  relative w-full">

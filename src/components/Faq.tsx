@@ -26,8 +26,16 @@ const faq = [
     }
 ]
 
+interface FaqfieldProps {
+    item: {
+        question: string;
+        answer: string;
+    };
+    askqustied: string;
+    setaskqustied: (askqustied: string) => void;
+}
 
-const Faqfield = ({ item, setaskqustied, askqustied }) => {
+const Faqfield = ({ item, setaskqustied, askqustied }: FaqfieldProps) => {
 
 
     const ref = useRef<HTMLDivElement>(null)
