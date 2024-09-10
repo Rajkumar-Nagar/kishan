@@ -94,10 +94,14 @@ export default function CarouselDemo() {
                 }}
               >
                 <div
+                  className="absolute inset-0 bg-gray-800  bg-opacity-50 blur-md"
+                  style={{ zIndex: 1 }}
+                />
+                <div
                   className="absolute inset-0 flex pt-20 sm:items-center items-start justify-center px-5 sm:px-10"
                   style={{ zIndex: 1 }}
                 >
-                  <div className="w-full max-w-md md:max-w-screen-sm text-white space-y-4 px-6 py-6 backdrop-blur-md shadow-2xl bg-black/30 rounded-lg">
+                  <div className="w-full max-w-md md:max-w-screen-sm text-white space-y-4 px-6 py-6 backdrop-blur-sm shadow-2xl bg-black/30 rounded-lg">
                     <h1 className="text-3xl sm:text-5xl font-bold text-balance">{item.title}</h1>
                     <p className="text-base text-balance">{item.description}</p>
 

@@ -4,6 +4,7 @@ import { Dateconverter } from '@/utils/dateconverter'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import MoreDetails from './moreDetails'
+import { CldImage } from 'next-cloudinary'
 
 function BasicDetails({ product }) {
 

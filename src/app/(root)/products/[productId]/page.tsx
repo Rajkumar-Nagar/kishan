@@ -205,18 +205,10 @@ async function Page({ params }: { params: { productId: string } }) {
 
             </div>
 
-            <div className="listedProduct my-20 px-20">
-                <div className=' mx-32 relative border-b-2 flex justify-center  border-[#2e054e] '>
-                    <div className=' absolute -bottom-9 bg-white p-4 text-3xl text-[#2e054e] font-semibold text-center'>
-                        Freqenty Asked Qustion
-                    </div>
-                </div>
                 <Faq />
-            </div>
+           
 
-            <div className='w-full h-60 bg-green-400 flex  items-center justify-center'>
-                <h1>Footer</h1>
-            </div>
+
         </div>
     )
 }

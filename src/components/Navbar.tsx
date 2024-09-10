@@ -12,10 +12,13 @@ import { Search, CircleUserRound } from 'lucide-react';
 import { Button } from './ui/button';
 import { useScrollWindow } from '@/hooks';
 import ProfileMenu from './profile-menu';
+import { HoverBorderGradientDemo } from './onlineMandi/joinButtion';
+import { useRouter } from 'next/navigation';
 
 function Navbar() {
     const [user, setuser] = useState<User | null>(null)
     const isScrolled = useScrollWindow();
+    const router = useRouter()
 
     const { data: session, status } = useSession()
 
@@ -29,9 +32,13 @@ function Navbar() {
         handleuser()
     }, [status, session])
 
+    const handelJoinMandi = () => {
+        router.push("/mandi/joinMandi")
+    }
+
 
     return (
-        <div className={`navbar ${isScrolled ? 'bg-green-200' : 'bg-white'} sticky top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-all ease-linear duration-150 !pr-4`}>
+        <div className={`navbar ${isScrolled ? 'bg-[#55648f]' : 'bg-white'} sticky top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-all ease-linear duration-150 !pr-4`}>
             <div className="logo">
                 <div>
                     <span className='text-3xl font-bold text-[#3aed269c]'>Kis</span>
@@ -45,9 +52,11 @@ function Navbar() {
 
             <div className="serveses sm:flex items-center hidden">
                 <NavigationMenuDemo />
+
             </div>
 
             <div className='flex flex-row items-center gap-4'>
+                <HoverBorderGradientDemo onClick={handelJoinMandi} />
                 <Link href={"/ai"} className="Kalyaan flex items-center justify-center gap-1">
                     <Image alt='' src={"/sun.png"} width={30} height={30} />
                     <span className='text-2xl font-bold text-[#4a9129]'>Ai</span>

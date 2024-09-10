@@ -6,10 +6,9 @@ interface TitleProps {
 
 function Title({ content }: TitleProps) {
   return (
-    <div className=' mx-20 relative flex justify-center items-center'>
-      <div className='absolute w-full border-b-[1px] border-[#726d76]'></div>
-      <div className='bg-white p-4 z-40 text-3xl text-[#2e054e] font-semibold text-center'>
-        {content}
+    <div className=' mx-32 relative border-b-2 flex justify-center  border-[#2e054e] '>
+      <div className=' absolute -bottom-9 bg-white p-4 text-3xl text-[#2e054e] font-semibold text-center'>
+     { content}
       </div>
     </div>
   )

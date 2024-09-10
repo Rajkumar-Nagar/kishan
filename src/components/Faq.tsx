@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
+import Title from './ui/title';
 
 const faq = [
     {
@@ -59,7 +60,7 @@ const Faqfield = ({ item, setaskqustied, askqustied }: FaqfieldProps) => {
 
 
     return (
-        <button onClick={handelshow} className="faq w-full border-b-2 py-3">
+        <button onClick={handelshow} className="faq w-full border-b-2 py-3 ">
             <div className='flex items-center justify-between'>
                 <h1 className='text-[#2e054e] test-xl font-semibold'> {`Q.${item.question}`}</h1>
                 <Image width={16} height={16} alt='reload' src={isopened ? "/arrow.png" : "/down.png"} />
@@ -81,12 +82,16 @@ function Faq() {
     const [askqustied, setaskqustied] = useState("")
 
     return (
-        <div className='flex flex-col space-y-4 my-12'>
-            {
-                faq.map((item, index) => (
-                    <Faqfield item={item} key={index} askqustied={askqustied} setaskqustied={setaskqustied} />
-                ))
-            }
+
+        <div className="listedProduct my-20 px-20">
+            <Title content='  Freqenty Asked Qustion' />
+            <div className='my-10'>
+                {
+                    faq.map((item, index) => (
+                        <Faqfield item={item} key={index} askqustied={askqustied} setaskqustied={setaskqustied} />
+                    ))
+                }
+            </div>
         </div>
     )
 }
