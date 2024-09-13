@@ -5,12 +5,18 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import MoreDetails from './moreDetails'
 import { CldImage } from 'next-cloudinary'
+import DropdownIcon from '../ui/dropdown-icon'
+import { ProductType } from '@/lib/types'
 
-function BasicDetails({ product }) {
+interface BasicDetailsProps {
+    product: ProductType
+}
+
+function BasicDetails({ product }: BasicDetailsProps) {
 
     const [seeDetails, setseeDetails] = useState(false)
 
-    
+
     return (
         <div className="basicdetails w-full  py-3  space-y-2  rounded-xl my-4 border-[1px] ">
             <div className="firstrow  rounded-md px-5 flex items-center justify-between ">
@@ -72,7 +78,7 @@ function BasicDetails({ product }) {
 
                 <button onClick={() => { setseeDetails(!seeDetails) }} className="flex items-center justify-center gap-1  bg-[#6cbdaf] w-36 h-10   border-2 border-black rounded-sm">
                     <h1 className="text-white ">{seeDetails ? "Hide Details" : "More Details"}</h1>
-                    <Image width={16} height={1} alt='reload' src={seeDetails ? "/upload1.png" : "/upload2.png"} />
+                    <DropdownIcon condition={seeDetails} />
                 </button>
             </div>
 

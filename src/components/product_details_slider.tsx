@@ -15,6 +15,7 @@ import { ProductType } from "@/lib/types"
 
 interface Product_details_sliderProps {
     product: ProductType
+    height: number
 }
 
 export function Product_details_slider({ product, height }: Product_details_sliderProps,) {

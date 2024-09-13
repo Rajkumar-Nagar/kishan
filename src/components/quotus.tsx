@@ -5,9 +5,9 @@ import HomeTitle from "./HomeTitle";
 
 export function LayoutGridDemo() {
   return (
-    <div className="maincontainer">
+    <div className="container py-6 md:py-10 space-y-5">
       <HomeTitle Title="WHY KISAN IS ESSENTIAL" />
-      <div className="h-screen  w-full">
+      <div className="h-screen w-full">
         <LayoutGrid cards={cards} />
       </div>
     </div>

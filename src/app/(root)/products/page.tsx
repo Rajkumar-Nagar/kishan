@@ -4,13 +4,11 @@ import { SliderDemo } from '@/components/slider'
 import { crops } from '@/data'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import dayjs from 'dayjs';
-import { Slider } from '@/components/ui/slider'
 import { DatePickerDemo } from '@/components/daterangepicker'
 import ProductCard from "@/components/product-card";
-import products from '@/data/products.json'
 import { ProductType } from '@/lib/types'
 import { getProducts } from '@/actions/product.actions'
+import DropdownIcon from '@/components/ui/dropdown-icon'
 
 interface CheckBoxProps {
     crop: keyof typeof crops;
@@ -47,13 +45,7 @@ const CheckBox = ({ crop }: CheckBoxProps) => {
 
                 <div className='right flex gap-4 items-center'>
                     <h1>106</h1>
-                    {
-                        show ? (
-                            <Image width={16} height={16} alt='reload' src={"/arrow.png"} />
-                        ) : (
-                            <Image width={16} height={16} alt='reload' src={"/down.png"} />
-                        )
-                    }
+                    <DropdownIcon condition={show} />
                 </div>
             </button>
 
@@ -111,7 +103,7 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
 
 function PrductList() {
 
-    const [products, setproducts] = useState([])
+    const [products, setproducts] = useState<ProductType[]>([])
 
     useEffect(() => {
         getProducts()
@@ -121,7 +113,7 @@ function PrductList() {
     }, [])
 
     console.log(products)
-    const [prizeLimit, setPrizeLimit] = useState("")
+    const [prizeLimit, setPrizeLimit] = useState(0)
 
     const [cropvarityshow, setCropvarityshow] = useState(false)
     const [prizeshow, setPrizeshow] = useState(false)
@@ -410,14 +402,7 @@ function PrductList() {
                     <button onClick={() => { setshowSortlist(!showSortlist) }} className="right rounded-md border-2 py-2 px-4 relative flex items-center justify-between  gap-5">
 
                         <h1 className='flex items-center justify-center text-[#2e054e] font-semibold' >{`sort by : ${sortSelectedType}`}</h1>
-                        {
-                            showSortlist ? (
-                                <Image width={16} height={1} alt='reload' src={"/upload1.png"} />
-                            ) : (
-                                <Image width={20} height={2} alt='reload' src={"/upload2.png"} />
-                            )
-                        }
-
+                        <DropdownIcon condition={showSortlist} />
                         {
                             showSortlist && (
                                 <div className="dropdowncontainer z-50 shadow-xl w-60 bg-white border-[1px] rounded-md top-12 right-3 absolute">
@@ -438,7 +423,7 @@ function PrductList() {
                     style={{
                         display: "grid",
                         gap: 5,
-                        gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr) )",
                     }}
                 >
                     {products.map((product, index) => (

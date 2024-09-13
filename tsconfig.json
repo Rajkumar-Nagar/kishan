@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/(root)/mandi/bidding_room"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

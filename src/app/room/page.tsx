@@ -1,15 +1,12 @@
 import { auth } from "@/auth";
-import BiddingBoard from "./_bidding-board";
-import BiddingPriceButton from "./_bidding-price-btn";
+import prisma from "@/lib/prisma";
 import { Product_details_slider } from "@/components/product_details_slider";
 import Image from "next/image";
 import { CldImage } from "next-cloudinary";
-import { HoverBorderGradientDemo } from "@/components/onlineMandi/joinButtion";
-import { Dateconverter } from "@/utils/dateconverter";
 import BasicDetails from "@/components/room/basicDetails";
 import BidderButtons from "@/components/room/bidderButton";
 import HeaderButton from "@/components/room/headerButtons";
-import Bidder_viewer from "@/components/room/bidders_viewersList";
+import { productOptions } from "@/actions/include.options";
 
 export default async function Page({
     searchParams
@@ -26,24 +23,14 @@ export default async function Page({
 
     const session = await auth();
     const userId = session?.user?.id || searchParams?.userId || Math.random().toString(36).substring(7);
-    const product = await prisma?.product.findFirst(
-        {
-            include: {
-                media: true,
-                pesonalInfo: true,
-                ProductInfo: true,
-                locationInfo: true,
-                qualityMetrics: true,
-                harvestStorage: true,
-                additionalServices: true,
 
-            }
+    const product = await prisma.product.findFirst(
+        {
+            include: productOptions
         }
     )
     console.log("product is this ", product?.pesonalInfo.avatar)
-    // <div className="h-full w-full p-4">
-    //     <BiddingBoard room={room} name={name} userId={userId} />
-    // </div>
+
 
     return (
 
@@ -63,10 +50,10 @@ export default async function Page({
                 <div className="afterHeader flex  mt-5 px-10 justify-center gap-5">
 
                     <div className="product_slider w-[40%] flex flex-col">
-                        <Product_details_slider product={product} height={20} />
+                        <Product_details_slider product={product!} height={20} />
                         <div className="otherDetails">
 
-                            <BasicDetails product={product} />
+                            <BasicDetails product={product!} />
 
                         </div>
                     </div>

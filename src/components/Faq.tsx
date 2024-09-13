@@ -1,8 +1,8 @@
 "use client"
 
-import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import Title from './ui/title';
+import DropdownIcon from './ui/dropdown-icon';
 
 const faq = [
     {
@@ -41,7 +41,7 @@ const Faqfield = ({ item, setaskqustied, askqustied }: FaqfieldProps) => {
 
     const ref = useRef<HTMLDivElement>(null)
 
-    const [maxheight, setMaxheight] = useState("0px")
+    const [maxHeight, setMaxheight] = useState("0px")
     const [show, setshow] = useState(false);
 
     const handelshow = () => {
@@ -62,14 +62,13 @@ const Faqfield = ({ item, setaskqustied, askqustied }: FaqfieldProps) => {
     return (
         <button onClick={handelshow} className="faq w-full border-b-2 py-3 ">
             <div className='flex items-center justify-between'>
-                <h1 className='text-[#2e054e] test-xl font-semibold'> {`Q.${item.question}`}</h1>
-                <Image width={16} height={16} alt='reload' src={isopened ? "/arrow.png" : "/down.png"} />
-
+                <h1 className='text-[#2e054e] test-xl text-left font-semibold'> {`Q. ${item.question}`}</h1>
+                <DropdownIcon condition={isopened} />
             </div>
-            <div className='text-[#888] text-start px-4 overflow-hidden transition-all duration-150 ease-in-out' ref={ref}
-                style={{
-                    maxHeight: maxheight,
-                }}>
+            <div className='text-[#888] text-start px-4 overflow-hidden transition-all duration-150 ease-in-out'
+                ref={ref}
+                style={{ maxHeight }}
+            >
                 {item.answer}
             </div>
         </button>
@@ -83,8 +82,8 @@ function Faq() {
 
     return (
 
-        <div className="listedProduct my-20 px-20">
-            <Title content='  Freqenty Asked Qustion' />
+        <div className="listedProduct my-20 px-6 sm:px-20 container max-w-screen-lg">
+            <Title content='Freqenty Asked Qustion' />
             <div className='my-10'>
                 {
                     faq.map((item, index) => (

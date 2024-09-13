@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -50,7 +49,6 @@
   }
 }
 
-
 @layer base {
   * {
     @apply border-border;
@@ -62,6 +60,12 @@
 
   ::-webkit-scrollbar {
     width: 0;
+  }
+
+  input[type="checkbox"],
+  input[type="checkbox"] + label,
+  label[for] {
+    @apply cursor-pointer;
   }
 }
 

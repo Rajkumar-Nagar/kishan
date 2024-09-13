@@ -103,6 +103,7 @@ const FileUploader = ({
                     id={`${_id}`}
                     className='hidden'
                     onChange={handleFileChangeforImage}
+                    accept={type === 'video' ? 'video/*' : 'image/*'}
                 />
             </div >
             {error && <p className="text-red-500 mt-2">{error}</p>}

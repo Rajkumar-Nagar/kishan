@@ -70,7 +70,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
             }
 
 
-            <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
+            <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
                 <CardItem translateZ="100" className="w-full" as="button">
 
                     <CldImage
@@ -84,13 +84,6 @@ export default function ProductCard({ product }: { product: ProductType }) {
                             source: true
                         }}
                     />
-                    {/* <Image
-                        src="/LaborAi.jpg"
-                        height="1000"
-                        width="1000"
-                        className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                        alt="thumbnail"
-                    /> */}
                 </CardItem>
 
 
@@ -101,7 +94,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
                             translateZ="50"
                             className="text-base font-bold text-[#2e054e] dark:text-white"
                         >
-                            {`${product?.ProductInfo.cropName}  /  ${product?.ProductInfo.quantityAvailable}(kg)`}
+                            {`${product?.ProductInfo.cropName} / ${product?.ProductInfo.quantityAvailable}(kg)`}
                         </CardItem>
 
                         <CardItem
@@ -158,7 +151,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
                     <CardItem
                         translateZ="60"
-                        className="flex w-full pt-2 mt-2 gap-2 items-center border-t-[2px]"
+                        className="flex w-full pt-2 mt-2 gap-2 items-center border-t-[2px] max-w-60"
                     >
                         <Image
                             src="/location1.png"
@@ -166,8 +159,8 @@ export default function ProductCard({ product }: { product: ProductType }) {
                             width="15"
                             alt="thumbnail"
                         />
-                        <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
-                            ` ${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
+                        <span className="text-xs font-semibold text-[#74667f] dark:text-white line-clamp-1">{
+                            `${product?.locationInfo.village}, ${product?.locationInfo.districtCity}, ${product?.locationInfo.state}, ${product?.locationInfo.pincode}`
                         }</span>
 
                     </CardItem>

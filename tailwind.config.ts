@@ -34,6 +34,10 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        'xxs': '360px',
+        'xs': '480px',
+      },
       height: {
         body: "calc(100vh - 4rem)",
       },

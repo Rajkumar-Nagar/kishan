@@ -1,17 +1,10 @@
-
-import CarouselDemo from '@/components/Carousel'
-import { GlobeDemo } from '@/components/glob'
 import Allindiamandijoin from '@/components/onlineMandi/Allindiamandijoin'
-import { HoverBorderGradientDemo } from '@/components/onlineMandi/joinButtion'
 import JoinPageSlider from '@/components/onlineMandi/joinPageSlider'
 import MiniMandiSelect from '@/components/onlineMandi/MiniMandiSelect'
 import { StickyScrollRevealDemo } from '@/components/onlineMandi/StickyScroll'
-import { TracingBeamDemo } from '@/components/tracingBeam'
-import Dropdown from '@/components/ui/Dropdown'
-import { IStatesWithDistricts, statesWithDistricts } from '@/data'
+import { TracingBeam } from '@/components/ui/tracing-beam'
 import Image from 'next/image'
-import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
 function page() {
 
@@ -20,7 +13,7 @@ function page() {
             <div className="mainbox w-[80%] mx-auto">
 
                 <div className="header mt-10">
-                    < JoinPageSlider />
+                    <JoinPageSlider />
                 </div>
 
                 <div className="afterHeader py-10">
@@ -43,7 +36,7 @@ function page() {
                 </div>
 
                 <div className="next">
-                    <TracingBeamDemo>
+                    <TracingBeam>
                         <div className="AllINdiamandi">
                             <div className="max-w-3xl mx-auto antialiased pt-4 relative">
                                 <div className="text-sm  prose prose-sm dark:prose-invert">
@@ -100,7 +93,7 @@ function page() {
                             <StickyScrollRevealDemo />
                         </div>
 
-                    </TracingBeamDemo>
+                    </TracingBeam>
 
 
 

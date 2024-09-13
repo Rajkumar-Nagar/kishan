@@ -10,8 +10,8 @@ export function AppleCardsCarouselDemo() {
   ));
 
   return (
-    <div className="w-full h-full py-20">
-      <HomeTitle Title="Why Choose Us"/>
+    <div className="w-full h-full container mt-5">
+      <HomeTitle Title="Why Choose Us" />
       <Carousel items={cards} />
     </div>
   );
@@ -52,14 +52,14 @@ const DummyContent = () => {
 const data = [
   {
     category: "Online Mandi",
-    title:"List and sell crops across India.",
+    title: "List and sell crops across India.",
     src: "/i9.jpg",
     content: <DummyContent />,
   },
   {
     category: "AI Assistance",
     title: "Get instant farming solutions.",
-   src: "/i8.jpg",
+    src: "/i8.jpg",
     content: <DummyContent />,
   },
   {
