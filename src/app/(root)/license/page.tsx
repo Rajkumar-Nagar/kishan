@@ -152,377 +152,357 @@ export default function Licence() {
         }
     }
 
+    if (confirmation) {
+        return (
+            <Successfull product setConformation={setconfirmation} title={"Your license application has been successfully submit to our platform. please wait for our response"} imgurl="/welcome.jpg" />
+        )
+    }
+
     return (
-        <>
-            {
-                confirmation ? (
-                    <Successfull product setConformation={setconfirmation} title={" Your license application has been successfully submit to our platform. please wait for our response"} imgurl="/welcome.jpg" />
-                ) : (
+        <div className="container max-w-4xl w-full p-2 sm:p-4 md:p-8">
+            <div className="frombox rounded-3xl border-2 shadow-lg overflow-hidden my-4">
+                <div className="header h-60 w-full flex flex-row "
+                    style={{
+                        backgroundImage: "url(/license.jpg)",
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: '50% 25%',
+                    }}
+                >
+                    <div className=" w-full h-full flex p-8 text-white">
 
-                    <div className="maincontainer flex  justify-center w-full ">
-                        <div className="frombox w-[70%] rounded-3xl border-2 shadow-lg overflow-hidden my-4">
-                            <div className="header h-60 w-full flex flex-row "
-                                style={{
-                                    backgroundImage: "url(/license.jpg)",
-                                    backgroundSize: 'cover',
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundPosition: '50% 25%',
-                                }}
-                            >
-                                <div className=" w-full h-full flex p-8 text-white">
+                    </div>
 
-                                </div>
-
-                            </div>
-
-                            <div className="titlek w-full border-b-[1px]">
-                                <h1 className="tagline text-center text-[#002f34] font-semibold text-3xl my-3">Apply For License of Mandi</h1>
-                            </div>
+                </div>
 
 
+                <div className="space-y-10 divide-y [&>div_>_h1]:mt-10 [&>div]:px-4 sm:[&>div]:px-8 md:[&>div]:px-10 [&>div]:space-y-4">
+                    <div className="title w-full">
+                        <h1 className="tagline text-center text-[#002f34] font-semibold text-3xl my-3">Apply For License of Mandi</h1>
+                    </div>
 
-                            <div className="personal_information px-14 py-10 border-b-[1px]">
-                                <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Select Mandi</h1>
+                    <div className="personal_information">
+                        <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Select Mandi</h1>
 
-                                <div className=" personal_informationfield mt-4 px-5 space-y-2">
-                                    <Dropdown
-                                        Setquantity={setmandiType}
-                                        quntity={mandiType}
-                                        fields={["All India Mandi", "Mini Mandi"]}
-                                        nameDrop="Mandi" />
+                        <div className=" personal_informationfield space-y-2">
+                            <Dropdown
+                                Setquantity={setmandiType}
+                                quntity={mandiType}
+                                fields={["All India Mandi", "Mini Mandi"]}
+                                nameDrop="Mandi" />
 
-                                    {
-                                        mandiType == "Mini Mandi" && (
-                                            <div className=" flex items-center justify-between">
+                            {
+                                mandiType == "Mini Mandi" && (
+                                    <div className=" flex items-center justify-between flex-wrap *:basis-52 [&>div]:grow gap-4">
 
-                                                <div className="sellingoption w-[48%]">
-                                                    <div className='flex items-center'>
-                                                        <h1 className=" text-[#002f34] text-xl my-2">State</h1>
-                                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                    </div>
-                                                    <Dropdown
-                                                        Setquantity={(v: string) => setminimandiState(v as IStatesWithDistricts)}
-                                                        quntity={minimandiState}
-                                                        fields={Object.keys(statesWithDistricts)}
-                                                        nameDrop="state" />
-                                                </div>
-
-                                                <div className="sellingoption w-[48%]">
-                                                    <div className='flex items-center'>
-                                                        <h1 className=" text-[#002f34] text-xl my-2">Distict</h1>
-                                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                    </div>
-                                                    <Dropdown
-                                                        Setquantity={setminimandidistict}
-                                                        quntity={minimandidistict}
-                                                        fields={statesWithDistricts[state]}
-                                                        nameDrop="distict" />
-                                                </div>
-                                            </div>
-                                        )
-                                    }
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div className="personal_information px-14 py-10 border-b-[1px]">
-                                <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Personal Information</h1>
-
-                                <div className=" personal_informationfield mt-4 px-5 space-y-2">
-
-                                    <div className="aadhar_number">
-
-                                        <div className='flex items-center'>
-                                            <h1 className=" text-[#002f34] text-xl my-2">Aadhar Number</h1>
-                                            <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                        </div>
-
-                                        <input
-                                            type="text"
-                                            className='Pinput w-full'
-                                            value={aadhar_number}
-                                            onChange={handleAadharNumber}
-                                            maxLength={14} />
-                                    </div>
-
-                                    <div className="location_additional_number flex items-center justify-between">
-                                        <div className="location w-[48%]">
+                                        <div className="sellingoption">
                                             <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Current Location</h1>
-                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            </div>
-
-                                            <input
-                                                type="text"
-                                                className='Pinput w-full'
-                                                value={current_location}
-                                                onChange={(e) => { setCurrent_location(e.target.value) }} />
-                                        </div>
-
-                                        <div className="additional_number w-[48%]">
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">other Number</h1>
-                                                {/* <span className=" text-[#da4f43] text-xl my-2">*</span> */}
-                                            </div>
-
-                                            <input
-                                                type="text"
-                                                className='Pinput w-full'
-                                                value={additional_number}
-                                                onChange={handelMobilNumber} />
-                                        </div>
-
-                                    </div>
-
-
-                                    <div className="aadharphotos flex items-center justify-evenly">
-                                        <div className="fortPhotos">
-
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Aadhar Front Photo</h1>
-                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            </div>
-
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} preview />
-
-                                        </div>
-
-                                        <div className="backphotos">
-
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Aadhar back Photo</h1>
-                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            </div>
-
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
-
-                                        </div>
-
-                                        <div className="passportsizePhoto">
-
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Passport size Photo</h1>
-                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            </div>
-
-                                            <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div className="LocationInformatin px-14 py-10 border-b-[1px]">
-                                <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Location Details</h1>
-
-                                <div className="loationfild mt-4 px-5 space-y-2">
-
-                                    <div className="Distict_state">
-
-                                        <div className=" flex items-center justify-between">
-
-                                            <div className="sellingoption w-[48%]">
-                                                <div className='flex items-center'>
-                                                    <h1 className=" text-[#002f34] text-xl my-2">State</h1>
-                                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                </div>
-                                                <Dropdown
-                                                    Setquantity={(v: string) => setstate(v as IStatesWithDistricts)}
-                                                    quntity={state}
-                                                    fields={Object.keys(statesWithDistricts)}
-                                                    nameDrop="Option" />
-                                            </div>
-
-                                            <div className="sellingoption w-[48%]">
-                                                <div className='flex items-center'>
-                                                    <h1 className=" text-[#002f34] text-xl my-2">distict</h1>
-                                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                </div>
-                                                <Dropdown
-                                                    Setquantity={setdistict}
-                                                    quntity={distict}
-                                                    fields={statesWithDistricts[state]}
-                                                    nameDrop="Option" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="farmLocatin">
-
-                                        <div className="city_pincode_village flex items-center justify-between">
-
-                                            <div className="city w-[32%]">
-                                                <div className='flex items-center'>
-                                                    <h1 className=" text-[#002f34] text-xl my-2">city</h1>
-                                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className='Pinput w-full'
-                                                    value={city}
-                                                    onChange={(e) => { setCity(e.target.value) }} />
-                                            </div>
-                                            <div className="village w-[32%]">
-                                                <div className='flex items-center'>
-                                                    <h1 className=" text-[#002f34] text-xl my-2">Village</h1>
-                                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className='Pinput w-full'
-                                                    value={village}
-                                                    onChange={(e) => { setVillage(e.target.value) }} />
-                                            </div>
-                                            <div className="city w-[32%]">
-                                                <div className='flex items-center'>
-                                                    <h1 className=" text-[#002f34] text-xl my-2">pin code</h1>
-                                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    className='Pinput w-full'
-                                                    value={pincode}
-                                                    onChange={(e) => { setpincode(e.target.value) }} />
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div className="professional_field px-14 py-10 border-b-[1px]">
-                                <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Profissional Information</h1>
-
-                                <div className="loationfild mt-4 px-5 space-y-2">
-
-                                    <div className="work_and_Income flex items-center justify-between">
-                                        <div className="sellingoption w-[48%]">
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Work</h1>
+                                                <h1 className=" text-[#002f34] text-xl my-2">State</h1>
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
                                             <Dropdown
-                                                Setquantity={setWork}
-                                                quntity={work}
-                                                fields={Profession}
-                                                nameDrop="Option" />
+                                                Setquantity={(v: string) => setminimandiState(v as IStatesWithDistricts)}
+                                                quntity={minimandiState}
+                                                fields={Object.keys(statesWithDistricts)}
+                                                nameDrop="state" />
                                         </div>
 
-                                        <div className="sellingoption w-[48%]">
+                                        <div className="sellingoption">
                                             <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Income</h1>
+                                                <h1 className=" text-[#002f34] text-xl my-2">Distict</h1>
                                                 <span className=" text-[#da4f43] text-xl my-2">*</span>
                                             </div>
                                             <Dropdown
-                                                Setquantity={setincome}
-                                                quntity={income}
-                                                fields={Income}
-                                                nameDrop="Option" />
-                                        </div>
-
-                                    </div>
-
-                                    <div className="storagefield flex items-center justify-between">
-
-                                        <div className="village w-[48%]">
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Storage Palace</h1>
-                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                className='Pinput w-full'
-                                                value={storagefield}
-                                                onChange={(e) => { setstoragefield(e.target.value) }} />
-                                        </div>
-                                        <div className="city w-[48%]">
-                                            <div className='flex items-center'>
-                                                <h1 className=" text-[#002f34] text-xl my-2">Storage Location</h1>
-                                                <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            </div>
-                                            <input
-                                                type="text"
-                                                className='Pinput w-full'
-                                                value={storageLocation}
-                                                onChange={(e) => { setStorageLocation(e.target.value) }} />
-                                        </div>
-
-                                    </div>
-
-                                    <div className="locationMedia">
-                                        <div className='flex items-center'>
-                                            <h1 className=" text-[#002f34] text-xl my-2">Storage Palace Images (3 min)</h1>
-                                            <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                        </div>
-
-                                        <div className="images flex items-center justify-around">
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
-                                            <FileUploader onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
+                                                Setquantity={setminimandidistict}
+                                                quntity={minimandidistict}
+                                                fields={statesWithDistricts[state]}
+                                                nameDrop="distict" />
                                         </div>
                                     </div>
+                                )
+                            }
 
+                        </div>
+
+                    </div>
+
+                    <div className="personal_information">
+                        <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Personal Information</h1>
+
+                        <div className="personal_informationfield space-y-2">
+
+                            <div className="aadhar_number">
+
+                                <div className='flex items-center'>
+                                    <h1 className=" text-[#002f34] text-xl my-2">Aadhar Number</h1>
+                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
                                 </div>
+
+                                <input
+                                    type="text"
+                                    className='Pinput w-full'
+                                    value={aadhar_number}
+                                    onChange={handleAadharNumber}
+                                    maxLength={14} />
+                            </div>
+
+                            <div className="location_additional_number flex items-center flex-wrap *:basis-52 [&>div]:grow gap-4">
+                                <div className="location">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Current Location</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={current_location}
+                                        onChange={(e) => { setCurrent_location(e.target.value) }} />
+                                </div>
+
+                                <div className="additional_number">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">other Number</h1>
+                                        {/* <span className=" text-[#da4f43] text-xl my-2">*</span> */}
+                                    </div>
+
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={additional_number}
+                                        onChange={handelMobilNumber} />
+                                </div>
+
                             </div>
 
 
-
-                            <div className="professional_field px-14 py-10 border-b-[1px]">
-                                <h1 className="tagline  text-[#002f34] font-semibold text-2xl "> Agreements and Declarations</h1>
-
-                                <div className="loationfild mt-4 px-5 space-y-2">
-
-
-                                    <div className="additional_service flex flex-col gap-2">
-
-                                        <div className="liveStreaming flex items-center gap-2">
-                                            <input type="checkbox" name="diclaration" onChange={() => { setDiclaration(!diclaration) }} checked={diclaration} id="diclaration" className='w-6 h-6' />
-                                            <label htmlFor='diclaration' className=" text-[#002f34] text-xl my-2">Declaration of Accuracy</label>
-                                            <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            <span className=" text-[green] text-xl underline my-2">About</span>
-                                        </div>
-
-                                        <div className="liveStreaming flex items-center gap-2">
-                                            <input type="checkbox" name="tems_condition" id="tems_condition" onChange={() => { settems_condition(!tems_condition) }} checked={tems_condition} className='w-6 h-6' />
-                                            <label htmlFor='tems_condition' className=" text-[#002f34] text-xl my-2">Terms and Conditions</label>
-                                            <span className=" text-[#da4f43] text-xl my-2">*</span>
-                                            <span className=" text-[green] text-xl underline my-2">About</span>
-                                        </div>
-
+                            <div className="aadharphotos flex items-center justify-evenly flex-wrap gap-4 [&>div_div:nth-child(2)]:mx-auto">
+                                <div className="fortPhotos">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Aadhar Front Photo</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
                                     </div>
+
+                                    <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} preview />
+                                </div>
+
+                                <div className="backphotos">
+
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Aadhar back Photo</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+
+                                    <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
 
                                 </div>
 
+                                <div className="passportsizePhoto">
 
-                                {
-                                    error &&
-                                    <h1 className='text-red-600 text-xl font-semibold mt-4'>{error}</h1>
-                                }
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Passport size Photo</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
 
-                                <Button onClick={hadleItemAdd} disabled={isloading} variant={"Login"} className='my-9' >
-                                    {isloading ? "Loading..." : "Apply"}
-                                </Button>
+                                    <FileUploader onUpload={handleAadharImage.Add} onDelete={handleAadharImage.Delete} />
+
+                                </div>
                             </div>
-
-
-
-
 
                         </div>
                     </div>
-                )
-            }
-        </>
+
+                    <div className="LocationInformatin space-y-4">
+                        <h1 className="tagline text-[#002f34] font-semibold text-2xl">Location Details</h1>
+
+                        <div className="Distict_state space-y-2">
+
+                            <div className="flex items-center flex-wrap gap-4">
+
+                                <div className="sellingoption grow">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">State</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <Dropdown
+                                        Setquantity={(v: string) => setstate(v as IStatesWithDistricts)}
+                                        quntity={state}
+                                        fields={Object.keys(statesWithDistricts)}
+                                        nameDrop="Option" />
+                                </div>
+
+                                <div className="sellingoption grow">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">distict</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <Dropdown
+                                        Setquantity={setdistict}
+                                        quntity={distict}
+                                        fields={statesWithDistricts[state]}
+                                        nameDrop="Option" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="farmLocatin space-y-2">
+
+                            <div className="city_pincode_village flex items-center flex-wrap gap-4 [&>div]:basis-44 [&>div]:grow">
+                                <div className="city">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">city</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={city}
+                                        onChange={(e) => { setCity(e.target.value) }} />
+                                </div>
+                                <div className="village">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Village</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={village}
+                                        onChange={(e) => { setVillage(e.target.value) }} />
+                                </div>
+                                <div className="city">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">pin code</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={pincode}
+                                        onChange={(e) => { setpincode(e.target.value) }} />
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div className="professional_field">
+                        <h1 className="tagline text-[#002f34] font-semibold text-2xl ">Profissional Information</h1>
+
+                        <div className="loationfild space-y-2">
+
+                            <div className="work_and_Income flex items-center flex-wrap [&>div]:grow gap-4">
+                                <div className="sellingoption">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Work</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <Dropdown
+                                        Setquantity={setWork}
+                                        quntity={work}
+                                        fields={Profession}
+                                        nameDrop="Option" />
+                                </div>
+
+                                <div className="sellingoption">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Income</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <Dropdown
+                                        Setquantity={setincome}
+                                        quntity={income}
+                                        fields={Income}
+                                        nameDrop="Option" />
+                                </div>
+                            </div>
+
+                            <div className="storagefield flex items-center flex-wrap [&>div]:grow [&>div]:basis-48 gap-4">
+                                <div className="village">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Storage Place</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={storagefield}
+                                        onChange={(e) => { setstoragefield(e.target.value) }} />
+                                </div>
+                                <div className="city">
+                                    <div className='flex items-center'>
+                                        <h1 className=" text-[#002f34] text-xl my-2">Storage Location</h1>
+                                        <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className='Pinput w-full'
+                                        value={storageLocation}
+                                        onChange={(e) => { setStorageLocation(e.target.value) }} />
+                                </div>
+
+                            </div>
+
+                            <div className="locationMedia">
+                                <div className='flex items-center'>
+                                    <h1 className=" text-[#002f34] text-xl my-2">Storage Palace Images (minimun 3)</h1>
+                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                </div>
+
+                                <div className="images flex flex-wrap gap-4">
+                                    {
+                                        new Array(3).fill(0).map((_, index) => (
+                                            <FileUploader key={index} onUpload={handleStorageLocaitonMedia.Add} onDelete={handleStorageLocaitonMedia.Delete} />
+                                        ))
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="professional_field pb-5">
+                        <h1 className="tagline text-[#002f34] font-semibold text-2xl"> Agreements and Declarations</h1>
+
+                        <div className="loationfild space-y-2">
+
+
+                            <div className="additional_service flex flex-col gap-2">
+
+                                <div className="liveStreaming flex items-center gap-2">
+                                    <input type="checkbox" name="diclaration" onChange={() => { setDiclaration(!diclaration) }} checked={diclaration} id="diclaration" className='w-6 h-6' />
+                                    <label htmlFor='diclaration' className=" text-[#002f34] text-xl my-2">Declaration of Accuracy</label>
+                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    <span className=" text-[green] text-xl underline my-2">About</span>
+                                </div>
+
+                                <div className="liveStreaming flex items-center gap-2">
+                                    <input type="checkbox" name="tems_condition" id="tems_condition" onChange={() => { settems_condition(!tems_condition) }} checked={tems_condition} className='w-6 h-6' />
+                                    <label htmlFor='tems_condition' className=" text-[#002f34] text-xl my-2">Terms and Conditions</label>
+                                    <span className=" text-[#da4f43] text-xl my-2">*</span>
+                                    <span className=" text-[green] text-xl underline my-2">About</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {
+                            error &&
+                            <h1 className='text-red-600 text-xl font-semibold mt-4'>{error}</h1>
+                        }
+
+                        <Button onClick={hadleItemAdd} disabled={isloading} variant={"Login"} className='my-9' >
+                            {isloading ? "Loading..." : "Apply"}
+                        </Button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     )
 }
 

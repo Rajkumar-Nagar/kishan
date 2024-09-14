@@ -2,14 +2,11 @@
 
 import { signIn } from "@/auth";
 import prisma from "@/lib/prisma";
-import { error } from "console";
-import { NextResponse } from "next/server";
 import bcrypt from "bcrypt"
 
 export const handelSignInActions = async (formdata: FormData) => {
   const { name, phoneNumber, email, address, password } = Object.fromEntries(formdata.entries()) as Record<string, string>;
 
-  console.log(name, phoneNumber, email, address, password)
   if (!name || !phoneNumber || !address || !password) {
     throw new Error('Please fill all required filled')
   }

@@ -15,7 +15,6 @@ export const getBgImageUser = async (id: string, backgroundImage: string) => {
         if (!data) {
             throw new Error("logged in user product is not found");
         }
-        console.log("updated user is this ", data)
         return data;
     } catch (error) {
         console.error("Internal server error when set bg image", error);

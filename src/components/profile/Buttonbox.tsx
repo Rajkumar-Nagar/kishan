@@ -26,7 +26,7 @@ function Buttonbox({ title, imgurl, url, nav }: ButtonboxProps) {
                     backgroundColor: isActive ? "#f0f8ff" : "#ffff"
                 }}
             >
-                <div className="left flex items-center gap-4">
+                <div className="text-left flex items-center gap-4">
                     <Image width={25} height={25} alt='icon' src={imgurl} />
                     <h1 className='text-base font-normal text-[#002f34]'
                         style={{

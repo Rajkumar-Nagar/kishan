@@ -24,12 +24,9 @@ export default async function Page({
     const session = await auth();
     const userId = session?.user?.id || searchParams?.userId || Math.random().toString(36).substring(7);
 
-    const product = await prisma.product.findFirst(
-        {
-            include: productOptions
-        }
-    )
-    console.log("product is this ", product?.pesonalInfo.avatar)
+    const product = await prisma.product.findFirst({
+        include: productOptions
+    })
 
 
     return (

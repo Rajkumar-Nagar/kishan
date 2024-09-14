@@ -210,7 +210,7 @@ function Page() {
                 </div>
 
                 <div className="space-y-10 divide-y [&>div_>_h1]:mt-10 [&>div]:px-4 sm:[&>div]:px-8 md:[&>div]:px-10">
-                    <div className="titlek w-full">
+                    <div className="title w-full">
                         <h1 className="tagline text-center text-[#002f34] font-semibold text-3xl !mt-10">Add Product Deatils</h1>
                     </div>
 
@@ -222,7 +222,7 @@ function Page() {
                             <div className="aadhar_number">
 
                                 <div className='flex items-center'>
-                                    <h1 className=" text-[#002f34] text-xl my-2">Aadhar Number</h1>
+                                    <h1 className="text-[#002f34] text-xl my-2">Aadhar Number</h1>
                                     <span className=" text-[#da4f43] text-xl my-2">*</span>
                                 </div>
 

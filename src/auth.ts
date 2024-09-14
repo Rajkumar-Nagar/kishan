@@ -13,7 +13,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         const { phoneNumber, password } = credentials as { phoneNumber: string, password: string };
-        console.log("this is user no", phoneNumber);
 
         if (!phoneNumber || !password) {
           throw new Error('Phone number and password are required');

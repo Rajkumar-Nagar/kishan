@@ -9,6 +9,7 @@ import ProductCard from "@/components/product-card";
 import { ProductType } from '@/lib/types'
 import { getProducts } from '@/actions/product.actions'
 import DropdownIcon from '@/components/ui/dropdown-icon'
+import { CheckCircle, CheckCircle2, CheckCircle2Icon, CheckCircleIcon } from 'lucide-react'
 
 interface CheckBoxProps {
     crop: keyof typeof crops;
@@ -84,7 +85,7 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
     }
 
     return (
-        <button onClick={handeltype} className='flex items-center justify-between w-full py-2  px-4 border-b-2'>
+        <div onClick={handeltype} className='flex items-center justify-between w-full py-2  px-4 border-b-2'>
             <h1 className='text-base font-semibold'
                 style={{
                     color: sortSelectedType == title ? "#6300a3" : "#2e054e"
@@ -92,11 +93,9 @@ const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlis
             >
                 {title}
             </h1>
-            {
-                sortSelectedType == title &&
-                <Image width={16} height={1} alt='reload' src={"/check-mark.png"} />
-            }
-        </button>
+
+            {sortSelectedType == title && <CheckCircle2 size={18} className='text-[#6300a3]' />}
+        </div>
     )
 }
 
@@ -112,7 +111,6 @@ function PrductList() {
             })
     }, [])
 
-    console.log(products)
     const [prizeLimit, setPrizeLimit] = useState(0)
 
     const [cropvarityshow, setCropvarityshow] = useState(false)
@@ -407,9 +405,9 @@ function PrductList() {
                             showSortlist && (
                                 <div className="dropdowncontainer z-50 shadow-xl w-60 bg-white border-[1px] rounded-md top-12 right-3 absolute">
                                     <SortType title={"Relevance"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
-                                    <SortType title={"Price : low to high"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
-                                    <SortType title={"Price : Hight to low"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
-                                    <SortType title={"time : New to Old"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
+                                    <SortType title={"Price: low to high"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
+                                    <SortType title={"Price: Hight to low"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
+                                    <SortType title={"time: New to Old"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
                                     <SortType title={"Newest first"} sortSelectedType={sortSelectedType} setsortSelectedType={setsortSelectedType} setshowSortlist={setshowSortlist} />
                                 </div>
                             )
