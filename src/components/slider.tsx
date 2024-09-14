@@ -9,10 +9,10 @@ export function SliderDemo({ className, onValueChange, min, value, max, step, de
 
     return (
         <Slider
-            max={20000}
+            max={max}
             value={value}
-            min={500}
-            step={500}
+            min={min}
+            step={step}
             className={cn("w-[100%]", className)}
             onValueChange={onValueChange} />
     )

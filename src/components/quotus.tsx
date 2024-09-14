@@ -6,8 +6,8 @@ import HomeTitle from "./HomeTitle";
 export function LayoutGridDemo() {
   return (
     <div className="maincontainer">
-      <HomeTitle Title="WHY KISAN IS ESSENTIAL" />
-      <div className="h-screen  w-full">
+      <HomeTitle Title="why kisan is essential" />
+      <div className="h-screen py-5 w-full">
         <LayoutGrid cards={cards} />
       </div>
     </div>
