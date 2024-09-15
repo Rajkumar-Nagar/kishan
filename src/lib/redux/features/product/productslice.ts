@@ -31,6 +31,7 @@ export interface cropTitle {
 const initialState: productSliceState = {
     saved_item: [],
     FilterVaritys: Object.keys(crops).reduce((acc, crop) => {
+        //@ts-ignore
         acc[crop] = [];
         return acc;
     }, {}),
@@ -73,6 +74,7 @@ const producSlice = createSlice({
             const { selectedCrop, crop } = action.payload
             if (selectedCrop) {
                 console.log(selectedCrop, crop)
+                 //@ts-ignore
                 state.FilterVaritys[crop] = crops[crop]
             }
             else {
@@ -83,10 +85,10 @@ const producSlice = createSlice({
         handleRange: (state, action: PayloadAction<{ type: string, val: number[] }>) => {
             switch (action.payload.type) {
                 case "prize":
-                    state.FilterCrops.prize_Range.End = `${action.payload.val[0][0]}`;
+                    state.FilterCrops.prize_Range.End = `${action.payload.val[0]}`;
                     break;
                 case "quantity":
-                    state.FilterCrops.quantity_range.End = `${action.payload.val[0][0]}`;
+                    state.FilterCrops.quantity_range.End = `${action.payload.val[0]}`;
                     break;
                 default:
                     break;

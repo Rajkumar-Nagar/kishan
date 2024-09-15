@@ -1,8 +1,9 @@
+import { ProductType } from '@/lib/types'
 import { Dateconverter } from '@/utils/dateconverter'
 import Image from 'next/image'
 import React from 'react'
 
-function MoreDetails({ product }) {
+function MoreDetails({ product }:{product:ProductType}) {
     return (
 
         <>

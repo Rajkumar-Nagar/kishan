@@ -2,8 +2,13 @@
 "use client"
 import React, { useState } from 'react'
 
+interface BidBoxProps {
+    money:number
+    setbidPrice:(money:number)=>void
+    bidPrice:number
+}
 
-const Bidbox = ({ money, setbidPrice, bidPrice }) => {
+const Bidbox = ({ money, setbidPrice, bidPrice }:BidBoxProps) => {
 
     const handelPrice = () => {
         setbidPrice(money)
@@ -21,16 +26,15 @@ const Bidbox = ({ money, setbidPrice, bidPrice }) => {
 
 
 function BidderButtons() {
-    const [bidPrice, setbidPrice] = useState("")
+    const [bidPrice, setbidPrice] = useState(0)
     return (
         <div className="maincontainer   py-5 flex flex-col ">
 
             <div className="preBiuldButtons flex items-center gap-5 flex-wrap">
                 {
-                    ["50", "100", "200", "500", "1000"].map((item, index) => (
+                    [50, 100, 200, 500, 1000].map((item, index) => (
                         <Bidbox key={index} money={item} setbidPrice={setbidPrice} bidPrice={bidPrice} />
-                    )
-                    )
+                    ))
                 }
             </div>
 
@@ -41,7 +45,7 @@ function BidderButtons() {
                     value={`₹ ${bidPrice}`}
 
                     placeholder='Enter Price'
-                    onChange={(e) => { setbidPrice(e.target.value) }}
+                    onChange={(e) => { setbidPrice(+e.target.value) }}
                     className='h-11 w-32  px-3 border-b-2 text-[#002f34] text-base border-gray-700 py-2 focus:outline-none focus:border-b-2 focus:border-b-blue-300'
                 />
 

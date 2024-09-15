@@ -1,7 +1,12 @@
 import Image from 'next/image'
 import React from 'react'
 
-function ModalHeaders({ setmodalshow, buttonAcitve }) {
+interface ModalHeadersProps {
+    buttonAcitve:string,
+    setmodalshow:(val:boolean)=>void
+}
+
+function ModalHeaders({ setmodalshow, buttonAcitve }:ModalHeadersProps) {
 
     const handelButton = () => {
         setmodalshow(false)

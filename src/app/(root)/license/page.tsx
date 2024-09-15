@@ -91,7 +91,7 @@ export default function Licence() {
         }
         try {
             setisloading(true)
-            const response = await fetch("http://localhost:3000/api/getLicence", {
+            const response = await fetch("/api/getLicence", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

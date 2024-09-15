@@ -1,9 +1,13 @@
 "use client";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { motion } from "framer-motion";
 import { LampContainer } from "../ui/lamp";
 
-export function LampDemo({children}) {
+interface Props {
+    children:React.ReactNode
+}
+
+export function LampDemo({children}:Props) {
     return (
         <LampContainer>
             <motion.div

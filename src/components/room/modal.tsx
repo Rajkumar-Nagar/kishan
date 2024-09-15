@@ -1,7 +1,15 @@
 import React from 'react'
 import Bidder_viewer from './bidders_viewersList'
+import { ProductType } from '@/lib/types'
 
-function Modal({ product, buttonAcitve, setmodalshow }) {
+
+interface ModalProps {
+    product:ProductType,
+    buttonAcitve:string,
+    setmodalshow:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function Modal({ product, buttonAcitve, setmodalshow }:ModalProps) {
 
     return (
 

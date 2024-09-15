@@ -1,11 +1,16 @@
 
 "use client"
+import { ProductType } from '@/lib/types';
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
+interface Bidders_viewers_listProps {
+    buttonAcitve:string;
+    product:ProductType
+}
 
-function Bidders_viewers_list({ buttonAcitve, product }) {
+function Bidders_viewers_list({ buttonAcitve, product }:Bidders_viewers_listProps) {
     const [downUp, setdownUp] = useState(true)
     const change = buttonAcitve == "viewers-list"
     return (

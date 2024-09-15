@@ -1,11 +1,16 @@
 
 "use client"
+import { ProductType } from '@/lib/types';
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
+interface BidSummaryProps {
+    buttonAcitve:string;
+    product:ProductType
+}
 
-function BidSummary({ buttonAcitve, product }) {
+function BidSummary({ buttonAcitve, product }:BidSummaryProps) {
     const [downUp, setdownUp] = useState(true)
 
     return (

@@ -66,7 +66,7 @@ function ProfileEdit() {
 
         try {
             setprofileLoading(true)
-            const response = await fetch("http://localhost:3000/api/updateProfile", {
+            const response = await fetch("/api/updateProfile", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

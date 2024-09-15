@@ -112,7 +112,7 @@ function Page() {
         }
         try {
             setisloading(true)
-            const response = await fetch("http://localhost:3000/api/addproduct", {
+            const response = await fetch("/api/addproduct", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

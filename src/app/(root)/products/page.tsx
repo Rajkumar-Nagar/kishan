@@ -14,144 +14,8 @@ import { useAppDispatch, useAppSelector } from '@/lib/redux'
 import { productActions } from '@/lib/redux/features'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { format } from "date-fns"
+import {CheckBox,DrawerControl,FilterTitle,SortType} from './_component'
 
-
-interface CheckBoxProps {
-    crop: keyof typeof crops;
-}
-
-const CheckBox = ({ crop }: CheckBoxProps) => {
-    const filterVarity = useAppSelector((state) => state.product.FilterVaritys);
-    const FilterData = useAppSelector((state) => state.product.FilterCrops)
-    const [show, setShow] = useState(false);
-    const [selectedCrop, setSelectedCrop] = useState(filterVarity[crop].length === crops[crop].length);
-    const [cropvarity, setCropVarity] = useState<{ [key: string]: string[] }>({}); // Use object to store varieties for different crops
-
-    const dispatch = useAppDispatch()
-
-
-
-    const handleCheckButton = (crop: string, varity: string) => {
-        return filterVarity[crop]?.includes(varity)
-    };
-
-    const handleShortVarity = (crop: string, varity: string) => {
-        dispatch(productActions.addvarityFilter({ crop, varity }))
-    };
-
-    const handleVarity = () => {
-        setSelectedCrop(!selectedCrop)
-        dispatch(productActions.handelCrop({ selectedCrop: !selectedCrop, crop }))
-    }
-
-    useEffect(() => {
-        dispatch(productActions.hadelVarity(filterVarity))
-    }, [filterVarity])
-
-
-    return (
-        <div className="containerbox space-y-2">
-            <button onClick={() => setShow(!show)} className="top w-full flex items-center justify-between">
-                <div className="left flex items-center gap-2">
-                    <input
-                        type="checkbox"
-                        checked={selectedCrop}
-                        onChange={handleVarity}
-                        className="w-5 h-5"
-                        name={crop}
-                        id={crop}
-                    />
-                    <label htmlFor={crop} className="cursor-pointer">
-                        {crop}
-                    </label>
-                </div>w
-                <div className="right flex gap-4 items-center">
-                    <h1>106</h1>
-                    <DropdownIcon condition={show} />
-                </div>
-            </button>
-
-            {show && (
-                <div className="space-y-2">
-                    {crops[crop].map((varity, index) => (
-                        <div key={index} className="top flex items-center justify-between pl-3">
-                            <div className="left flex items-center gap-2">
-                                <input
-                                    type="checkbox"
-                                    checked={handleCheckButton(crop, varity)}
-                                    onChange={() => handleShortVarity(crop, varity)}
-                                    className="w-5 h-5"
-                                    name="crop"
-                                    id={`varity-${index}`}
-                                />
-                                <h1>{varity}</h1>
-                            </div>
-                            <h1>106</h1>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-};
-
-
-interface SortTypeProps {
-    title: string;
-    sortSelectedType: string;
-    setsortSelectedType: (value: string) => void;
-    setshowSortlist: (value: boolean) => void;
-}
-
-const SortType = ({ title, sortSelectedType, setsortSelectedType, setshowSortlist }: SortTypeProps) => {
-
-    const handeltype = () => {
-        setsortSelectedType(title)
-        setshowSortlist(false)
-    }
-
-    return (
-        <div onClick={handeltype} className='flex items-center justify-between w-full py-2  px-4 border-b-2'>
-            <h1 className='text-base font-semibold'
-                style={{
-                    color: sortSelectedType == title ? "#6300a3" : "#2e054e"
-                }}
-            >
-                {title}
-            </h1>
-
-            {sortSelectedType == title && <CheckCircle2 size={18} className='text-[#6300a3]' />}
-        </div>
-    )
-}
-
-
-interface Drawer {
-    setChange: (value: boolean) => void;
-    change: boolean,
-    title: string
-}
-
-const DrawerControl = ({ setChange, change, title }: Drawer) => {
-    return (
-        <div className='flex items-center justify-between'>
-            <label htmlFor='prize' className='text-[#2e054e] font-semibold text-base cursor-pointer'>{title}</label>
-            <button id='prize' onClick={() => { setChange(!change) }} className='text-[#2e054e] font-semibold text-base '>{!change ? "+" : "-"}</button>
-        </div>
-    )
-}
-
-const FilterTitle = ({ label }) => {
-    return (
-        <div className=' border-[#007fff] border-[1px] py-2 px-5 rounded-md flex items-center gap-3'
-            style={{
-                backgroundColor: "rgba(0, 123, 229, .05)"
-            }}>
-            <h1 className='text-[#007fff] text-xs'>{label}</h1>
-            <Image width={50} height={50} className='w-2 h-2' alt='reload' src={"/close2.png"} />
-        </div>
-    )
-}
 
 
 function PrductList() {
@@ -160,6 +24,7 @@ function PrductList() {
 
     const dispatch = useAppDispatch()
     const searchParams = useSearchParams()
+    //@ts-ignore
     const params = new URLSearchParams(searchParams);
     const pathName = usePathname();
     const route = useRouter()
@@ -185,11 +50,15 @@ function PrductList() {
 
     useEffect(() => {
         const searchquery = Object.keys(FilterData.varity_Select).reduce((acc, crop) => {
+            //@ts-ignore
             if (FilterData.varity_Select[crop].length === crops[crop].length) {
+                //@ts-ignore
                 acc.push(crop);
             } else {
+                //@ts-ignore
                 FilterData.varity_Select[crop].forEach((item) => {
-                    acc.push(item);  // assuming `item` is the desired element here
+                    //@ts-ignore
+                    acc.push(item); 
                 });
             }
             return acc;
@@ -199,8 +68,7 @@ function PrductList() {
 
     useEffect(() => {
 
-        // Assuming 'params' is a URLSearchParams instance and 'pathName' is your current route's path
-        const params = new URLSearchParams(window.location.search);  // make sure 'params' is initialized correctly
+        const params = new URLSearchParams(window.location.search);
         params.set('query', varityLable.join('+'));
         params.set('prize', `₹ 0 - ${prizeLimit}`)
         params.set('quntity', `kg 0 -${quantiyrange}`)
@@ -208,7 +76,7 @@ function PrductList() {
         params.set('Listed Date', `${format(ListedFrom, "PPP")}-${format(ListedTo, "PPP")}`)
 
         // Ensure route and pathName are defined properly
-        route.replace(`${pathName}?${params.toString()}`);
+        route.replace(`${pathName}?${params}`);
     }, [FilterData]);
 
     // const [prizeLimit, setPrizeLimit] = useState(FilterData.prize_Range.End)
@@ -241,12 +109,12 @@ function PrductList() {
     }, [listedDateStart, listedDateEnd])
 
 
-    const hadelPrizeSlider = (val, type) => {
-        console.log("Slider value:", val[0][0], "Type:", type); // Debugging
+    const hadelPrizeSlider = (val:number[], type:string) => {
+        console.log("Slider value:", val[0], "Type:", type); // Debugging
         dispatch(productActions.handleRange({ type, val }));
     };
 
-    const handleServices = (type) => {
+    const handleServices = (type:string) => {
         dispatch(productActions.hanelAdditionalServices(type))
     }
 
@@ -266,11 +134,11 @@ function PrductList() {
                                 </div>
                                 <div>
                                     <SliderDemo
-                                        onValueChange={(e) => hadelPrizeSlider([e], "prize")} // For prize slider
+                                        onValueChange={(e) => hadelPrizeSlider(e, "prize")} // For prize slider
                                         min={500}
                                         max={20000}
                                         step={2000}
-                                        value={[prizeLimit]}
+                                        value={[+prizeLimit]}
                                     />
                                 </div>
                                 <div className="prize flex items-center justify-between">
@@ -307,11 +175,11 @@ function PrductList() {
                                 </div>
                                 <div>
                                     <SliderDemo
-                                        onValueChange={(e) => hadelPrizeSlider([e], "quantity")} // For quantity slider
+                                        onValueChange={(e) => hadelPrizeSlider(e, "quantity")} // For quantity slider
                                         min={100}
                                         max={3000}
                                         step={30}
-                                        value={[quantiyrange]}
+                                        value={[+quantiyrange]}
                                     />
                                 </div>
 
@@ -332,11 +200,11 @@ function PrductList() {
                             <div className="box space-y-3 mt-5">
                                 <div className='flex items-center justify-between gap-5'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>To</h1>
-                                    <DatePickerDemo setHarvestDateRange={setharvestStarting} value={HarvestFrom} />
+                                    <DatePickerDemo setHarvestDateRange={(date:string)=> setharvestStarting(date)} value={HarvestFrom} />
                                 </div>
                                 <div className='flex items-center gap-5 justify-between'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>From</h1>
-                                    <DatePickerDemo setHarvestDateRange={setHarvestEnd} value={HarvestTo} />
+                                    <DatePickerDemo setHarvestDateRange={(date:string)=> setHarvestEnd(date)} value={HarvestTo} />
                                 </div>
                             </div>
                         )
@@ -351,11 +219,11 @@ function PrductList() {
                             <div className="box space-y-3 mt-5">
                                 <div className='flex items-center justify-between gap-5'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>To</h1>
-                                    <DatePickerDemo setHarvestDateRange={setListedDateStart} value={ListedFrom} />
+                                    <DatePickerDemo setHarvestDateRange={(date:string)=>setListedDateStart(date)} value={ListedFrom} />
                                 </div>
                                 <div className='flex items-center gap-5 justify-between'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>From</h1>
-                                    <DatePickerDemo setHarvestDateRange={setListedDateEnd} value={ListedTo} />
+                                    <DatePickerDemo setHarvestDateRange={(date:string)=>setListedDateEnd(date)} value={ListedTo} />
                                 </div>
                             </div>
                         )

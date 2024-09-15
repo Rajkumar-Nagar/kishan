@@ -140,7 +140,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
                         translateZ="60"
                         className="w-full"
                         as={Link}
-                        href={`http://localhost:3000/products/${product?.id}`}
+                        href={`/products/${product?.id}`}
                     >
                         <Button variant={"Login"}>
                             Details

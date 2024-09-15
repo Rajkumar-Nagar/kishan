@@ -1,17 +1,17 @@
 "use client"
 import Image from 'next/image'
 import React, { useState } from 'react'
-import Bidder_viewer from './bidders_viewersList'
 import Modal from './modal'
+import { ProductType } from '@/lib/types'
 
-function HeaderButton({ product }) {
+function HeaderButton({ product }:{product:ProductType}) {
 
     const [buttonAcitve, setbuttonAcitve] = useState("")
     const [modalshow, setmodalshow] = useState(false)
 
     console.log(modalshow, buttonAcitve)
 
-    const handelModal = (type) => {
+    const handelModal = (type:string) => {
         setbuttonAcitve(type)
         setmodalshow(true)
     }

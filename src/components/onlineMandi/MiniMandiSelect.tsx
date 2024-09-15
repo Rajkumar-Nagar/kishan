@@ -112,7 +112,7 @@ function MiniMandiSelect() {
                     <Dropdown
                         Setquantity={setminidistict}
                         quntity={minidistict}
-                        fields={statesWithDistricts[miniState]}
+                        fields={statesWithDistricts[miniState as IStatesWithDistricts]}
                         nameDrop="Option" />
                 </div>
             </div>

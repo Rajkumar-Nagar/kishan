@@ -40,7 +40,7 @@ export default async function Page({
                         <h1 className="text-white text-3xl font-semibold">Kota,Rajashtan mandi</h1>
                     </div>
 
-                    <HeaderButton product={product} />
+                    <HeaderButton product={product!} />
 
                 </div>
 

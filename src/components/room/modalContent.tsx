@@ -3,8 +3,14 @@ import React from 'react'
 import Bidders_viewers_list from './bidders-viewers-list'
 import Chatwithothers from './chatwithothers'
 import BidSummary from './bidSummary'
+import { ProductType } from '@/lib/types'
 
-function ModalContent({ buttonAcitve, product }) {
+interface ModalContentProps {
+    buttonAcitve:string;
+    product:ProductType;
+}
+
+function ModalContent({ buttonAcitve, product }:ModalContentProps) {
     return (
         <>
             {
@@ -17,7 +23,7 @@ function ModalContent({ buttonAcitve, product }) {
             }
             {
                 buttonAcitve == "bid-summary" &&
-                <BidSummary />
+                <BidSummary buttonAcitve={buttonAcitve} product={product}  />
             }
 
         </>

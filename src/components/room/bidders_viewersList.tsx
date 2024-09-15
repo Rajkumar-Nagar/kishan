@@ -3,8 +3,15 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import ModalHeaders from './modalHeaders'
 import ModalContent from './modalContent'
+import { ProductType } from '@/lib/types'
 
-function Bidder_viewer({ product, buttonAcitve, setmodalshow }) {
+interface Bidder_viewerProps {
+    product:ProductType,
+    buttonAcitve:string,
+    setmodalshow:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function Bidder_viewer({ product, buttonAcitve, setmodalshow }:Bidder_viewerProps) {
     return (
 
         <div className="BidderList absolute w-full h-full py-7 flex px-10 justify-end   inset-0 bg-gray-800  bg-opacity-50  z-50 ">

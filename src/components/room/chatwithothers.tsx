@@ -5,10 +5,10 @@ import React, { useState, useEffect, useRef } from 'react';
 
 function Chatwithothers() {
     const [message, setMessage] = useState("");
-    const textareaRef = useRef(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
-        const textarea = textareaRef.current;
+        const textarea = textareaRef.current!;
         textarea.style.height = "auto"; // Reset the height
         textarea.style.height = `${Math.min(textarea.scrollHeight, 120)}px`
     }, [message]);
@@ -31,7 +31,7 @@ function Chatwithothers() {
                 <textarea
                     id="prompt-textarea"
                     ref={textareaRef}
-                    rows="1"
+                    rows={1}
                     placeholder="Message with Bidders"
                     className="w-full flex resize-none focus:outline-none bg-gray-200 items-center overflow-hidden"
                     value={message}
