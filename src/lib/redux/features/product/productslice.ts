@@ -23,18 +23,12 @@ export interface productSliceState {
 }
 
 
-export interface cropTitle {
-    acc: "String",
-    crop: "String"
-}
-
 const initialState: productSliceState = {
     saved_item: [],
     FilterVaritys: Object.keys(crops).reduce((acc, crop) => {
-        //@ts-ignore
         acc[crop] = [];
         return acc;
-    }, {}),
+    }, {} as FilterVaritys),
 
     FilterCrops: {
         prize_Range: { start: "0", End: "2000" },
@@ -74,7 +68,7 @@ const producSlice = createSlice({
             const { selectedCrop, crop } = action.payload
             if (selectedCrop) {
                 console.log(selectedCrop, crop)
-                 //@ts-ignore
+                //@ts-ignore
                 state.FilterVaritys[crop] = crops[crop]
             }
             else {

@@ -129,7 +129,7 @@ export function ExpandableCardDemo() {
                 {cards.map((card, index) => (
                     <motion.div
                         layoutId={`card-${card.title}-${id}`}
-                        key={`card-${card.title}-${id}`}
+                        key={`card-${card.title}-${id}-${index}`}
                         onClick={() => setActive(card)}
                         className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-800 rounded-xl cursor-pointer"
                     >

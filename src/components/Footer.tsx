@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 
+
 function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-gray-800 text-white py-8 z-50">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-between">
           {/* Contact Us Section */}

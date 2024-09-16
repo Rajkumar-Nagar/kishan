@@ -22,7 +22,7 @@ export default function RootLayout({
 
         <SessionProvider>
           <StoreProvider>
-            <div className=" flex flex-col w-screen h-screen ">
+            <div className="">
               {children}
             </div>
           </StoreProvider>

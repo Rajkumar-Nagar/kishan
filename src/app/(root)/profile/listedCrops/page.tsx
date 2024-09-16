@@ -31,9 +31,9 @@ function ListedCrops() {
 
 
   return (
-    <>
-      <h1 className='text-xl font-semibold text-[#002f34] p-2 '>Listed Crops</h1>
-      <div className="editdetails rounded-md border-2 shadow-lg py-5 px-5">
+    <div className="space-y-2">
+      <h1 className='text-xl font-semibold text-[#002f34] px-2'>Listed Crops</h1>
+      <div className="editdetails rounded-md border-2 shadow-lg py-5 sm:px-5 px-2">
 
         {
           listedCrops.length != 0 ? (
@@ -41,7 +41,7 @@ function ListedCrops() {
               style={{
                 display: "grid",
                 gap: 10,
-                gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr) )",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               }}
             >
               {
@@ -55,7 +55,7 @@ function ListedCrops() {
           )
         }
       </div>
-    </>
+    </div>
   )
 }
 

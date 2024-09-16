@@ -1,20 +1,18 @@
 "use client"
 
 import { SliderDemo } from '@/components/slider'
-import { crops } from '@/data'
-import Image from 'next/image'
+import { crops, ICrops } from '@/data'
 import React, { useEffect, useState } from 'react'
 import { DatePickerDemo } from '@/components/daterangepicker'
 import ProductCard from "@/components/product-card";
 import { ProductType } from '@/lib/types'
 import { getProducts } from '@/actions/product.actions'
 import DropdownIcon from '@/components/ui/dropdown-icon'
-import { CheckCircle2 } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '@/lib/redux'
 import { productActions } from '@/lib/redux/features'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { format } from "date-fns"
-import {CheckBox,DrawerControl,FilterTitle,SortType} from './_component'
+import { CheckBox, DrawerControl, FilterTitle, SortType } from './_component'
 
 
 
@@ -30,15 +28,15 @@ function PrductList() {
     const route = useRouter()
 
 
-    const [varityLable, setvarityLable] = useState([])
+    const [varityLable, setvarityLable] = useState<string[]>([])
     const FilterData = useAppSelector((state) => state.product.FilterCrops)
 
-    const prizeLimit = useAppSelector(state => state.product.FilterCrops.prize_Range.End);
-    const quantiyrange = useAppSelector(state => state.product.FilterCrops.quantity_range.End);
-    const HarvestFrom = useAppSelector(state => state.product.FilterCrops.harvest_date.from);
-    const HarvestTo = useAppSelector(state => state.product.FilterCrops.harvest_date.to);
-    const ListedFrom = useAppSelector(state => state.product.FilterCrops.listed_date.from);
-    const ListedTo = useAppSelector(state => state.product.FilterCrops.listed_date.to);
+    const prizeLimit = FilterData.prize_Range.End;
+    const quantiyrange = FilterData.quantity_range.End;
+    const HarvestFrom = FilterData.harvest_date.from;
+    const HarvestTo = FilterData.harvest_date.to;
+    const ListedFrom = FilterData.listed_date.from;
+    const ListedTo = FilterData.listed_date.to;
 
 
     useEffect(() => {
@@ -50,34 +48,30 @@ function PrductList() {
 
     useEffect(() => {
         const searchquery = Object.keys(FilterData.varity_Select).reduce((acc, crop) => {
-            //@ts-ignore
-            if (FilterData.varity_Select[crop].length === crops[crop].length) {
-                //@ts-ignore
+            if (FilterData.varity_Select[crop].length === crops[crop as ICrops].length) {
                 acc.push(crop);
             } else {
-                //@ts-ignore
                 FilterData.varity_Select[crop].forEach((item) => {
-                    //@ts-ignore
-                    acc.push(item); 
+                    acc.push(item);
                 });
             }
             return acc;
-        }, []);
+        }, [] as string[]);
         setvarityLable(searchquery)
     }, [FilterData])
 
     useEffect(() => {
-
         const params = new URLSearchParams(window.location.search);
         params.set('query', varityLable.join('+'));
         params.set('prize', `₹ 0 - ${prizeLimit}`)
         params.set('quntity', `kg 0 -${quantiyrange}`)
-        params.set('Harvest Date', `${format(HarvestFrom, "PPP")}-${format(harvestEnd, "PPP")}`)
-        params.set('Listed Date', `${format(ListedFrom, "PPP")}-${format(ListedTo, "PPP")}`)
+        if (HarvestFrom && HarvestTo)
+            params.set('Harvest Date', `${format(HarvestFrom, "PPP")}-${format(harvestEnd, "PPP")}`)
+        if (ListedFrom && ListedTo)
+            params.set('Listed Date', `${format(ListedFrom, "PPP")}-${format(ListedTo, "PPP")}`)
 
-        // Ensure route and pathName are defined properly
-        route.replace(`${pathName}?${params}`);
-    }, [FilterData]);
+        route.replace(`${pathName}?${params}`, { scroll: false });
+    }, [varityLable, prizeLimit, quantiyrange, HarvestFrom, HarvestTo, ListedFrom, ListedTo]);
 
     // const [prizeLimit, setPrizeLimit] = useState(FilterData.prize_Range.End)
     const [cropvarityshow, setCropvarityshow] = useState(false)
@@ -109,21 +103,21 @@ function PrductList() {
     }, [listedDateStart, listedDateEnd])
 
 
-    const hadelPrizeSlider = (val:number[], type:string) => {
+    const hadelPrizeSlider = (val: number[], type: string) => {
         console.log("Slider value:", val[0], "Type:", type); // Debugging
         dispatch(productActions.handleRange({ type, val }));
     };
 
-    const handleServices = (type:string) => {
+    const handleServices = (type: string) => {
         dispatch(productActions.hanelAdditionalServices(type))
     }
 
 
 
     return (
-        <div className="maincontainer w-full py-10 flex gap-6 justify-center relative">
-            <div className="leftpart w-[23%] rounded-md space-y-3 sticky top-20 h-full">
-                <div className="pricerange  py-3 px-5 border-2 rounded-md">
+        <div className="container max-w-screen-2xl w-full min-h-body flex gap-6 justify-center relative py-4">
+            <div className="leftpart w-[clamp(300px,_25vw,_360px)] max-h-body-2 rounded-md space-y-3 sticky top-20 overflow-y-auto">
+                <div className="pricerange py-3 px-5 border-2 rounded-md">
                     <DrawerControl setChange={setPrizeshow} change={prizeshow} title={"Prize Range"} />
                     {
                         prizeshow && (
@@ -192,7 +186,6 @@ function PrductList() {
                     }
                 </div>
 
-
                 <div className="HarvestDate  py-3 px-5 border-2 rounded-md">
                     <DrawerControl setChange={setHarvestdateshow} change={harvestdateshow} title='Harvest Date' />
                     {
@@ -200,17 +193,16 @@ function PrductList() {
                             <div className="box space-y-3 mt-5">
                                 <div className='flex items-center justify-between gap-5'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>To</h1>
-                                    <DatePickerDemo setHarvestDateRange={(date:string)=> setharvestStarting(date)} value={HarvestFrom} />
+                                    <DatePickerDemo setHarvestDateRange={(date: string) => setharvestStarting(date)} value={HarvestFrom} />
                                 </div>
                                 <div className='flex items-center gap-5 justify-between'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>From</h1>
-                                    <DatePickerDemo setHarvestDateRange={(date:string)=> setHarvestEnd(date)} value={HarvestTo} />
+                                    <DatePickerDemo setHarvestDateRange={(date: string) => setHarvestEnd(date)} value={HarvestTo} />
                                 </div>
                             </div>
                         )
                     }
                 </div>
-
 
                 <div className="ListedDate  py-3 px-5 border-2 rounded-md">
                     <DrawerControl setChange={setListeddateshow} change={listeddateshow} title='Listed Date' />
@@ -219,17 +211,16 @@ function PrductList() {
                             <div className="box space-y-3 mt-5">
                                 <div className='flex items-center justify-between gap-5'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>To</h1>
-                                    <DatePickerDemo setHarvestDateRange={(date:string)=>setListedDateStart(date)} value={ListedFrom} />
+                                    <DatePickerDemo setHarvestDateRange={(date: string) => setListedDateStart(date)} value={ListedFrom} />
                                 </div>
                                 <div className='flex items-center gap-5 justify-between'>
                                     <h1 className='text-[#2e054e] font-semibold text-base '>From</h1>
-                                    <DatePickerDemo setHarvestDateRange={(date:string)=>setListedDateEnd(date)} value={ListedTo} />
+                                    <DatePickerDemo setHarvestDateRange={(date: string) => setListedDateEnd(date)} value={ListedTo} />
                                 </div>
                             </div>
                         )
                     }
                 </div>
-
 
                 <div className="ListedDate  py-3 px-5 border-2 rounded-md">
                     <DrawerControl setChange={setAdditionalserviceshow} change={additionalserviceshow} title='Additional Services' />
@@ -251,7 +242,6 @@ function PrductList() {
                     }
                 </div>
 
-
                 <div className="ListedDate  py-3 px-5 border-2 rounded-md">
                     <DrawerControl setChange={setPrizeshow} change={prizeshow} title='Grading' />
                     {
@@ -272,7 +262,7 @@ function PrductList() {
                 </div>
             </div>
 
-            <div className="rightpart w-[65%] rounded-md border-2 space-y-2 px-5 py-4">
+            <div className="rightpart flex-1 rounded-md border-2 space-y-2 px-5 py-4">
                 <div className="headerpart flex z-30 items-center justify-between">
                     <div className="left flex items-center gap-2">
                         <h1 className='text-[#2e054e] font-semibold'>1048</h1>
@@ -301,8 +291,7 @@ function PrductList() {
                     {
                         varityLable.map((item, index) => (
                             <FilterTitle key={index} label={item} />
-                        )
-                        )
+                        ))
                     }
                     {
                         FilterData.prize_Range.End != "2000" && (
@@ -331,7 +320,7 @@ function PrductList() {
                     style={{
                         display: "grid",
                         gap: 5,
-                        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr) )",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
                     }}
                 >
                     {products.map((product, index) => (

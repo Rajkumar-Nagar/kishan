@@ -13,7 +13,7 @@ import { useEffect, useState } from "react"
 function ProfileEdit() {
     const [user, setuser] = useState<User | null>(null)
 
-    const { data } = useSession()
+    const { data, update } = useSession()
     const userID = data?.user.id
 
 
@@ -86,8 +86,9 @@ function ProfileEdit() {
                 throw new Error("profile updated unsussefullly")
             }
 
-            const updateduser = response.json()
+            const updateduser = await response.json()
             setprofileLoading(false)
+            update()
             router.refresh()
 
         } catch (error: any) {
@@ -102,9 +103,9 @@ function ProfileEdit() {
 
     return (
         <>
-            <h1 className='text-xl font-semibold text-[#002f34] p-2 '>Edit Profile</h1>
+            <h1 className='text-xl font-semibold text-[#002f34] p-2'>Edit Profile</h1>
             <div className="editdetails rounded-md border-2 shadow-lg py-10">
-                <div className="prodfilePhotochage flex items-center  h-full justify-center relative">
+                <div className="prodfilePhotochage flex items-center h-full justify-center relative">
                     {
                         avatar ?
                             <CldImage
@@ -129,20 +130,20 @@ function ProfileEdit() {
                     </button>
                 </div>
 
-                <div className="editcontent flex flex-col gap-3 mt-12">
-                    <label htmlFor="name" className='flex flex-col w-[70%] m-auto text-[#002f34] text-base font-semibold'>
+                <div className="editcontent flex flex-col gap-3 mt-12 max-w-screen-sm mx-auto px-4">
+                    <label htmlFor="name" className='flex flex-col text-[#002f34] text-base font-semibold'>
                         Name
                         <input type="text" id='name' value={name} onChange={(e) => setname(e.target.value)} className='  h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300' />
                     </label>
-                    <label htmlFor="Phone_Number" className='flex flex-col w-[70%] m-auto text-[#002f34] text-base font-semibold'>
+                    <label htmlFor="Phone_Number" className='flex flex-col text-[#002f34] text-base font-semibold'>
                         Phone Number
                         <input type="text" value={phoneNumber} onChange={handelPhoneNumber} id='Phone_Number' className='  h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300' />
                     </label>
-                    <label htmlFor="email" className='flex flex-col w-[70%] m-auto text-[#002f34] text-base font-semibold'>
+                    <label htmlFor="email" className='flex flex-col text-[#002f34] text-base font-semibold'>
                         email
                         <input type="email" id='email' value={email} onChange={(e) => { setemail(e.target.value) }} className='  h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300' />
                     </label>
-                    <label htmlFor="Current_Address" className='flex flex-col w-[70%] m-auto text-[#002f34] text-base font-semibold'>
+                    <label htmlFor="Current_Address" className='flex flex-col text-[#002f34] text-base font-semibold'>
                         Current Address
                         <input type="text" id='Current_Address' value={currentAddress} onChange={(e) => { setcurrentAddress(e.target.value) }} className='  h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300' />
                     </label>
@@ -155,7 +156,7 @@ function ProfileEdit() {
                 </div>
 
 
-                <div className="canclebutton flex justify-between w-[70%] m-auto my-6 px-6">
+                <div className="canclebutton flex justify-between my-6 max-w-screen-sm mx-auto px-4">
                     <button onClick={() => { router.replace("/") }} className='text-base font-semibold w-32 items-center justify-center border-[1px] hover:border-[#09f] h-11 my-1 rounded-md hover:bg-[#f0f8ff] hover:text-[#09f]'>
                         Cancel
                     </button>

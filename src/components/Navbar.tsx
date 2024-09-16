@@ -35,8 +35,8 @@ function Navbar() {
 
 
     return (
-        <div className={`navbar ${isScrolled ? 'bg-[#55648f] text-white sticky' : 'bg-white sticky'} top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-[background] duration-300 !pr-4`}>
-            <div className="logo">
+        <header className={`navbar ${isScrolled ? 'bg-[#55648f] text-white sticky' : 'bg-white sticky'} top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-[background] duration-300 !pr-4`}>
+            <Link href={'/'} className="logo">
                 <div>
                     <span className='text-3xl font-bold text-[#3aed269c]'>Kis</span>
                     <span className='text-3xl font-bold text-[#5a4e4e9c]'>an</span>
@@ -44,7 +44,7 @@ function Navbar() {
                 <div>
                     <p className={`text-[10px] font-sans text-[${isScrolled ? '#fff' : '#3432329c'}]`}>Making Farming Easy</p>
                 </div>
-            </div>
+            </Link>
 
 
             <div className="serveses sm:flex items-center hidden">
@@ -66,7 +66,7 @@ function Navbar() {
 
                 <ProfileMenu user={user} />
             </div>
-        </div>
+        </header>
     );
 }
 

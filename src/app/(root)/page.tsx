@@ -52,8 +52,6 @@ async function page() {
         <Faq />
       </div>
 
-      <Footer />
-
     </div>
 
   )

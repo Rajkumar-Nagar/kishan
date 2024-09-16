@@ -43,7 +43,7 @@ const content = [
         content: (
             <div className="h-full w-full  flex items-center justify-center text-white">
                 <Image
-                    src="/GrouAi.jpg"
+                    src="/GroupAi.jpg"
                     width={500}
                     height={500}
                     className="h-full w-full object-cover"
@@ -88,8 +88,6 @@ const content = [
 
 export function StickyScrollRevealDemo() {
     return (
-        <div className="p-10">
-            <StickyScroll content={content} />
-        </div>
+        <StickyScroll content={content} />
     );
 }

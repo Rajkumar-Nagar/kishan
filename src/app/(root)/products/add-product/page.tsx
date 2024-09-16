@@ -598,7 +598,7 @@ function Page() {
 
                     </div>
 
-                    <div className="AdditionalService space-y-4 pb-5">
+                    <div className="AdditionalService space-y-4 pb-5 sm:pb-10">
 
                         <h1 className="tagline text-[#002f34] font-semibold text-2xl">Additional Service</h1>
                         <div className="AdditionalServicefield space-y-2">

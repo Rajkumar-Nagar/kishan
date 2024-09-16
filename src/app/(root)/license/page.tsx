@@ -463,7 +463,7 @@ export default function Licence() {
                         </div>
                     </div>
 
-                    <div className="professional_field pb-5">
+                    <div className="professional_field pb-5 sm:pb-10">
                         <h1 className="tagline text-[#002f34] font-semibold text-2xl"> Agreements and Declarations</h1>
 
                         <div className="loationfild space-y-2">

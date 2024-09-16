@@ -37,7 +37,7 @@ function Allindiamandijoin() {
     }
 
     return (
-        <div className="selectMandi border-[1px] rounded-xl px-9 py-6 mt-10">
+        <div className="selectMandi border-[1px] rounded-xl md:px-9 sm:px-6 px-4 py-6 mt-10">
 
             <div className="JOin as">
                 <div className='flex items-center'>
@@ -83,7 +83,7 @@ function Allindiamandijoin() {
                 )
             }
 
-            <div className="button flex gap-6 items-center px-2 mt-4">
+            <div className="button flex gap-6 items-center mt-4">
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
                     more details
                 </button>

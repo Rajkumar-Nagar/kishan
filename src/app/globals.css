@@ -24,6 +24,8 @@
     --input: 20 5.9% 90%;
     --ring: 24.6 95% 53.1%;
     --radius: 0.5rem;
+
+    --header-height: 4rem;
   }
 
   .dark {
@@ -72,5 +74,9 @@
 @layer components {
   .Pinput {
     @apply h-11 rounded-md px-3 border-2 text-[#002f34] text-base border-gray-400 py-2 focus:outline-none focus:border-2 focus:border-blue-300;
+  }
+
+  .no-header {
+    @apply !hidden;
   }
 }

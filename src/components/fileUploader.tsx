@@ -1,8 +1,10 @@
 "use client"
 
-import { CldImage, CldVideoPlayer } from 'next-cloudinary'
+import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useState } from 'react'
+import { TbCameraPlus } from "react-icons/tb";
+
 
 type FileUploaderProps = {
     onUpload: (imageId: string) => void
@@ -94,7 +96,7 @@ const FileUploader = ({
                     {isloading ? (
                         <div className='border-2 border-orange-500 border-r-transparent w-6 h-6 rounded-full animate-spin' />
                     ) : (
-                        <Image width={20} height={20} src={"/photo.png"} alt='reload' />
+                        <TbCameraPlus size={24} />
                     )}
                 </label>
 

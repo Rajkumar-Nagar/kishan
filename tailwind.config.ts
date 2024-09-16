@@ -1,6 +1,7 @@
-import type { Config } from "tailwindcss";
+const plugin = require('tailwindcss/plugin');
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
+
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
@@ -15,7 +16,7 @@ function addVariablesForColors({ addBase, theme }: any) {
   });
 }
 
-
+/** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: ["class"],
   content: [
@@ -39,10 +40,16 @@ const config = {
         'xs': '480px',
       },
       height: {
-        body: "calc(100vh - 4rem)",
+        header: 'var(--header-height)',
+        body: "calc(100vh - var(--header-height))",
       },
       maxHeight: {
-        body: "calc(100vh - 4.5rem)"
+        body: "calc(100vh - var(--header-height))",
+        body2: "calc(100vh - var(--header-height) - 0.5rem)",
+      },
+      minHeight: {
+        body: "calc(100vh - var(--header-height))",
+        body2: "calc(100vh - var(--header-height) - 0.5rem)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -115,7 +122,31 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors],
-} satisfies Config;
+  plugins: [
+    require("tailwindcss-animate"),
+    addVariablesForColors,
+    // @ts-ignore
+    plugin(function ({ matchUtilities }) {
+      matchUtilities(
+        {
+          //@ts-ignore
+          'max-h-body': (value) => ({
+            maxHeight: `calc(100vh - var(--header-height) - ${value})`,
+          }),
+        },
+        {
+          values: {
+            DEFAULT: "var(--header-height)",
+            1: "1rem",
+            2: "2rem",
+            3: "3rem",
+            4: "4rem",
+          },
+          supportsNegativeValues: false,
+        }
+      );
+    }),
+  ],
+};
 
 export default config;

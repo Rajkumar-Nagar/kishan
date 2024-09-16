@@ -3,7 +3,7 @@ import React from 'react'
 
 function page() {
 
-  redirect("/profile/listedCrops",RedirectType.replace)
+  redirect("/profile/listedCrops", RedirectType.replace)
   return (
     <div>page</div>
   )

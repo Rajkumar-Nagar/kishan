@@ -17,8 +17,8 @@ async function Profile({ children }: { children: React.ReactNode }) {
     const user = await getDataFromId(session.user.id as string, "user")
 
     return (
-        <div className="maincontainer pt-10 rounded-md overflow-hidden flex items-center justify-center gap-6">
-            <div className="leftpartContainer w-[25%] rounded-md border-2">
+        <div className="container relative max-w-screen-2xl md:px-8 xs:px-4 px-2 rounded-md flex gap-6 py-4">
+            <div className="hidden md:block leftpartContainer sticky top-20 w-[clamp(300px,_25vw,_360px)] h-max rounded-md border-2 overflow-hidden">
                 <div className="profileDetails bg-gray-200 gap-3 pb-5 border-b-[1px] flex flex-col">
                     <div className="profilePicture relative flex justify-center h-20 bg-slate-300">
                         <Banner userId={user.id} bgImage={user.backgroundImage} />
@@ -71,13 +71,13 @@ async function Profile({ children }: { children: React.ReactNode }) {
                         <Buttonbox key={index} title={item.title} imgurl={item.image} url={item.url} nav={item.nav} />
                     ))}
                 </div>
-                <div className='mx-5'>
+                <div className='mx-5 pb-5'>
                     <button className='text-base font-semibold w-full items-center justify-center border-[1px] hover:border-[#09f] py-2 my-1 rounded-md hover:bg-[#f0f8ff] hover:text-[#09f]'>
                         Logout
                     </button>
                 </div>
             </div>
-            <div className="rightpartContainer w-[60%] h-body rounded-md">
+            <div className="rightpartContainer flex-1 h-full rounded-md">
                 {children}
             </div>
         </div>

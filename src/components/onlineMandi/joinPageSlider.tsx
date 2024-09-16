@@ -82,7 +82,7 @@ export default function JoinPageSlider() {
             <CarouselContent>
                 {servicesData.map((item, index) => (
                     <CarouselItem key={index}>
-                        <div className=" h-96 w-full ">
+                        <div className="h-96 w-full ">
                             <div
                                 className="relative h-full w-full object-cover"
                                 style={{
@@ -96,9 +96,9 @@ export default function JoinPageSlider() {
                                     className="absolute inset-0 bg-gray-800  bg-opacity-50 blur-md"
                                     style={{ zIndex: 1 }}
                                 />
-                                <div className="absolute z-10  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white space-y-4">
+                                <div className="absolute z-10 w-3/4 sm:w-1/2 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white space-y-4">
                                     <h1 className="text-5xl font-bold">{item.title}</h1>
-                                    <p className="text-base w-1/2">{item.description}</p>
+                                    <p className="text-base text-justify">{item.description}</p>
                                     <button className="bg-green-400 px-4 py-1 rounded-md ">
                                         <Link href={`${item.href}`}>Explore More</Link>
                                     </button>
@@ -109,8 +109,8 @@ export default function JoinPageSlider() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-10" />
-            <CarouselNext className="absolute right-10" />
+            <CarouselPrevious className="absolute sm:left-10 left-2" />
+            <CarouselNext className="absolute sm:right-10 right-2" />
         </Carousel >
     )
 }

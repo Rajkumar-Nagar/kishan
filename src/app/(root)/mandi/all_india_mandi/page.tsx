@@ -1,4 +1,5 @@
 import { GlobeDemo } from '@/components/glob'
+import NoHeader from '@/components/no-header'
 import { CardHoverEffectDemo } from '@/components/onlineMandi/HowToSelll'
 import { HoverBorderGradientDemo } from '@/components/onlineMandi/joinButtion'
 import { InfiniteMovingCardsDemo } from '@/components/onlineMandi/review'
@@ -12,15 +13,13 @@ import React from 'react'
 function page() {
     return (
         <div className="maincontianer dark">
-            <div className="w-[100%]  h-[50rem]   bg-black">
+            <div className="w-[100%] h-body bg-black">
 
                 <ShootingStarsAndStarsBackgroundDemo >
                     <GlobeDemo />
                 </ShootingStarsAndStarsBackgroundDemo>
             </div>
-
-
-
+            <NoHeader />
             <div className="afterHeader bg-[#1a1a1a] w-full py-5 pt-10 px-24">
 
 
@@ -170,8 +169,6 @@ function page() {
                 </div>
 
             </div>
-
-
         </div >
     )
 }

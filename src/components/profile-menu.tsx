@@ -51,7 +51,7 @@ const ProfileMenu = ({ user }: ProfileDemoProps) => {
                         }}
                     /> : <CircleUserRound size={30} />}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="[&_a]:transition-all [&_a]:duration-300 [&_a]:ease-in-out mr-1 mt-2 max-h-body overflow-y-auto">
+            <DropdownMenuContent className="[&_a]:transition-all [&_a]:duration-300 [&_a]:ease-in-out mr-1 mt-2 max-h-body2 overflow-y-auto z-[100]">
 
                 <SignedIn>
                     <div className="box1 w-full py-2 px-1">

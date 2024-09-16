@@ -35,7 +35,7 @@ function MiniMandiSelect() {
                 return
             }
         }
-        
+
         if (!miniState || !minidistict) {
             seterr("** please select minimandi state and distict")
             return
@@ -44,10 +44,10 @@ function MiniMandiSelect() {
     }
 
     return (
-        <div className="selectMandi border-[1px] rounded-xl px-9 py-6 mt-10">
+        <div className="selectMandi border-[1px] rounded-xl md:px-9 sm:px-6 px-4 py-6 mt-10">
             {/* <h1 className='text-[#59a7af] text-2xl font-semibold'>Select Mini Mandi</h1> */}
 
-            <div className="JOin as">
+            <div className="Join as">
                 <div className='flex items-center'>
                     <h1 className=" text-[#002f34] text-xl my-2">Join As</h1>
                     <span className=" text-[#da4f43] text-xl my-2">*</span>
@@ -91,8 +91,8 @@ function MiniMandiSelect() {
                 )
             }
 
-            <div className=" flex items-center justify-between">
-                <div className="sellingoption w-[48%]">
+            <div className="flex gap-4 flex-wrap [&>div]:grow">
+                <div className="sellingoption">
                     <div className='flex items-center'>
                         <h1 className=" text-[#002f34] text-xl my-2">Mandi State</h1>
                         <span className=" text-[#da4f43] text-xl my-2">*</span>
@@ -104,7 +104,7 @@ function MiniMandiSelect() {
                         nameDrop="Option" />
                 </div>
 
-                <div className="sellingoption w-[48%]">
+                <div className="sellingoption">
                     <div className='flex items-center'>
                         <h1 className=" text-[#002f34] text-xl my-2">Mandi distict</h1>
                         <span className=" text-[#da4f43] text-xl my-2">*</span>
@@ -118,7 +118,7 @@ function MiniMandiSelect() {
             </div>
             {
                 miniState && minidistict && (
-                    <div className="maminimandis flex flex-row items-center  gap-4 mt-5">
+                    <div className="maminimandis flex flex-row items-center gap-4 mt-5">
                         <Image width={500} height={500} alt='reload' className='w-10 h-10' src={"/sprout.png"} />
                         <div>
                             <span className=' text-[#e7a137] text-xl font-semibold'>{`${miniState},`}</span>
@@ -128,7 +128,7 @@ function MiniMandiSelect() {
                 )
             }
 
-            <div className="button flex gap-6 items-center px-2 mt-4">
+            <div className="button flex gap-6 items-center mt-4">
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
                     more details
                 </button>
