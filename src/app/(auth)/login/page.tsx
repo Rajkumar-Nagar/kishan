@@ -22,7 +22,7 @@ export default function SignIn() {
   const handelSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault()
-    const formdata = new FormData(e.target as any)
+    const formdata = new FormData(e.currentTarget);
     const data = Object.fromEntries(formdata.entries()) as Record<string, string>;
 
     const err = checkEmptyField(data);
@@ -37,19 +37,15 @@ export default function SignIn() {
       seterrMessage("please enter 10 number ")
     }
 
-    if (!!errMessage) {
-      return
-    }
+    if (!!errMessage) return;
 
     try {
       setIsloading(true)
       await loginServerAction(formdata);
-      setIsloading(false)
       router.replace("/")
     } catch (error) {
-      seterrMessage("invalid credential")
-    }
-    finally {
+      seterrMessage("Invalid Credentials")
+    } finally {
       setIsloading(false)
     }
   }
@@ -120,7 +116,7 @@ export default function SignIn() {
 
                 <Button disabled={isloading} type="submit" variant={"Login"}>
                   {
-                    isloading ? "loading..." : "Register"
+                    isloading ? "loading..." : "Login"
                   }
                 </Button>
               </div>
@@ -133,7 +129,7 @@ export default function SignIn() {
             }
 
             <div className="flex flex-row flex-wrap">
-              <h1>Dont have a Account?</h1>
+              <h1>Dont have a Account?&nbsp;</h1>
               <Link href={"/signup"} className="underline">Register</Link>
             </div>
           </div>

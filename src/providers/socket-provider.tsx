@@ -1,9 +1,10 @@
 "use client"
+import { Socket } from 'net';
 import React, { useEffect } from 'react'
 import { io } from 'socket.io-client';
 
 type SocketContextType = {
-    socket: any | null;
+    socket: Socket | null;
     isConnected: boolean;
 };
 
@@ -19,7 +20,7 @@ export const useSocket = () => {
 
 
 const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-    const [socket, setSocket] = React.useState(null);
+    const [socket, setSocket] = React.useState<Socket | null>(null);
     const [isConnected, setIsConnected] = React.useState(false);
 
     React.useEffect(() => {

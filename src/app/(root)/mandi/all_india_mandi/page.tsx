@@ -1,7 +1,7 @@
 import { GlobeDemo } from '@/components/glob'
 import NoHeader from '@/components/no-header'
 import { CardHoverEffectDemo } from '@/components/onlineMandi/HowToSelll'
-import { HoverBorderGradientDemo } from '@/components/onlineMandi/joinButtion'
+import { MandiJoinButton } from '@/components/onlineMandi/joinButtion'
 import { InfiniteMovingCardsDemo } from '@/components/onlineMandi/review'
 import { ExpandableCardDemo } from '@/components/onlineMandi/SoldCrops'
 import { ShootingStarsAndStarsBackgroundDemo } from '@/components/onlineMandi/StarBg'
@@ -54,7 +54,7 @@ function page() {
                                     </div>
                                     <p className='text-[#b9bcbd] text-sm '>Sunday from 10 AM-11 AM</p>
                                 </div>
-                                {/* <HoverBorderGradientDemo /> */}
+                                {/* <MandiJoinButton /> */}
                             </div>
 
                         </div>
@@ -93,7 +93,7 @@ function page() {
                                     <p className='text-[#b9bcbd] text-sm '>Sunday from 1 PM-2 PM</p>
                                 </div>
 
-                                <HoverBorderGradientDemo />
+                                <MandiJoinButton />
                             </div>
                         </div>
 
@@ -127,7 +127,7 @@ function page() {
                                     <p className='text-[#b9bcbd] text-sm '>Sunday from 4 PM-5 PM</p>
                                 </div>
 
-                                {/* <HoverBorderGradientDemo /> */}
+                                {/* <MandiJoinButton /> */}
                             </div>
 
                         </div>

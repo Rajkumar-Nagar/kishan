@@ -9,7 +9,7 @@ import { getDataFromId } from '@/actions/productId.actio';
 import { User } from '@prisma/client';
 import { useScrollWindow } from '@/hooks';
 import ProfileMenu from './profile-menu';
-import { HoverBorderGradientDemo } from './onlineMandi/joinButtion';
+import { MandiJoinButton } from './onlineMandi/joinButtion';
 import { useRouter } from 'next/navigation';
 
 function Navbar() {
@@ -35,7 +35,7 @@ function Navbar() {
 
 
     return (
-        <header className={`navbar ${isScrolled ? 'bg-[#55648f] text-white sticky' : 'bg-white sticky'} top-0 z-50 flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-[background] duration-300 !pr-4`}>
+        <header className={`navbar ${isScrolled ? 'bg-[#55648f] text-white sticky' : 'bg-white sticky'} shadow-md top-0 z-[100] flex w-full justify-between py-2 md:px-10 px-6 h-16 transition-[background] duration-300 !pr-4`}>
             <Link href={'/'} className="logo">
                 <div>
                     <span className='text-3xl font-bold text-[#3aed269c]'>Kis</span>
@@ -53,7 +53,7 @@ function Navbar() {
             </div>
 
             <div className='flex flex-row items-center gap-4'>
-                <HoverBorderGradientDemo onClick={handelJoinMandi} />
+                <MandiJoinButton onClick={handelJoinMandi} />
                 <Link href={"/ai"} className="Kalyaan flex items-center justify-center gap-1">
                     <Image alt='' src={"/sun.png"} width={30} height={30} />
                     <span className='text-2xl font-bold text-[#4a9129]'>Ai</span>

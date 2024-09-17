@@ -1,5 +1,5 @@
 import { FlipWordsDemo } from '@/components/onlineMandi/flipWord'
-import { HoverBorderGradientDemo } from '@/components/onlineMandi/joinButtion'
+import { MandiJoinButton } from '@/components/onlineMandi/joinButtion'
 import { LampDemo } from '@/components/onlineMandi/lampTitle'
 import { ExpandableCardDemo } from '@/components/onlineMandi/SoldCrops'
 import { CarouselSize } from '@/components/product_slider'
@@ -54,7 +54,7 @@ function page({ params }: { params: { miniState: string, minidistict: string } }
                     </div>
                     <p className='text-[#b9bcbd] text-sm '>Sunday from 10 AM-11 AM</p>
                   </div>
-                  {/* <HoverBorderGradientDemo /> */}
+                  {/* <MandiJoinButton /> */}
                 </div>
 
               </div>
@@ -93,7 +93,7 @@ function page({ params }: { params: { miniState: string, minidistict: string } }
                     <p className='text-[#b9bcbd] text-sm '>Sunday from 1 PM-2 PM</p>
                   </div>
 
-                  <HoverBorderGradientDemo />
+                  <MandiJoinButton />
                 </div>
               </div>
 
@@ -127,7 +127,7 @@ function page({ params }: { params: { miniState: string, minidistict: string } }
                     <p className='text-[#b9bcbd] text-sm '>Sunday from 4 PM-5 PM</p>
                   </div>
 
-                  {/* <HoverBorderGradientDemo /> */}
+                  {/* <MandiJoinButton /> */}
                 </div>
 
               </div>

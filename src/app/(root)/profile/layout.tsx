@@ -72,7 +72,7 @@ async function Profile({ children }: { children: React.ReactNode }) {
                     ))}
                 </div>
                 <div className='mx-5 pb-5'>
-                    <button className='text-base font-semibold w-full items-center justify-center border-[1px] hover:border-[#09f] py-2 my-1 rounded-md hover:bg-[#f0f8ff] hover:text-[#09f]'>
+                    <button className='transition-colors duration-200 active:scale-95 ease-in-out text-base font-semibold w-full items-center justify-center border-[1px] hover:border-[#09f] py-2 my-1 rounded-md hover:bg-[#f0f8ff] hover:text-[#09f]'>
                         Logout
                     </button>
                 </div>
