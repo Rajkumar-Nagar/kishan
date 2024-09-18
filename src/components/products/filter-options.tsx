@@ -21,10 +21,8 @@ const FilterOptions = () => {
     const ListedFrom = listedDate.from;
     const ListedTo = listedDate.to;
 
-
     const [harvestStarting, setharvestStarting] = useState(HarvestFrom)
     const [harvestEnd, setHarvestEnd] = useState(HarvestTo)
-
     const [listedDateStart, setListedDateStart] = useState(ListedFrom)
     const [listedDateEnd, setListedDateEnd] = useState(ListedTo)
 
@@ -36,6 +34,10 @@ const FilterOptions = () => {
         dispatch(cropFilterActions.setQuantityRange({ min: 0, max: val }))
     };
 
+    const handleServices = (type: keyof IFilterOptions["additionalServices"]) => {
+        dispatch(cropFilterActions.setAdditionalServices(type))
+    }
+
     useEffect(() => {
         dispatch(cropFilterActions.setHarvestDate({ from: harvestStarting, to: harvestEnd }))
     }, [harvestStarting, harvestEnd])
@@ -43,12 +45,6 @@ const FilterOptions = () => {
     useEffect(() => {
         dispatch(cropFilterActions.setListedDate({ from: listedDateStart, to: listedDateEnd }))
     }, [listedDateStart, listedDateEnd])
-
-
-    const handleServices = (type: keyof IFilterOptions["additionalServices"]) => {
-        dispatch(cropFilterActions.setAdditionalServices(type))
-    }
-
 
     return (
         <div className="leftpart w-[clamp(300px,_25vw,_360px)] max-h-body-2 rounded-md space-y-3 sticky top-20 overflow-y-auto">
@@ -111,11 +107,11 @@ const FilterOptions = () => {
             <DrawerControl title='Harvest Date' >
                 <div className="box space-y-3">
                     <div className='flex items-center justify-between gap-5'>
-                        <h1 className='text-[#2e054e] font-semibold text-base'>To</h1>
+                        <h1 className='text-[#2e054e] font-semibold text-base'>From</h1>
                         <DatePickerDemo setHarvestDateRange={(date: string) => setharvestStarting(date)} value={HarvestFrom} />
                     </div>
                     <div className='flex items-center gap-5 justify-between'>
-                        <h1 className='text-[#2e054e] font-semibold text-base'>From</h1>
+                        <h1 className='text-[#2e054e] font-semibold text-base'>To</h1>
                         <DatePickerDemo setHarvestDateRange={(date: string) => setHarvestEnd(date)} value={HarvestTo} />
                     </div>
                 </div>
@@ -124,11 +120,11 @@ const FilterOptions = () => {
             <DrawerControl title='Listed Date' >
                 <div className="box space-y-3">
                     <div className='flex items-center justify-between gap-5'>
-                        <h1 className='text-[#2e054e] font-semibold text-base '>To</h1>
+                        <h1 className='text-[#2e054e] font-semibold text-base '>From</h1>
                         <DatePickerDemo setHarvestDateRange={(date: string) => setListedDateStart(date)} value={ListedFrom} />
                     </div>
                     <div className='flex items-center gap-5 justify-between'>
-                        <h1 className='text-[#2e054e] font-semibold text-base '>From</h1>
+                        <h1 className='text-[#2e054e] font-semibold text-base '>To</h1>
                         <DatePickerDemo setHarvestDateRange={(date: string) => setListedDateEnd(date)} value={ListedTo} />
                     </div>
                 </div>

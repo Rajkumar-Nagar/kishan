@@ -26,7 +26,7 @@ const SortType = ({ title, selectedValue, handleSelect }: SortTypeProps) => {
 }
 
 
-const sortOptions = ["Relevance", "Price: low to high", "Price: Hight to low", "time: New to Old", "Newest first"] as const;
+const sortOptions = ["Relevance", "Price: low to high", "Price: High to low", "time: New to Old", "Time: Old to New"] as const;
 type ISortOptions = typeof sortOptions[number];
 
 const SortOptions = () => {

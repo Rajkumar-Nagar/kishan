@@ -15,23 +15,17 @@ export const CropVarietyCheckBox = ({ crop }: CheckBoxProps) => {
     const searchParams = useSearchParams();
 
     const filterVarity = useAppSelector((state) => state.cropFilters.cropVariety);
+    const isSelected = filterVarity[crop].length === crops[crop].length;
 
-    const [selectedCrop, setSelectedCrop] = useState(filterVarity[crop].length === crops[crop].length);
     const [show, setShow] = useState(false);
-
     const dispatch = useAppDispatch();
-
-    const handleCheckButton = (crop: string, variety: string) => {
-        return filterVarity[crop]?.includes(variety)
-    };
 
     const handleShortVarity = (crop: string, variety: string) => {
         dispatch(cropFilterActions.updateCropVariety({ crop, variety }))
     };
 
     const handleVarity = () => {
-        setSelectedCrop(!selectedCrop)
-        dispatch(cropFilterActions.setCropVariety(crop))
+        dispatch(cropFilterActions.setCropVariety({ crop, deleted: isSelected }))
     }
 
 
@@ -41,7 +35,7 @@ export const CropVarietyCheckBox = ({ crop }: CheckBoxProps) => {
                 <div className="left flex items-center gap-2">
                     <input
                         type="checkbox"
-                        checked={selectedCrop}
+                        checked={isSelected}
                         onChange={handleVarity}
                         className="w-5 h-5"
                         name={crop}
@@ -59,18 +53,18 @@ export const CropVarietyCheckBox = ({ crop }: CheckBoxProps) => {
 
             {show && (
                 <div className="space-y-2">
-                    {crops[crop].map((varity, index) => (
+                    {crops[crop].map((variety, index) => (
                         <div key={index} className="top flex items-center justify-between pl-3">
                             <div className="left flex items-center gap-2">
                                 <input
                                     type="checkbox"
-                                    checked={handleCheckButton(crop, varity)}
-                                    onChange={() => handleShortVarity(crop, varity)}
+                                    checked={filterVarity[crop]?.includes(variety)}
+                                    onChange={() => handleShortVarity(crop, variety)}
                                     className="w-5 h-5"
                                     name="crop"
-                                    id={`varity-${index}`}
+                                    id={`variety-${index}`}
                                 />
-                                <h1>{varity}</h1>
+                                <h1>{variety}</h1>
                             </div>
                             <h1>106</h1>
                         </div>

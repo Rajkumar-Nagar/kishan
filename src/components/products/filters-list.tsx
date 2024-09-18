@@ -1,12 +1,11 @@
 "use client"
-import { crops, ICrops } from '@/data';
 import { useAppDispatch, useAppSelector } from '@/lib/redux';
 import { format } from 'date-fns';
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce';
-import { cropFilterActions } from '@/lib/redux/features';
+import { ISearchFilter, setFilterOptions } from '@/lib/redux/features';
 
 
 const FilterTitle = ({ label }: { label: string }) => {
@@ -21,103 +20,39 @@ const FilterTitle = ({ label }: { label: string }) => {
 const FiltersList = () => {
     const searchParams = useSearchParams();
 
-    //@ts-ignore
-    const params = new URLSearchParams(searchParams);
     const pathName = usePathname();
     const route = useRouter();
     const dispatch = useAppDispatch();
 
     const FilterData = useAppSelector((state) => state.cropFilters)
-    const { additionalServices, priceRange, quantityRange, harvestDate, listedDate, cropVariety } = FilterData;
-
+    const { priceRange, quantityRange, harvestDate, listedDate, varietyList, filterOptions } = FilterData;
     const HarvestFrom = harvestDate.from;
     const HarvestTo = harvestDate.to;
     const ListedFrom = listedDate.from;
     const ListedTo = listedDate.to;
 
-    const varityLable = useMemo(() => {
-        const searchquery = Object.keys(cropVariety).reduce((acc, crop) => {
-            if (cropVariety[crop].length === crops[crop as ICrops].length) {
-                acc.push(crop);
-            } else {
-                cropVariety[crop].forEach((item) => {
-                    acc.push(item);
-                });
-            }
-            return acc;
-        }, [] as string[]);
-        return searchquery;
-    }, [cropVariety]);
+    const handleSearchParams = useCallback(useDebouncedCallback(() => {
+        const params = new URLSearchParams(searchParams ?? {});
 
-
-    useEffect(() => {
-
-        const updateSearchParams = () => {
-
-            const params = new URLSearchParams(searchParams ?? {});
-            const { cropVariety, ...rest } = FilterData;
-            const filterOptions = Object.keys(rest).reduce((acc, key) => {
-                if (key === 'additionalServices') {
-                    const services = Object.keys(additionalServices).filter((service) => additionalServices[service as keyof typeof additionalServices]);
-                    if (services.length) {
-                        acc[key] = services;
-                    }
-                } else if (key === 'priceRange') {
-                    if (priceRange.min !== 0 || priceRange.max !== 2000) {
-                        acc[key] = priceRange;
-                    }
-                } else if (key === 'quantityRange') {
-                    if (quantityRange.min !== 0 || quantityRange.max !== 1000) {
-                        acc[key] = quantityRange;
-                    }
-                } else if (key === 'harvestDate') {
-                    if (harvestDate.from && harvestDate.to) {
-                        acc[key] = harvestDate;
-                    }
-                } else if (key === 'listedDate') {
-                    if (listedDate.from && listedDate.to) {
-                        acc[key] = listedDate;
-                    }
-                }
-                return acc;
-            }, {} as any);
-
-            const opts = {
-                ...filterOptions,
-                ...(varityLable.length && { cropVariety: varityLable })
-            };
-
-            if (Object.keys(filterOptions).length) {
-                params.set('filterOptions', JSON.stringify(opts));
-            } else {
-                params.delete('filterOptions');
-            }
-
-            const pt = decodeURIComponent(params.toString());
-            const pt1 = params.toString();
-            route.replace(`${pathName}?${pt}`, { scroll: false });
+        if (Object.keys(filterOptions).length) {
+            params.set('filterOptions', JSON.stringify(filterOptions));
+        } else {
+            params.delete('filterOptions');
         }
 
-        const timeout = setTimeout(updateSearchParams, 300);
-        return () => clearTimeout(timeout);
-
-    }, [varityLable, FilterData, pathName]);
+        const pt = decodeURIComponent(params.toString());
+        const pt1 = params.toString();
+        route.replace(`${pathName}?${pt}`, { scroll: false });
+    }, 300), [filterOptions]);
 
     useEffect(() => {
-        const FilterData = JSON.parse(searchParams?.get('filterOptions') || '{}');
-        if (!FilterData) return;
-        const { cropVariety } = FilterData;
-        cropVariety.forEach((item: string) => {
-            if (item in crops) {
-                dispatch(cropFilterActions.setCropVariety(item as keyof typeof crops))
-            } else {
-                (Object.keys(crops) as ICrops[]).forEach((crop) => {
-                    if (crops[crop].includes(item)) {
-                        dispatch(cropFilterActions.updateCropVariety({ crop: crop, variety: item }))
-                    }
-                })
-            }
-        });
+        handleSearchParams();
+    }, [filterOptions]);
+
+
+    useEffect(() => {
+        const FilterData: ISearchFilter = JSON.parse(searchParams?.get('filterOptions') || '{}');
+        dispatch(setFilterOptions(FilterData));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -126,7 +61,7 @@ const FiltersList = () => {
     return (
         <div className="FilterContent flex flex-row gap-3 flex-wrap">
             {
-                varityLable.map((item, index) => (
+                varietyList.map((item, index) => (
                     <FilterTitle key={index} label={item} />
                 ))
             }
@@ -142,12 +77,12 @@ const FiltersList = () => {
             }
             {
                 HarvestFrom && HarvestTo && (
-                    <FilterTitle label={`Harvest : ${format(HarvestFrom, "PPP")}-${format(HarvestTo, "PPP")}`} />
+                    <FilterTitle label={`Harvest: ${format(HarvestFrom, "PPP")} - ${format(HarvestTo, "PPP")}`} />
                 )
             }
             {
                 ListedFrom && ListedTo && (
-                    <FilterTitle label={`Listed : ${format(ListedFrom, "PPP")}-${format(ListedTo, "PPP")}`} />
+                    <FilterTitle label={`Listed: ${format(ListedFrom, "PPP")} - ${format(ListedTo, "PPP")}`} />
                 )
             }
 

@@ -14,15 +14,15 @@ import {
 } from "@/components/ui/popover"
 
 interface DatePickerDemoProps {
-    setHarvestDateRange: (date:string)=>void,
+    setHarvestDateRange: (date: string) => void,
     value: string
 }
 
 export function DatePickerDemo({ setHarvestDateRange, value }
     : DatePickerDemoProps
 ) {
-    const handleDate=(day: Date | undefined)=>{
-        if (day) setHarvestDateRange(day.toString())
+    const handleDate = (day: Date | undefined) => {
+        if (day) setHarvestDateRange(day.toISOString())
     }
 
     return (

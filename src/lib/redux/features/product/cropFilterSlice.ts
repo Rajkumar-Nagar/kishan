@@ -1,5 +1,11 @@
-import { crops } from "@/data";
+import { crops, ICrops } from "@/data";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppDispatch, RootState } from "../../store";
+
+export type ISearchFilter = Omit<IFilterOptions, "cropVariety" | "additionalServices"> & {
+    cropVariety?: string[];
+    additionalServices?: (keyof IFilterOptions["additionalServices"])[];
+};
 
 export interface IFilterOptions {
     priceRange: { min: number; max: number; };
@@ -9,6 +15,8 @@ export interface IFilterOptions {
     additionalServices: { liveStreaming: boolean; sampleRequest: boolean; };
     grading: boolean;
     cropVariety: { [crop: string]: string[]; };
+    varietyList: string[];
+    filterOptions: ISearchFilter;
 }
 
 const initialState: IFilterOptions = {
@@ -22,6 +30,8 @@ const initialState: IFilterOptions = {
         acc[crop] = [];
         return acc;
     }, {} as { [crop: string]: string[]; }),
+    varietyList: [],
+    filterOptions: {} as ISearchFilter,
 };
 
 const cropFilterSlice = createSlice({
@@ -30,29 +40,32 @@ const cropFilterSlice = createSlice({
     reducers: {
         setPriceRange: (state, action: PayloadAction<IFilterOptions["priceRange"]>) => {
             state.priceRange = action.payload;
+            updateFilterOptions(state);
         },
         setQuantityRange: (state, action: PayloadAction<IFilterOptions["quantityRange"]>) => {
             state.quantityRange = action.payload;
+            updateFilterOptions(state);
         },
         setHarvestDate: (state, action: PayloadAction<IFilterOptions["harvestDate"]>) => {
             state.harvestDate = action.payload;
+            updateFilterOptions(state);
         },
         setListedDate: (state, action: PayloadAction<IFilterOptions["listedDate"]>) => {
             state.listedDate = action.payload;
+            updateFilterOptions(state);
         },
         setAdditionalServices: (state, action: PayloadAction<keyof IFilterOptions["additionalServices"]>) => {
             state.additionalServices[action.payload] = !state.additionalServices[action.payload];
+            updateFilterOptions(state);
         },
         setGrading: (state, action: PayloadAction<boolean>) => {
             state.grading = action.payload;
+            updateFilterOptions(state);
         },
-        setCropVariety: (state, action: PayloadAction<keyof typeof crops>) => {
-            const crop = action.payload;
-            if (state.cropVariety[crop].length === crops[crop].length) {
-                state.cropVariety[crop] = [];
-            } else {
-                state.cropVariety[crop] = crops[crop];
-            }
+        setCropVariety: (state, action: PayloadAction<{ crop: keyof typeof crops; deleted?: boolean; }>) => {
+            const { crop, deleted } = action.payload;
+            state.cropVariety[crop] = deleted ? [] : crops[crop];
+            updateVarietyList(state);
         },
         updateCropVariety: (state, action: PayloadAction<{ crop: string; variety: string }>) => {
             const { crop, variety } = action.payload;
@@ -62,9 +75,97 @@ const cropFilterSlice = createSlice({
             } else {
                 state.cropVariety[crop].splice(index, 1);
             }
+            updateVarietyList(state);
         },
+
     }
 });
 
 export const cropFilterActions = cropFilterSlice.actions;
 export const cropFilterReducer = cropFilterSlice.reducer;
+
+
+export const setFilterOptions = (filterOptions: ISearchFilter) => (dispatch: AppDispatch, getState: () => RootState) => {
+    const { additionalServices, cropVariety, grading, harvestDate, listedDate, priceRange, quantityRange } = filterOptions;
+
+    if (priceRange) dispatch(cropFilterActions.setPriceRange(priceRange));
+    if (quantityRange) dispatch(cropFilterActions.setQuantityRange(quantityRange));
+    if (harvestDate) dispatch(cropFilterActions.setHarvestDate(harvestDate));
+    if (listedDate) dispatch(cropFilterActions.setListedDate(listedDate));
+
+    additionalServices?.forEach((service) => {
+        dispatch(cropFilterActions.setAdditionalServices(service as keyof IFilterOptions["additionalServices"]));
+    });
+
+    if (grading) dispatch(cropFilterActions.setGrading(grading));
+
+    cropVariety?.forEach((item: string) => {
+        if (item in crops) {
+            dispatch(cropFilterActions.setCropVariety({ crop: item as keyof typeof crops }))
+        } else {
+            (Object.keys(crops) as ICrops[]).forEach((crop) => {
+                if (crops[crop].includes(item) && getState().cropFilters.cropVariety[crop].indexOf(item) === -1) {
+                    dispatch(cropFilterActions.updateCropVariety({ crop: crop, variety: item }))
+                }
+            })
+        }
+    });
+}
+
+const updateVarietyList = (state: IFilterOptions) => {
+    state.varietyList = Object.keys(state.cropVariety).reduce((acc, crop) => {
+        if (state.cropVariety[crop].length === crops[crop as ICrops].length) {
+            acc.push(crop);
+        } else {
+            state.cropVariety[crop].forEach((item) => {
+                acc.push(item);
+            });
+        }
+        return acc;
+    }, [] as string[]);
+    updateFilterOptions(state);
+};
+
+const updateFilterOptions = (state: IFilterOptions) => {
+    const { additionalServices, priceRange, quantityRange, harvestDate, listedDate, cropVariety, varietyList } = state;
+    const filterOptions = (Object.keys(state)).reduce((acc, key) => {
+        switch (key) {
+            case 'additionalServices':
+                const services = Object.keys(additionalServices).filter((service) => additionalServices[service as keyof typeof additionalServices]);
+                if (services.length) {
+                    acc[key] = services;
+                }
+                break;
+            case 'priceRange':
+                if (priceRange.min !== 0 || priceRange.max !== 2000) {
+                    acc[key] = priceRange;
+                }
+                break;
+            case 'quantityRange':
+                if (quantityRange.min !== 0 || quantityRange.max !== 1000) {
+                    acc[key] = quantityRange;
+                }
+                break;
+            case 'harvestDate':
+                if (harvestDate.from && harvestDate.to) {
+                    acc[key] = harvestDate;
+                }
+                break;
+            case 'listedDate':
+                if (listedDate.from && listedDate.to) {
+                    acc[key] = listedDate;
+                }
+                break;
+            default:
+                break;
+        }
+        return acc;
+    }, {} as any);
+
+    const opts = {
+        ...filterOptions,
+        ...(varietyList.length && { cropVariety: varietyList })
+    };
+
+    state.filterOptions = opts;
+}

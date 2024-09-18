@@ -134,7 +134,7 @@ export const CardItem = ({
       }
     };
     handleAnimations();
-  }, [isMouseEntered]);
+  }, [isMouseEntered, translateX, translateY, translateZ, rotateX, rotateY, rotateZ]);
 
 
   return (
