@@ -1,5 +1,5 @@
 "use client"
-import { Socket } from 'net';
+import { Socket } from 'socket.io';
 import React, { useEffect } from 'react'
 import { io } from 'socket.io-client';
 

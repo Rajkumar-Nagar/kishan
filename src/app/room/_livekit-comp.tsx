@@ -33,23 +33,26 @@ const LiveKitComp = ({ token, room }: { token: string; room: string }) => {
         socket.emit('leave-room', { room, name: searchParams?.get('name') });
     }, [socket, room, searchParams])
 
+    const handleJoinRoom = useCallback((data: unknown) => {
+        console.log('join-room', data);
+    }, []);
+
+    const handleLeaveRoom = useCallback((data: unknown) => {
+        console.log('leave-room', data);
+    }, []);
 
     useEffect(() => {
         if (!socket) return;
-        socket.on('join-room', (data: unknown) => {
-            console.log('join-room', data);
-        });
+        socket.on('join-room', handleJoinRoom);
 
-        socket.on('leave-room', (data: unknown) => {
-            console.log('leave-room', data);
-        });
+        socket.on('leave-room', handleLeaveRoom);
 
         window.addEventListener('beforeunload', handleRoomLeave);
 
         return () => {
             window.removeEventListener('beforeunload', handleRoomLeave);
-            socket.off('join-room');
-            socket.off('leave-room');
+            socket.off('join-room', handleJoinRoom);
+            socket.off('leave-room', handleLeaveRoom);
         }
     }, [socket, handleRoomLeave])
 
