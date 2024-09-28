@@ -40,14 +40,14 @@ const FilterOptions = () => {
 
     useEffect(() => {
         dispatch(cropFilterActions.setHarvestDate({ from: harvestStarting, to: harvestEnd }))
-    }, [harvestStarting, harvestEnd])
+    }, [harvestStarting, harvestEnd, dispatch])
 
     useEffect(() => {
         dispatch(cropFilterActions.setListedDate({ from: listedDateStart, to: listedDateEnd }))
-    }, [listedDateStart, listedDateEnd])
+    }, [listedDateStart, listedDateEnd, dispatch])
 
     return (
-        <div className="leftpart w-[clamp(300px,_25vw,_360px)] max-h-body-2 rounded-md space-y-3 sticky top-20 overflow-y-auto">
+        <div className="select-none w-full max-w-xs max-h-body-2 rounded-md space-y-3 sticky top-20 overflow-y-auto">
 
             <DrawerControl title={"Price Range"} >
                 <div className='flex flex-col space-y-3'>

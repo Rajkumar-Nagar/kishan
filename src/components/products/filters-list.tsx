@@ -1,18 +1,67 @@
 "use client"
 import { useAppDispatch, useAppSelector } from '@/lib/redux';
 import { format } from 'date-fns';
-import Image from "next/image";
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce';
-import { ISearchFilter, setFilterOptions } from '@/lib/redux/features';
+import { cropFilterActions, IFilterOptions, ISearchFilter, setFilterOptions } from '@/lib/redux/features';
+import { MdClose } from 'react-icons/md';
 
+const FilterTitle = ({ type, value }: { type: keyof IFilterOptions; value: any }) => {
+    let label = useMemo(() => {
+        switch (type) {
+            case 'priceRange':
+                return `${value.min} ₹ - ${value.max} ₹`;
+            case 'quantityRange':
+                return `${value.min} kg - ${value.max} kg`;
+            case 'harvestDate':
+                return `Harvest Date: ${format(value.from, 'PPP')} - ${format(value.to, 'PPP')}`;
+            case 'listedDate':
+                return `Listed Date: ${format(value.from, 'PPP')} - ${format(value.to, 'PPP')}`;
+            case 'cropVariety':
+                return value;
+            case 'additionalServices':
+                return value;
+            default:
+                return '';
+        }
+    }, [type, value]);
 
-const FilterTitle = ({ label }: { label: string }) => {
+    const dispatch = useAppDispatch();
+
+    const handleRemove = useCallback(() => {
+        switch (type) {
+            case 'priceRange':
+                dispatch(cropFilterActions.setPriceRange({ min: 0, max: 2000 }));
+                break;
+            case 'quantityRange':
+                dispatch(cropFilterActions.setQuantityRange({ min: 0, max: 1000 }));
+                break;
+            case 'harvestDate':
+                dispatch(cropFilterActions.setHarvestDate({ from: "", to: "" }));
+                break;
+            case 'listedDate':
+                dispatch(cropFilterActions.setListedDate({ from: "", to: "" }));
+                break;
+            case 'cropVariety':
+                dispatch(cropFilterActions.removeCropVariety(value));
+                break;
+            case 'additionalServices':
+                dispatch(cropFilterActions.setAdditionalServices(value));
+                break;
+            default:
+                break;
+        }
+    }, [type, value, dispatch]);
+
+    if (!label) return null;
+
     return (
-        <div className='border-[#007fff] border-[1px] py-2 px-5 rounded-md flex items-center gap-3 bg-[rgba(0,123,229,.05)]'>
-            <h1 className='text-[#007fff] text-xs'>{label}</h1>
-            <Image width={50} height={50} className='w-2 h-2' alt='reload' src={"/close2.png"} />
+        <div className='border-[#007fff] text-[#007fff]  border-[1px] py-2 px-3 rounded-md flex items-center gap-2 bg-[rgba(0,123,229,.05)]'>
+            <h1 className='text-xs'>{label}</h1>
+            <button onClick={handleRemove}>
+                <MdClose />
+            </button>
         </div>
     )
 }
@@ -24,14 +73,9 @@ const FiltersList = () => {
     const route = useRouter();
     const dispatch = useAppDispatch();
 
-    const FilterData = useAppSelector((state) => state.cropFilters)
-    const { priceRange, quantityRange, harvestDate, listedDate, varietyList, filterOptions } = FilterData;
-    const HarvestFrom = harvestDate.from;
-    const HarvestTo = harvestDate.to;
-    const ListedFrom = listedDate.from;
-    const ListedTo = listedDate.to;
+    const { filterOptions } = useAppSelector((state) => state.cropFilters);
 
-    const handleSearchParams = useCallback(useDebouncedCallback(() => {
+    const handleSearchParams = useDebouncedCallback(() => {
         const params = new URLSearchParams(searchParams ?? {});
 
         if (Object.keys(filterOptions).length) {
@@ -43,13 +87,15 @@ const FiltersList = () => {
         const pt = decodeURIComponent(params.toString());
         const pt1 = params.toString();
         route.replace(`${pathName}?${pt}`, { scroll: false });
-    }, 300), [filterOptions]);
+    }, 300);
 
+    // Update search params on filter options change
     useEffect(() => {
         handleSearchParams();
-    }, [filterOptions]);
+    }, [filterOptions, handleSearchParams]);
 
 
+    // Set filter options from search params
     useEffect(() => {
         const FilterData: ISearchFilter = JSON.parse(searchParams?.get('filterOptions') || '{}');
         dispatch(setFilterOptions(FilterData));
@@ -57,34 +103,19 @@ const FiltersList = () => {
     }, [])
 
 
-
     return (
         <div className="FilterContent flex flex-row gap-3 flex-wrap">
-            {
-                varietyList.map((item, index) => (
-                    <FilterTitle key={index} label={item} />
-                ))
-            }
-            {
-                priceRange.max != 2000 && (
-                    <FilterTitle label={`0 ₹-${priceRange.max} ₹`} />
+
+            {Object.keys(filterOptions).map((key, index) => {
+                if (key === 'cropVariety' || key === 'additionalServices') {
+                    return filterOptions[key]?.map((item, index) => (
+                        <FilterTitle key={index} type={key as keyof IFilterOptions} value={item} />
+                    ))
+                }
+                return (
+                    <FilterTitle key={index} type={key as keyof IFilterOptions} value={filterOptions[key as keyof ISearchFilter]} />
                 )
-            }
-            {
-                quantityRange.max != 1000 && (
-                    <FilterTitle label={`0 kg-${quantityRange.max} kg`} />
-                )
-            }
-            {
-                HarvestFrom && HarvestTo && (
-                    <FilterTitle label={`Harvest: ${format(HarvestFrom, "PPP")} - ${format(HarvestTo, "PPP")}`} />
-                )
-            }
-            {
-                ListedFrom && ListedTo && (
-                    <FilterTitle label={`Listed: ${format(ListedFrom, "PPP")} - ${format(ListedTo, "PPP")}`} />
-                )
-            }
+            })}
 
         </div>
     )

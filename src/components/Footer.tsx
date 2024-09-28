@@ -23,8 +23,8 @@ function Footer() {
               <li><Link href="/services" className="text-orange-400 hover:underline">Services</Link></li>
               <li><Link href="/about" className="text-orange-400 hover:underline">About Us</Link></li>
               <li><Link href="/blog" className="text-orange-400 hover:underline">Blog</Link></li>
-              <li><Link href="/contact" className="text-orange-400 hover:underline">Contact</Link></li>
-              <li><Link href="/faqs" className="text-orange-400 hover:underline">FAQs</Link></li>
+              <li><Link href="#" className="text-orange-400 hover:underline">Contact</Link></li>
+              <li><Link href="/#faqs" className="text-orange-400 hover:underline">FAQs</Link></li>
             </ul>
           </div>
 

@@ -17,17 +17,18 @@ export const DrawerControl = ({ title, children }: DrawerProps) => {
 
 
     return (
-        <div className="coropandVarity px-5 py-3 border-2 rounded-md">
-            <div className='flex items-center justify-between'>
-                <label className='text-[#2e054e] font-semibold text-base cursor-pointer'>{title}</label>
-                <button
-                    onClick={() => { setIsOpened(prev => !prev) }}
-                    className='text-[#2e054e] font-semibold text-base '>
-                    {!isOpened ? "+" : "-"}
-                </button>
-            </div>
+        <div className="px-5 py-3 border-2 rounded-md">
+            <button
+                onClick={() => { setIsOpened(prev => !prev) }}
+                className='text-[#2e054e] font-semibold text-base w-full'
+            >
+                <div className='flex items-center justify-between'>
+                    <label className='text-[#2e054e] font-semibold text-base cursor-pointer'>{title}</label>
+                    <span>{!isOpened ? "+" : "-"}</span>
+                </div>
+            </button>
             <div
-                className="content transition-all duration-200 ease-in-out overflow-hidden [&>div]:py-3"
+                className="content transition-all duration-200 ease-in-out overflow-hidden overflow-y-auto [&>div]:py-3"
                 ref={ref}
                 style={{
                     maxHeight

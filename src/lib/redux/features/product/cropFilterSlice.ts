@@ -2,9 +2,9 @@ import { crops, ICrops } from "@/data";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../store";
 
-export type ISearchFilter = Omit<IFilterOptions, "cropVariety" | "additionalServices"> & {
-    cropVariety?: string[];
-    additionalServices?: (keyof IFilterOptions["additionalServices"])[];
+export type ISearchFilter = Omit<IFilterOptions, 'cropVariety' | 'additionalServices'> & {
+    cropVariety: string[];
+    additionalServices: (keyof IFilterOptions["additionalServices"])[];
 };
 
 export interface IFilterOptions {
@@ -15,7 +15,6 @@ export interface IFilterOptions {
     additionalServices: { liveStreaming: boolean; sampleRequest: boolean; };
     grading: boolean;
     cropVariety: { [crop: string]: string[]; };
-    varietyList: string[];
     filterOptions: ISearchFilter;
 }
 
@@ -30,7 +29,6 @@ const initialState: IFilterOptions = {
         acc[crop] = [];
         return acc;
     }, {} as { [crop: string]: string[]; }),
-    varietyList: [],
     filterOptions: {} as ISearchFilter,
 };
 
@@ -65,7 +63,7 @@ const cropFilterSlice = createSlice({
         setCropVariety: (state, action: PayloadAction<{ crop: keyof typeof crops; deleted?: boolean; }>) => {
             const { crop, deleted } = action.payload;
             state.cropVariety[crop] = deleted ? [] : crops[crop];
-            updateVarietyList(state);
+            updateFilterOptions(state);
         },
         updateCropVariety: (state, action: PayloadAction<{ crop: string; variety: string }>) => {
             const { crop, variety } = action.payload;
@@ -75,8 +73,21 @@ const cropFilterSlice = createSlice({
             } else {
                 state.cropVariety[crop].splice(index, 1);
             }
-            updateVarietyList(state);
+            updateFilterOptions(state);
         },
+        removeCropVariety: (state, action: PayloadAction<string>) => {
+            const crop = action.payload;
+            if (crop in state.cropVariety) {
+                state.cropVariety[crop] = [];
+            } else {
+                (Object.keys(state.cropVariety) as ICrops[]).forEach((key) => {
+                    if (state.cropVariety[key].includes(crop)) {
+                        state.cropVariety[key].splice(state.cropVariety[key].indexOf(crop), 1);
+                    }
+                });
+            }
+            updateFilterOptions(state);
+        }
 
     }
 });
@@ -84,8 +95,8 @@ const cropFilterSlice = createSlice({
 export const cropFilterActions = cropFilterSlice.actions;
 export const cropFilterReducer = cropFilterSlice.reducer;
 
-
-export const setFilterOptions = (filterOptions: ISearchFilter) => (dispatch: AppDispatch, getState: () => RootState) => {
+// Get search params and update crop filter options
+export const setFilterOptions = (filterOptions: Partial<ISearchFilter>) => (dispatch: AppDispatch, getState: () => RootState) => {
     const { additionalServices, cropVariety, grading, harvestDate, listedDate, priceRange, quantityRange } = filterOptions;
 
     if (priceRange) dispatch(cropFilterActions.setPriceRange(priceRange));
@@ -98,7 +109,6 @@ export const setFilterOptions = (filterOptions: ISearchFilter) => (dispatch: App
     });
 
     if (grading) dispatch(cropFilterActions.setGrading(grading));
-
     cropVariety?.forEach((item: string) => {
         if (item in crops) {
             dispatch(cropFilterActions.setCropVariety({ crop: item as keyof typeof crops }))
@@ -112,22 +122,10 @@ export const setFilterOptions = (filterOptions: ISearchFilter) => (dispatch: App
     });
 }
 
-const updateVarietyList = (state: IFilterOptions) => {
-    state.varietyList = Object.keys(state.cropVariety).reduce((acc, crop) => {
-        if (state.cropVariety[crop].length === crops[crop as ICrops].length) {
-            acc.push(crop);
-        } else {
-            state.cropVariety[crop].forEach((item) => {
-                acc.push(item);
-            });
-        }
-        return acc;
-    }, [] as string[]);
-    updateFilterOptions(state);
-};
-
+//Update filter options for search params
 const updateFilterOptions = (state: IFilterOptions) => {
-    const { additionalServices, priceRange, quantityRange, harvestDate, listedDate, cropVariety, varietyList } = state;
+    const { additionalServices, priceRange, quantityRange, harvestDate, listedDate, cropVariety } = state;
+
     const filterOptions = (Object.keys(state)).reduce((acc, key) => {
         switch (key) {
             case 'additionalServices':
@@ -156,16 +154,25 @@ const updateFilterOptions = (state: IFilterOptions) => {
                     acc[key] = listedDate;
                 }
                 break;
+            case 'cropVariety':
+                let varietyList = Object.keys(cropVariety).reduce((acc, crop) => {
+                    if (cropVariety[crop].length === crops[crop as ICrops].length) {
+                        acc.push(crop);
+                    } else {
+                        cropVariety[crop].forEach((item) => {
+                            acc.push(item);
+                        });
+                    }
+                    return acc;
+                }, [] as string[]);
+                if (varietyList.length) {
+                    acc[key] = varietyList;
+                }
             default:
                 break;
         }
         return acc;
     }, {} as any);
 
-    const opts = {
-        ...filterOptions,
-        ...(varietyList.length && { cropVariety: varietyList })
-    };
-
-    state.filterOptions = opts;
+    state.filterOptions = filterOptions;
 }
