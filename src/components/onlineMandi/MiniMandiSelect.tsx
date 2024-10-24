@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Dropdown from '../ui/Dropdown'
 import { IStatesWithDistricts, statesWithDistricts } from '@/data'
 import Image from 'next/image'
-import { HoverBorderGradientDemo } from './joinButtion'
+import { MandiJoinButton } from './joinButtion'
 import { useRouter } from 'next/navigation'
 
 function MiniMandiSelect() {
@@ -132,7 +132,7 @@ function MiniMandiSelect() {
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
                     more details
                 </button>
-                <HoverBorderGradientDemo onClick={handelMiniMandi} />
+                <MandiJoinButton onClick={handelMiniMandi} />
                 {
                     err && <h1 className='text-red-400 text-base px-4'>{err}</h1>
                 }

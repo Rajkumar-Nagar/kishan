@@ -1,7 +1,7 @@
 import { GlobeDemo } from '@/components/glob'
 import NoHeader from '@/components/no-header'
 import { CardHoverEffectDemo } from '@/components/onlineMandi/HowToSelll'
-import { HoverBorderGradientDemo } from '@/components/onlineMandi/joinButtion'
+import { MandiJoinButton } from '@/components/onlineMandi/joinButtion'
 import { InfiniteMovingCardsDemo } from '@/components/onlineMandi/review'
 import { ExpandableCardDemo } from '@/components/onlineMandi/SoldCrops'
 import { ShootingStarsAndStarsBackgroundDemo } from '@/components/onlineMandi/StarBg'

@@ -4,7 +4,7 @@ import CImage from '@/components/Cimage'
 import FileUploader from '@/components/fileUploader'
 import React, { useState } from 'react'
 
-const Banner = ({
+const ProfileBanner = ({
     userId,
     bgImage
 }: {
@@ -40,4 +40,4 @@ const Banner = ({
     )
 }
 
-export default Banner
+export default ProfileBanner

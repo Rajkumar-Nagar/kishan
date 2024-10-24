@@ -37,9 +37,8 @@ export default function SignIn() {
       seterrMessage("please enter same password");
     }
 
-    if (!!errMessage) {
-      return;
-    }
+    if (!!errMessage) return;
+
 
     setIsloading(true)
 
@@ -134,7 +133,7 @@ export default function SignIn() {
             }
 
             <div className="flex flex-row ">
-              <h1> already have a Account?</h1>
+              <h1> Already have an Account?&nbsp;</h1>
               <Link href={"/login"} className="underline">Login</Link>
             </div>
 
