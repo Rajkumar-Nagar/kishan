@@ -398,8 +398,8 @@ export function GlobeDemo() {
     // useDarkTheme()
 
     return (
-        <div className="flex flex-row  items-center justify-center h-full  md:h-auto dark:bg-black  relative w-full">
-            <div className=" mx-auto w-full relative  overflow-hidden h-full md:h-[50rem] px-4">
+        <div className="flex flex-row items-center justify-center h-full md:h-auto dark:bg-black relative w-full">
+            <div className="mx-auto w-full relative overflow-hidden h-full md:h-[50rem]">
                 <motion.div
                     initial={{
                         opacity: 0,
@@ -412,22 +412,22 @@ export function GlobeDemo() {
                     transition={{
                         duration: 1,
                     }}
-                    className="div flex flex-col pt-8  space-y-2"
+                    className="div flex flex-col pt-8 space-y-2 relative z-[100]"
                 >
-                    <div className="heading flex justify-center items-center gap-2 ">
+                    <div className="heading flex justify-center items-center gap-2 flex-wrap">
                         <div>
                             <span className='text-5xl text-[#ffffff] font-semibold'>Wel</span>
                             <span className='text-5xl text-[#fbfbfb] font-semibold'>come</span>
                         </div>
                         <span className='text-5xl text-[#fefffe] font-semibold'>to Kisan</span>
-                        <span className='text-5xl text-[#ffffff] font-semibold'>Online All India Mandi</span>
+                        <span className='text-5xl text-[#ffffff] font-semibold text-center text-balance'>Online All India Mandi</span>
                     </div>
                     {/* <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-xl mt-2 mx-auto">
-                        your ultimate destination for buying and selling crops with ease and efficiency. Our platform connects farmers across India to a wide network of mandis, ensuring fair prices and transparent transactions
-                    </p> */}
+            your ultimate destination for buying and selling crops with ease and efficiency. Our platform connects farmers across India to a wide network of mandis, ensuring fair prices and transparent transactions
+          </p> */}
                 </motion.div>
                 <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-black z-30" />
-                <div className="absolute w-full -bottom-[4rem] h-72 md:h-full z-10">
+                <div className="absolute w-full bottom-[4rem] md:bottom-0 h-72 md:h-full z-10">
                     <World data={sampleArcs} globeConfig={globeConfig} />
                 </div>
 

@@ -25,7 +25,6 @@ const FileUploader = ({
     const [error, setError] = useState('');
     const [isloading, setIsloading] = useState(false)
 
-
     const handleDelete = () => {
         onDelete?.(publicId)
         setPublicId("")
@@ -42,7 +41,6 @@ const FileUploader = ({
                 method: 'POST',
                 body: formData
             });
-
             if (!res.ok) {
                 throw new Error(`Upload failed with status ${res.status}`);
             }

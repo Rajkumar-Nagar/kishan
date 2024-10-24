@@ -29,10 +29,11 @@ model User {
   updatedAt DateTime @updatedAt
   bids      Bids[]
 
-  licence       Licence?       @relation(fields: [licenceId], references: [id])
-  licenceId     String?        @db.ObjectId
-  savedProducts SavedProduct[]
-  products      Product[]
+  licence            Licence?       @relation(fields: [licenceId], references: [id])
+  licenceId          String?        @db.ObjectId
+  savedProducts      SavedProduct[]
+  products           Product[]
+  BiddingInformation BidDetails[]
 
   @@map("users")
 }
@@ -55,6 +56,7 @@ model Product {
   additionalServicesId String             @db.ObjectId
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
+  biddingDetails       BidDetails[]
   SavedProducts        SavedProduct[]
 }
 

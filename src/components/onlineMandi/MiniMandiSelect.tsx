@@ -40,7 +40,7 @@ function MiniMandiSelect() {
             seterr("** please select minimandi state and distict")
             return
         }
-        route.push(`/mandi/miniMandi/${miniState}/${minidistict}`)
+        route.push(`/mandi/mini-mandi/${miniState}/${minidistict}`)
     }
 
     return (

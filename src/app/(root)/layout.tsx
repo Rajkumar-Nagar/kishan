@@ -14,7 +14,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <div className="flex flex-col w-screen relative h-full ">
         <Navbar />
-        <div className="min-h-body flex-1 relative">
+        <div className="min-h-body h-full flex-1 relative">
           {children}
         </div>
         <Footer />

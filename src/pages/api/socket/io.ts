@@ -74,15 +74,16 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
                 socket.to(data.room).emit(SE.JOIN_ROOM, data);
                 addUser({ id: socket.id, ...data });
                 io.to(data.room).emit(SE.USERS_LIST, getUsersInRoom(data.room));
-                io.to(socket.id).emit(SE.INIT_BID, BID_DETAILS[data.room]);
+                io.to(socket.id).emit(SE.INIT_BID);
             });
 
             socket.on(SE.MAKE_BID, (data) => {
                 console.log(SE.MAKE_BID, data);
                 io.to(data.room).emit(SE.MAKE_BID, data);
-                addBidDetails({ room: data.room, currentBid: data.bid, highestBidder: data.userId });
+                // addBidDetails({ room: data.room, currentBid: data.bid, highestBidder: data.userId });
             });
 
+            // to get the users in room
             socket.on(SE.USERS_LIST, (data) => {
                 io.to(data.room).emit(SE.USERS_LIST, getUsersInRoom(data.room));
             });

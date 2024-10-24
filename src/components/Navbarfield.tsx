@@ -72,7 +72,7 @@ export default function NavigationMenuDemo() {
 
         <NavigationMenuItem className="hidden md:block">
           <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className="px-4 py-2">
               Home
             </NavigationMenuLink>
           </Link>
@@ -99,7 +99,7 @@ export default function NavigationMenuDemo() {
 
         <NavigationMenuItem>
           <Link href="/contact-us" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className="px-4 py-2">
               Contact
             </NavigationMenuLink>
           </Link>
@@ -108,7 +108,7 @@ export default function NavigationMenuDemo() {
 
         <NavigationMenuItem>
           <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className="px-4 py-2">
               About
             </NavigationMenuLink>
           </Link>

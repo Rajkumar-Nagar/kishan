@@ -30,7 +30,7 @@ function Navbar() {
     }, [status, session])
 
     const handelJoinMandi = () => {
-        router.push("/mandi/joinMandi")
+        router.push("/mandi/join-mandi")
     }
 
 

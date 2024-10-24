@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-const NoHeader = () => {
+const NoFooter = () => {
     React.useEffect(() => {
         const footer = document.querySelector('footer');
         footer?.style.setProperty('display', 'none');
@@ -13,4 +13,4 @@ const NoHeader = () => {
     return null;
 }
 
-export default NoHeader
+export default NoFooter

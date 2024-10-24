@@ -18,8 +18,8 @@ function BasicDetails({ product }: BasicDetailsProps) {
 
 
     return (
-        <div className="basicdetails w-full  py-3  space-y-2  rounded-xl my-4 border-[1px] ">
-            <div className="firstrow  rounded-md px-5 flex items-center justify-between ">
+        <div className="basicdetails w-full py-3 space-y-2 rounded-xl my-4 border-[1px]">
+            <div className="firstrow rounded-md px-5 flex items-center justify-between ">
                 <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.ProductInfo?.cropName}</h1>
                 <div className="secondrow flex items-center gap-8">
                     <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product?.ProductInfo?.expectedPrice} / ${product.ProductInfo?.units}`}</h1>
@@ -28,7 +28,7 @@ function BasicDetails({ product }: BasicDetailsProps) {
 
             <div className="flex items-center px-5 justify-between">
                 <div className="secondrow space-y-2">
-                    <div className="otherDertaisl secondrow flex items-center gap-8">
+                    <div className="otherDertaisl secondrow items-center gap-8">
                         <div className='flex items-center gap-2'>
                             <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
                             <h1 className='text-base font-semibold text-[#64566f]'>{`${product?.ProductInfo?.quantityAvailable} kg `}</h1>
@@ -76,27 +76,27 @@ function BasicDetails({ product }: BasicDetailsProps) {
                     </div>
                 </div>
 
-                <button onClick={() => { setseeDetails(!seeDetails) }} className="flex items-center justify-center gap-1  bg-[#6cbdaf] w-36 h-10   border-2 border-black rounded-sm">
+                <button onClick={() => { setseeDetails(!seeDetails) }} className="flex items-center justify-center gap-1 bg-[#6cbdaf] w-36 h-10  border-2 border-black rounded-sm">
                     <h1 className="text-white ">{seeDetails ? "Hide Details" : "More Details"}</h1>
                     <DropdownIcon condition={seeDetails} />
                 </button>
             </div>
 
 
-            <div className="locationpart  border-t-2">
+            <div className="locationpart border-t-2">
 
                 {
                     seeDetails &&
                     <MoreDetails product={product} />
                 }
-                <div className='flex gap-3  px-5 pt-4'>
+                <div className='flex gap-3 px-5 pt-4'>
                     <Image
                         src="/location1.png"
                         height="15"
                         width="15"
                         alt="thumbnail"
                     />
-                    <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
+                    <span className="text-xs w-full font-semibold text-[#74667f] dark:text-white">{
                         ` ${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
                     }</span>
                 </div>

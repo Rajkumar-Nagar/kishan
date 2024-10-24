@@ -26,9 +26,10 @@ const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     React.useEffect(() => {
         const socketInstance = new (io as any)('/', {
             path: '/api/socket/io',
-            addTrailingSlash: false
-        });
+            addTrailingSlash: false,
 
+        });
+        
         socketInstance.on('connect', () => {
             setIsConnected(true);
         })

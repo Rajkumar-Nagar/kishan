@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/lib/redux';
 import { bidActions } from '@/lib/redux/features';
 import { useSocket } from '@/providers/socket-provider';
-import React, { useCallback } from 'react'
-import { SOCKET_EVENTS as SE } from '@/constants'
+import React, { useCallback, useEffect } from 'react'
+import { SOCKET_EVENTS as SE, SOCKET_EVENTS } from '@/constants'
 
 interface BiddingPriceButtonProps {
     price: number;
@@ -18,7 +18,7 @@ const BiddingPriceButton = (
         handleClick
     }: BiddingPriceButtonProps
 ) => {
-
+ 
     return (
         <Button variant={'outline'} onClick={() => handleClick(price)} className='px-4 py-2 h-auto'>
             +{price}

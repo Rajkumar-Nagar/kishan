@@ -44,7 +44,7 @@ const ProfileMenu = ({ user }: ProfileDemoProps) => {
                         src={user?.avatar}
                         width={"170"}
                         height={"170"}
-                        className='w-10 h-10 rounded-full'
+                        className='w-10 h-10 rounded-full aspect-square'
                         crop={{
                             type: 'auto',
                             source: true

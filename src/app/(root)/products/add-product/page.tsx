@@ -93,23 +93,23 @@ function Page() {
 
     const hadleItemAdd = async () => {
 
-        if (!aadhar_number || !current_location || !aadharphotos || !selectProduct || !quantity || !varity || !expectedPrize || !units || !mandiOption || !uploadImages || !city || !village || !pincode || !distict || !state || !Color || !harvestDate || !harvestLocation || !uploadImages || !liveStreaming || !setsampleRequest) {
-            seterror("please fill all required field (*)")
-            return;
-        }
-        if (aadharphotos.length != 2) {
-            seterror("please upload  aadhar  front and back both photos")
-            return;
-        }
-        if (uploadImages.length < 5) {
-            seterror("please take min five photos of your crops with different angle")
-            return;
-        }
+        // if (!aadhar_number || !current_location || !aadharphotos || !selectProduct || !quantity || !varity || !expectedPrize || !units || !mandiOption || !uploadImages || !city || !village || !pincode || !distict || !state || !Color || !harvestDate || !harvestLocation || !uploadImages || !liveStreaming || !setsampleRequest) {
+        //     seterror("please fill all required field (*)")
+        //     return;
+        // }
+        // if (aadharphotos.length != 2) {
+        //     seterror("please upload  aadhar  front and back both photos")
+        //     return;
+        // }
+        // if (uploadImages.length < 5) {
+        //     seterror("please take min five photos of your crops with different angle")
+        //     return;
+        // }
 
-        if (!(setsampleRequest && liveStreaming)) {
-            seterror("Please accept both the additonal service without this you can not move forword")
-            return;
-        }
+        // if (!(setsampleRequest && liveStreaming)) {
+        //     seterror("Please accept both the additonal service without this you can not move forword")
+        //     return;
+        // }
         try {
             setisloading(true)
             const response = await fetch("/api/addproduct", {

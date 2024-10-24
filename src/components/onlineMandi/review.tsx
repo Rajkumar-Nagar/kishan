@@ -11,7 +11,7 @@ type testimonialsTypes = {
 
 }
 
-const testimonials: testimonialsTypes[] = [
+export const testimonials: testimonialsTypes[] = [
   {
     name: "Rajesh Kumar",
     location: "Jaipur, Rajasthan",

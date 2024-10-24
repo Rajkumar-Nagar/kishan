@@ -33,7 +33,7 @@ function Allindiamandijoin() {
                 return
             }
         }
-        route.push(`/mandi/all_india_mandi`)
+        route.push(`/mandi/all-india-mandi`)
     }
 
     return (
