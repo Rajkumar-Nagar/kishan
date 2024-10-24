@@ -1,3 +1,5 @@
+import { productOptions } from "@/actions/include.options";
+import { Bids, Prisma, Product } from "@prisma/client";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export interface Bidder {
@@ -6,84 +8,107 @@ export interface Bidder {
     room: string;
     userId: string;
 }
-
+export type Bidproduct = Prisma.ProductGetPayload<{
+    include: {
+        additionalServices: true,
+        harvestStorage: true,
+        qualityMetrics: true,
+        media: true,
+        locationInfo: true,
+        pesonalInfo: {
+            select: {
+                id: true,
+                name: true,
+                phoneNumber: true,
+                email: true,
+                address: true,
+                licence: true,
+                additional_number: true,
+                avatar: true,
+            }
+        },
+        ProductInfo: true,
+        biddingDetails: {
+            include: {
+                bids: true
+            }
+        }
+    }
+}>
 export interface BidSliceState {
-    basePrice: number;
-    status: "idle" | "loading" | "failed";
-    currentBid: number;
-    highestBidder: string;
-    highestBid: number;
-    bidders: Bidder[];
-    paused: boolean;
-    default_waiting: number;
-    timestamps: {
-        created_at: number;
-        updated_at: number;
-    };
+    product: Bidproduct | null,
+    bidders: Bidder[],
+    highestBidder: string | null,
+    bidHistory: Bids[],
+    countDown: number,
+    viewers: Bidder[],
+    latestBid: Bids | null,
+    highestBid: number
+
 }
 
 const initialState: BidSliceState = {
-    basePrice: 0,
-    status: "idle",
-    currentBid: 0,
-    highestBidder: "",
-    highestBid: 0,
+    product: null,
     bidders: [],
-    paused: false,
-    default_waiting: 30,
-    timestamps: {
-        created_at: 0,
-        updated_at: 0,
-    }
+    highestBidder: null,
+    bidHistory: [],
+    countDown: 30,
+    viewers: [],
+    highestBid: 0,
+    latestBid: null
 };
+
 
 const bidSlice = createSlice({
     name: "bidRoom",
     initialState,
     reducers: {
-        setInitialValues: (state, action: PayloadAction<BidSliceState>) => {
-            state.basePrice = action.payload.basePrice;
-            state.currentBid = action.payload?.currentBid ?? 0;
-            state.highestBidder = action.payload?.highestBidder ?? "";
-            state.highestBid = action.payload?.highestBid ?? "";
-            state.paused = !!action.payload?.paused;
-            state.timestamps.created_at = action.payload?.timestamps?.created_at ?? 0;
-            state.timestamps.updated_at = action.payload?.timestamps?.updated_at ?? 0;
+        initBid: (state, action: PayloadAction<Bidproduct>) => {
+            const product = action.payload
+            state.product = product
+            state.bidHistory = product.biddingDetails[0].bids
+            const latestBid = product.biddingDetails[0].bids.at(-1)
+            if (latestBid) {
+                state.highestBid = latestBid?.price!
+                state.highestBidder = latestBid?.bidderId!
+                state.latestBid = latestBid;
+            }
         },
-        setBasePrice: (state, action: PayloadAction<number>) => {
-            state.basePrice = action.payload;
+        setProduct: (state, action: PayloadAction<Bidproduct>) => {
+            state.product = action.payload;
         },
-        setHighestBid: (state, action: PayloadAction<number>) => {
-            state.highestBid = action.payload;
+        removeBidder: (state, action: PayloadAction<Bidder>) => {
+            state.bidders.pop();
         },
-        setHighestBidder: (state, action: PayloadAction<string>) => {
-            state.highestBidder = action.payload;
+        setBidders: (state, action: PayloadAction<Bidder[]>) => {
+            state.bidders = action.payload
         },
-        setCurrentBid: (state, action: PayloadAction<number>) => {
-            state.currentBid = action.payload;
-            state.paused = true;
+        addBidder: (state, action: PayloadAction<Bidder>) => {
+            state.bidders.push(action.payload);
         },
-        setStatus: (state, action: PayloadAction<"idle" | "loading" | "failed">) => {
-            state.status = action.payload;
+        removeViewer: (state, action: PayloadAction<Bidder>) => {
+            state.bidders.pop();
         },
-        setBidders: (state, action: PayloadAction<any[]>) => {
-            state.bidders = action.payload;
+        addViewer: (state, action: PayloadAction<Bidder>) => {
+            state.bidders.push(action.payload);
         },
-        setCanMakeBid: (state, action: PayloadAction<boolean>) => {
-            state.paused = !action.payload;
+        addBid: (state, action: PayloadAction<Bids>) => {
+            state.bidHistory = [...state.bidHistory, action.payload];
+            console.log(JSON.stringify(state.bidHistory, null, 2))
+            state.latestBid = action.payload;
+            state.highestBidder = action.payload.bidderId
+            state.highestBid = action.payload.price
+            console.log(state.highestBid)
         },
-        createBidTimeStamp: (state, action: PayloadAction<number>) => {
-            state.timestamps.created_at = action.payload;
-        },
-        updateBidTimeStamp: (state, action: PayloadAction<number>) => {
-            state.paused = true;
-            state.timestamps.updated_at = action.payload;
-        },
+        setCountDown: (state, action: PayloadAction<number>) => {
+            state.countDown = action.payload
+        }
     },
     selectors: {
 
     },
 });
+
 
 export const bidActions = bidSlice.actions;
 export const bidReducer = bidSlice.reducer

@@ -2,37 +2,42 @@ model Mandi {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    crops     Crops[]
-}
-
-model Crops {
-    id         String       @id @default(auto()) @map("_id") @db.ObjectId
-    name       String
-    price      Int
-    mandiId    String       @db.ObjectId
-    mandi      Mandi        @relation(fields: [mandiId], references: [id])
-    BidDetails BidDetails[]
 }
 
 model BidDetails {
-    id            String   @id @default(auto()) @map("_id") @db.ObjectId
-    cropId        String   @db.ObjectId
-    crop          Crops    @relation(fields: [cropId], references: [id])
-    startedAt     DateTime
-    endedAt       DateTime
-    highestBid    Int
-    lowestBid     Int
-    highestBidder String   @db.ObjectId
-    lowestBidder  String   @db.ObjectId
-    bids          Bids[]
+    id               String    @id @default(auto()) @map("_id") @db.ObjectId
+    cropId           String    @db.ObjectId @unique
+    crop             Product   @relation(fields: [cropId], references: [id])
+    startedAt        DateTime?
+    endedAt          DateTime?
+    highestBid       Int?
+    lowestBid        Int?
+    winning_bidder   User?     @relation(fields: [winning_bidderId], references: [id], onDelete: Cascade)
+    winning_bidderId String?   @db.ObjectId
+    biddingSlot      Slot      @default(First)
+    bids             Bids[]
 }
 
 model Bids {
     id           String      @id @default(auto()) @map("_id") @db.ObjectId
     bidderId     String      @db.ObjectId
     bidder       User        @relation(fields: [bidderId], references: [id])
-    cropId       String[]    @db.ObjectId
     price        Int
     bidDetailsId String?     @db.ObjectId
     BidDetails   BidDetails? @relation(fields: [bidDetailsId], references: [id])
+    createdAt    DateTime  @default(now())
+}
+
+enum Slot {
+    First
+    Second
+    Third
+}
+
+model SlotOption {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    currCropId String
+    pendingCrops String[]
+    status String
+    Type Slot @unique
 }
