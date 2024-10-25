@@ -5,7 +5,8 @@ import { SOCKET_EVENTS } from '@/constants'
 import { useAppSelector } from '@/lib/redux'
 import { useSocket } from '@/providers/socket-provider'
 import { useSession } from 'next-auth/react'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import { Button } from '../ui/button'
 
 interface BidBoxProps {
     money: number
@@ -14,11 +15,10 @@ interface BidBoxProps {
 
 const Bidbox = React.memo(({ money, handlePrice }: BidBoxProps) => {
     return (
-        <button onClick={() => handlePrice(money)} className={`bg-orange-500 w-20 h-10 text-white rounded-md items-center justify-center focus:border-2 focus:border-black`}>
+        <button onClick={() => handlePrice(money)} className={`bg-orange-500 min-w-20 w-max h-10 px-4 text-white rounded-md items-center justify-center focus:border-2 focus:border-black`}>
             {`+ ₹${money}`}
         </button>
     )
-
 })
 
 Bidbox.displayName = 'Bidbox'
@@ -29,45 +29,30 @@ function BidderButtons() {
 
     const { socket } = useSocket();
     const { data } = useSession()
-    const { bidders, highestBid, product } = useAppSelector(state => state.bidRoom);
-
-    const userId = useMemo(() => Math.random().toString(), [])
+    const { highestBid, product } = useAppSelector(state => state.bidRoom);
 
     const handlePrice = useCallback(async (money: number) => {
         const lastPrice = highestBid ? highestBid : +product?.ProductInfo?.expectedPrice!
         const currentPrice = money + lastPrice!
         setbidPrice(currentPrice);
-        MakeBid({
+
+        const bidData = {
             cropId: product?.id!,
-            price: currentPrice
-        }).then(console.log)
-        socket?.emit(SOCKET_EVENTS.MAKE_BID, {
             price: currentPrice,
+            bidderId: data?.user.id,
+            createdAt: new Date().toISOString(),
             room: "slot-1",
-            userId: data?.user.id,
-            createdAt: Date.now()
-        })
-    }, [socket, highestBid, product])
-
-    useEffect(() => {
-        if (!socket) return;
-
-        if (!bidders.find(b => b.userId === userId)) {
-            socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room: 'slot-1', name: "raj", userId });
         }
-    }, [socket, bidders])
 
-    useEffect(() => {
-        if (!socket) return;
-        socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room: 'slot-1', name: "raj", userId });
-        socket.on(SOCKET_EVENTS.USERS_LIST, (data: any) => {
-            console.log(data)
-        })
-    }, [socket, userId])
+        MakeBid(bidData).then(console.log)
+        socket?.emit(SOCKET_EVENTS.MAKE_BID, bidData)
+    }, [socket, highestBid, product, data?.user.id])
+
+
     return (
-        <div className="maincontainer py-5 flex flex-col ">
+        <div className="maincontainer py-2 flex flex-col w-full px-4 items-center">
 
-            <div className="preBiuldButtons flex items-center gap-5 flex-wrap">
+            <div className="py-2 flex items-center gap-5 overflow-x-auto scrollbar">
                 {
                     [50, 100, 200, 500, 1000].map((item, index) => (
                         <Bidbox key={index} money={item} handlePrice={handlePrice} />
@@ -75,7 +60,7 @@ function BidderButtons() {
                 }
             </div>
 
-            <div className="customeprize flex items-center gap-4 mt-6">
+            <div className="customeprize flex items-center gap-4">
 
                 <input
                     type="text"
@@ -91,7 +76,8 @@ function BidderButtons() {
 
                 <button
                     onClick={() => handlePrice(bidPrice)}
-                    className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                    className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+                >
                     BID
                 </button>
 

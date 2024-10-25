@@ -6,10 +6,10 @@ const NoHeader = () => {
     React.useEffect(() => {
         const header = document.querySelector('header');
         header?.style.setProperty('display', 'none');
-        // document.documentElement.style.setProperty('--header-height', '0px');
+        document.documentElement.style.setProperty('--header-height', '0px');
         return () => {
             header?.style.removeProperty('display');
-            // document.documentElement.style.setProperty('--header-height', '4rem');
+            document.documentElement.style.setProperty('--header-height', '4rem');
         };
     }, []);
     return null;

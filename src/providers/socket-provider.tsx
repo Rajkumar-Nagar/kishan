@@ -27,9 +27,10 @@ const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         const socketInstance = new (io as any)('/', {
             path: '/api/socket/io',
             addTrailingSlash: false,
-
+            reconnection: true,
+            autoConnect: false,
         });
-        
+        socketInstance.connect();
         socketInstance.on('connect', () => {
             setIsConnected(true);
         })
@@ -38,18 +39,12 @@ const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         })
         setSocket(socketInstance);
 
-        const handleSocketLeft = () => {
-            socketInstance.emit('user-left');
-        }
-
-        window.addEventListener('beforeunload', handleSocketLeft);
-
         return () => {
             socketInstance.disconnect();
-            window.removeEventListener('beforeunload', handleSocketLeft);
         }
     }, [])
 
+    console.log('socket connected', isConnected)
 
     return (
         <SocketContext.Provider value={{ socket, isConnected }} >

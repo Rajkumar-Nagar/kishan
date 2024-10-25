@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import Modal from './modal'
 import { ProductType } from '@/lib/types'
+import { useAppSelector } from '@/lib/redux'
 
 export enum MandiHeaderOptions {
     bidSummary = "bid-summary",
@@ -15,8 +16,7 @@ function HeaderButton({ product }: { product: ProductType }) {
 
     const [buttonAcitve, setbuttonAcitve] = useState("")
     const [modalshow, setmodalshow] = useState(false)
-
-    console.log(modalshow, buttonAcitve)
+    const { bidders } = useAppSelector(state => state.bidRoom);
 
     const handelModal = (type: string) => {
         setbuttonAcitve(type)
@@ -55,7 +55,7 @@ function HeaderButton({ product }: { product: ProductType }) {
 
                     <button onClick={() => handelModal(MandiHeaderOptions.biddersList)} className="relative flex justify-center group hover:bg-[#63a096] hover:rounded-full p-3 active:hover:bg-[#3d9485]">
                         <h1 className="text-white group-hover:block hidden bg-gray-500 text-sm w-32 py-1 rounded-full absolute -bottom-9">Bidders</h1>
-                        <h1 className="text-white bg-gray-400 text-xs w-5 h-5 flex items-center justify-center rounded-full absolute -top-2 -right-0">10</h1>
+                        <h1 className="text-white bg-gray-400 text-xs w-5 h-5 flex items-center justify-center rounded-full absolute -top-2 -right-0">{bidders.length}</h1>
                         <Image
                             width={100}
                             height={100}

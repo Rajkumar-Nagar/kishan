@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/providers";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +17,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
+  const session = await auth()
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <StoreProvider>
-          <div className="">
-            {children}
-          </div>
-        </StoreProvider>
+        <SessionProvider session={session}>
+          <StoreProvider>
+            <div className="">
+              {children}
+            </div>
+          </StoreProvider>
+        </SessionProvider>
       </body>
     </html>
   );

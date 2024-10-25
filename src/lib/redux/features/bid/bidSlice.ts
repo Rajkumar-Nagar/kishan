@@ -69,8 +69,8 @@ const bidSlice = createSlice({
             state.bidHistory = product.biddingDetails[0].bids
             const latestBid = product.biddingDetails[0].bids.at(-1)
             if (latestBid) {
-                state.highestBid = latestBid?.price!
-                state.highestBidder = latestBid?.bidderId!
+                state.highestBid = latestBid.price
+                state.highestBidder = latestBid.bidderId
                 state.latestBid = latestBid;
             }
         },
