@@ -37,7 +37,6 @@ export function NavUser() {
   const { data } = useSession();
   const user = data?.user!;
 
-  console.log(JSON.stringify(user, null, 2));
 
   return (
     <SidebarMenu>

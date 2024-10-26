@@ -60,6 +60,10 @@ const data = {
           title: "Crops",
           url: "/dashboard/all-india-mandi/crops",
         },
+        {
+          title: "Bids",
+          url: "/dashboard/all-india-mandi/bids",
+        },
       ],
     },
     {
@@ -74,6 +78,10 @@ const data = {
         {
           title: "Crops",
           url: "/dashboard/mini-mandi/crops",
+        },
+        {
+          title: "Bids",
+          url: "/dashboard/mini-mandi/bids",
         },
       ],
     },

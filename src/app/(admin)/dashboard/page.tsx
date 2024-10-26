@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card"
 import { DataTable } from "@/components/ui/data-table"
 import { ColumnDef } from "@tanstack/react-table"
+import { Chart } from "./chart"
 
 type Bidder = {
     id: string
@@ -18,72 +19,6 @@ type Bidder = {
     mandi: "mini-mandi" | "all-india-mandi"
 }
 
-const columns: ColumnDef<Bidder>[] = [
-    {
-        accessorKey: "name",
-        header: "Name",
-    },
-    {
-        accessorKey: "email",
-        header: "Email",
-    },
-    {
-        accessorKey: "state",
-        header: "State",
-    },
-    {
-        accessorKey: "mandi",
-        header: "Mandi",
-    },
-    {
-        accessorKey: "status",
-        header: "Status",
-    },
-]
-
-const data: Bidder[] = [
-    {
-        id: "1",
-        name: "John Doe",
-        status: "pending",
-        email: "emal1@example.com",
-        state: "Rajasthan",
-        mandi: "mini-mandi",
-    },
-    {
-        id: "2",
-        name: "Jane Doe",
-        status: "processing",
-        email: "emal1@example.com",
-        state: "Punjab",
-        mandi: "all-india-mandi",
-    },
-    {
-        id: "3",
-        name: "John Smith",
-        status: "success",
-        email: "emal1@example.com",
-        state: "Haryana",
-        mandi: "mini-mandi",
-    },
-    {
-        id: "4",
-        name: "Jane Smith",
-        status: "failed",
-        email: "emal1@example.com",
-        state: "Himachal Pradesh",
-        mandi: "all-india-mandi",
-    },
-    {
-        id: "5",
-        name: "John Doe",
-        status: "pending",
-        email: "emal1@example.com",
-        state: "Rajasthan",
-        mandi: "mini-mandi",
-    },
-
-]
 
 const Stats = [
     {
@@ -117,7 +52,7 @@ export default function Page() {
             </div>
             <div className="min-h-[100vh] flex-1 md:min-h-min" >
                 <div className="flex-1 space-y-2 text-white">
-                    <DataTable columns={columns} data={data} />
+                    <Chart />
                 </div>
             </div>
         </div>
