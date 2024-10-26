@@ -3,7 +3,6 @@ import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
 
 export async function POST(request: NextRequest) {
-
     try {
 
         const {
@@ -28,50 +27,32 @@ export async function POST(request: NextRequest) {
             terms_condition
         } = await request.json()
 
-        if (!mandiType || !
-            mandiState || !
-            madiDistict || !
-            aadhar_number || !
-            aadharphotos || !
-            current_location || !
-            state || !
-            distict || !
-            village || !
-            city || !
-            pincode || !
-            work || !
-            income || !
-            storagePlace || !
-            storageLocation || !
-            storageImages
+        if (
+            !mandiType ||
+            (mandiType === "Mini Mandi" && (!mandiState || !madiDistict)) ||
+            !aadhar_number ||
+            !aadharphotos ||
+            !current_location ||
+            !state ||
+            !distict ||
+            !village ||
+            !city ||
+            !pincode ||
+            !work ||
+            !income ||
+            !storagePlace ||
+            !storageLocation ||
+            !storageImages ||
+            !diclaration ||
+            !terms_condition
         ) {
             return NextResponse.json({ error: "Please provide necessary fields" }, { status: 500 })
         }
 
-        const user = await auth()
+        const session = await auth()
 
-        console.log("user is this ", user)
-
-        if (!user) {
+        if (!session?.user) {
             return NextResponse.json({ error: "please loged in first" }, { status: 500 })
-        }
-
-        const updateUsers = await prisma.user.updateMany({
-            where: {
-                phoneNumber: {
-                    contains: user.user.phoneNumber,
-                },
-            },
-            data: {
-                aadhar_number: aadhar_number,
-                current_location: current_location,
-                additional_number: additional_number,
-                aadharphotos: aadharphotos,
-            },
-        })
-
-        if (!updateUsers) {
-            return NextResponse.json({ error: "User detailed updatation failed" }, { status: 500 })
         }
 
         const licenseInfo = await prisma.licence.create({
@@ -93,12 +74,31 @@ export async function POST(request: NextRequest) {
                 terms_condition
             },
         });
-
         if (!licenseInfo) {
             return NextResponse.json({ error: "licese create failed" }, { status: 500 })
         }
 
         console.log(licenseInfo)
+
+        const updateUsers = await prisma.user.updateMany({
+            where: {
+                phoneNumber: {
+                    contains: session.user.phoneNumber,
+                },
+            },
+            data: {
+                aadhar_number: aadhar_number,
+                current_location: current_location,
+                additional_number: additional_number,
+                aadharphotos: aadharphotos,
+                licenceId: licenseInfo.id,
+            },
+        })
+
+        if (!updateUsers) {
+            return NextResponse.json({ error: "User detailed updatation failed" }, { status: 500 })
+        }
+
         return NextResponse.json(licenseInfo, { status: 200 });
 
     } catch (error) {

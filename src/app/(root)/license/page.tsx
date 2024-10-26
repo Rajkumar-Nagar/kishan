@@ -60,7 +60,6 @@ export default function Licence() {
         setAdditional_number(value)
     }
 
-
     const hadleItemAdd = async () => {
 
         if (!mandiType || !aadhar_number || !aadharphotos || !current_location || !city || !village || !pincode || !state || !distict || !work || !income || !storagefield || !storageLocation || !storagelocaitonMedia || !diclaration || !tems_condition) {
@@ -75,7 +74,7 @@ export default function Licence() {
             }
         }
 
-        if (aadharphotos.length != 3) {
+        if (aadharphotos.length < 3) {
             seterror("please upload aadhar card fort,back and a passport size clear photo")
             return
         }
@@ -90,6 +89,27 @@ export default function Licence() {
             return
         }
         try {
+            console.log({
+                mandiType,
+                mandiState: minimandiState,
+                madiDistict: minimandidistict,
+                aadhar_number: aadhar_number,
+                aadharphotos: aadharphotos,
+                additional_number: additional_number,
+                current_location: current_location,
+                state,
+                distict,
+                village,
+                city,
+                pincode,
+                work,
+                income,
+                storagePlace: storagefield,
+                storageLocation: storageLocation,
+                storageImages: storagelocaitonMedia,
+                diclaration,
+                terms_condition: tems_condition
+            })
             setisloading(true)
             const response = await fetch("/api/getLicence", {
                 method: "POST",
@@ -120,6 +140,7 @@ export default function Licence() {
             })
 
             if (!response.ok) {
+                console.log(await response.json())
                 throw new Error("license applied failed")
             }
 
@@ -152,11 +173,11 @@ export default function Licence() {
         }
     }
 
-    if (confirmation) {
-        return (
-            <Successfull product setConformation={setconfirmation} title={"Your license application has been successfully submit to our platform. please wait for our response"} imgurl="/welcome.jpg" />
-        )
-    }
+    // if (confirmation) {
+    //     return (
+    //         <Successfull product setConformation={setconfirmation} title={"Your license application has been successfully submit to our platform. please wait for our response"} imgurl="/welcome.jpg" />
+    //     )
+    // }
 
     return (
         <div className="container max-w-4xl w-full p-2 sm:p-4 md:p-8">
