@@ -1,11 +1,23 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters", "prismaSchemaFolder"]
+  previewFeatures = ["driverAdapters", "prismaSchemaFolder", "omitApi"]
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  BIDDER
+  ADMIN
+}
+
+enum MandiType {
+  MINI_MANDI
+  ALL_INDIA_MANDI
+  OTHER
 }
 
 model User {
@@ -19,11 +31,12 @@ model User {
 
   avatar          String?
   backgroundImage String?
+  role            Role    @default(USER)
 
   aadhar_number     String?
   current_location  String?
   additional_number String?
-  aadharphotos      String[] @default([])
+  aadharphotos      String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -61,12 +74,12 @@ model Product {
 }
 
 model Licence {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  mandiType       String
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  mandiType       MandiType
   mandiState      String?
-  madiDistict     String?
+  madiDistrict    String?
   state           String
-  distict         String
+  district        String
   village         String
   city            String
   pincode         String
@@ -74,9 +87,9 @@ model Licence {
   income          String
   storagePlace    String
   storageLocation String
-  storageImages   String[] @default([])
-  diclaration     Boolean  @default(false)
-  terms_condition Boolean  @default(false)
+  storageImages   String[]  @default([])
+  declaration     Boolean   @default(false)
+  terms_condition Boolean   @default(false)
   user            User[]
 }
 

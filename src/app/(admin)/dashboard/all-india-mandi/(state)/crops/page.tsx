@@ -1,9 +1,10 @@
 import { DataTable } from '@/components/ui/data-table'
 import React from 'react'
 
-// crop name, variety, price, quantity, state, city, pincode
+// id, crop name, variety, price, quantity, state, city, pincode
 
 type ICrop = {
+    id: string
     crop: string
     variety: string
     price: number
@@ -46,6 +47,7 @@ const columns = [
 
 const data: ICrop[] = [
     {
+        id: "1",
         crop: "Rice",
         variety: "Basmati",
         price: 1000,
@@ -55,6 +57,7 @@ const data: ICrop[] = [
         pincode: 302021,
     },
     {
+        id: "2",
         crop: "Wheat",
         variety: "Sharbati",
         price: 1500,
@@ -64,6 +67,7 @@ const data: ICrop[] = [
         pincode: 160001,
     },
     {
+        id: "3",
         crop: "Maize",
         variety: "Yellow",
         price: 800,
@@ -78,7 +82,7 @@ const page = async () => {
 
     return (
         <div className="flex-1 space-y-2 text-white">
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data} route='./crops' />
         </div>
     )
 }

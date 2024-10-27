@@ -55,7 +55,7 @@ function Page() {
     const [village, setVillage] = useState("")
     const [pincode, setpincode] = useState("")
     const [state, setstate] = useState<IStatesWithDistricts>("Rajasthan")
-    const [distict, setdistict] = useState("")
+    const [district, setdistict] = useState("")
 
 
     const [grading, setgrading] = useState("false")
@@ -93,7 +93,7 @@ function Page() {
 
     const hadleItemAdd = async () => {
 
-        // if (!aadhar_number || !current_location || !aadharphotos || !selectProduct || !quantity || !varity || !expectedPrize || !units || !mandiOption || !uploadImages || !city || !village || !pincode || !distict || !state || !Color || !harvestDate || !harvestLocation || !uploadImages || !liveStreaming || !setsampleRequest) {
+        // if (!aadhar_number || !current_location || !aadharphotos || !selectProduct || !quantity || !varity || !expectedPrize || !units || !mandiOption || !uploadImages || !city || !village || !pincode || !district || !state || !Color || !harvestDate || !harvestLocation || !uploadImages || !liveStreaming || !setsampleRequest) {
         //     seterror("please fill all required field (*)")
         //     return;
         // }
@@ -133,7 +133,7 @@ function Page() {
                     city: city,
                     village: village,
                     pincode: pincode,
-                    districtCity: distict,
+                    districtCity: district,
                     state: state,
 
                     moistureContent: Moisturecontent,
@@ -407,12 +407,12 @@ function Page() {
 
                                 <div className="sellingoption grow">
                                     <div className='flex items-center'>
-                                        <h1 className=" text-[#002f34] text-xl my-2">distict</h1>
+                                        <h1 className=" text-[#002f34] text-xl my-2">district</h1>
                                         <span className=" text-[#da4f43] text-xl my-2">*</span>
                                     </div>
                                     <Dropdown
                                         Setquantity={setdistict}
-                                        quntity={distict}
+                                        quntity={district}
                                         fields={statesWithDistricts[state]}
                                         nameDrop="Option" />
                                 </div>

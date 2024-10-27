@@ -5,6 +5,7 @@ import { ColumnDef } from '@tanstack/react-table'
 // crop name, price, quantity, status, start date, end date, Highest bid, lowest bid 
 
 type IBid = {
+    id: string
     crop: string
     price: number
     quantity: number
@@ -52,6 +53,7 @@ const columns: ColumnDef<IBid>[] = [
 
 const data: IBid[] = [
     {
+        id: "1",
         crop: "Rice",
         price: 1000,
         quantity: 100,
@@ -62,6 +64,7 @@ const data: IBid[] = [
         lowestBid: 900
     },
     {
+        id: "2",
         crop: "Wheat",
         price: 1500,
         quantity: 200,
@@ -72,6 +75,7 @@ const data: IBid[] = [
         lowestBid: 1400
     },
     {
+        id: "3",
         crop: "Barley",
         price: 1200,
         quantity: 150,
@@ -88,7 +92,7 @@ const page = async () => {
 
     return (
         <div className="flex-1 space-y-2 text-white">
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data} route='./bids' />
         </div>
     )
 }

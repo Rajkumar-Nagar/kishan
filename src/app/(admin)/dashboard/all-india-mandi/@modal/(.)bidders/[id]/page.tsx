@@ -2,6 +2,7 @@ import CImage from '@/components/Cimage';
 import { Modal } from '@/components/modal';
 import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
+import { MandiType } from '@prisma/client';
 
 export default async function PhotoModal({
     params: { id },
@@ -12,23 +13,12 @@ export default async function PhotoModal({
         where: {
             id: '67051ac26b77cd9a7a800a5a'
         },
-        select: {
-            id: true,
-            name: true,
-            email: true,
-            phoneNumber: true,
-            avatar: true,
-            backgroundImage: true,
-            createdAt: true,
-            is_licence: true,
-            aadhar_number: true,
-            additional_number: true,
-            address: true,
-            aadharphotos: true,
-            licence: true,
-            licenceId: true,
+        omit: {
+            password: true,
         },
-
+        include: {
+            licence: true,
+        }
     });
     return (
         <Modal>
@@ -73,15 +63,15 @@ export default async function PhotoModal({
                             <div className="[&_span]:text-muted-foreground grid lg:grid-cols-2">
                                 <p>Licence Type: <span>{bidder?.licence?.mandiType}</span></p>
                                 {
-                                    bidder?.licence?.mandiType === 'Mini Mandi' && (
+                                    bidder?.licence?.mandiType === MandiType.MINI_MANDI && (
                                         <>
                                             <p>Licence State: <span>{bidder?.licence?.mandiState}</span></p>
-                                            <p>Licence District: <span>{bidder?.licence?.madiDistict}</span></p>
+                                            <p>Licence District: <span>{bidder?.licence?.madiDistrict}</span></p>
                                         </>
                                     )
                                 }
                                 <p>State: <span>{bidder?.licence?.state}</span></p>
-                                <p>District: <span>{bidder?.licence?.distict}</span></p>
+                                <p>District: <span>{bidder?.licence?.district}</span></p>
                                 <p>Village: <span>{bidder?.licence?.village}</span></p>
                                 <p>City: <span>{bidder?.licence?.city}</span></p>
                                 <p>Pincode: <span>{bidder?.licence?.pincode}</span></p>

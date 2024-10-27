@@ -1,20 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
+import { MandiType } from "@prisma/client";
 
 export async function POST(request: NextRequest) {
     try {
-
+        const body = await request.json();
         const {
             mandiType,
             mandiState,
-            madiDistict,
+            madiDistrict,
             aadhar_number,
             aadharphotos,
             additional_number,
             current_location,
             state,
-            distict,
+            district,
             village,
             city,
             pincode,
@@ -23,18 +24,18 @@ export async function POST(request: NextRequest) {
             storagePlace,
             storageLocation,
             storageImages,
-            diclaration,
+            declaration,
             terms_condition
-        } = await request.json()
+        } = body;
 
         if (
             !mandiType ||
-            (mandiType === "Mini Mandi" && (!mandiState || !madiDistict)) ||
+            (mandiType === MandiType.MINI_MANDI && (!mandiState || !madiDistrict)) ||
             !aadhar_number ||
             !aadharphotos ||
             !current_location ||
             !state ||
-            !distict ||
+            !district ||
             !village ||
             !city ||
             !pincode ||
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
             !storagePlace ||
             !storageLocation ||
             !storageImages ||
-            !diclaration ||
+            !declaration ||
             !terms_condition
         ) {
             return NextResponse.json({ error: "Please provide necessary fields" }, { status: 500 })
@@ -59,9 +60,9 @@ export async function POST(request: NextRequest) {
             data: {
                 mandiType,
                 mandiState,
-                madiDistict,
+                madiDistrict,
                 state,
-                distict,
+                district,
                 village,
                 city,
                 pincode,
@@ -70,7 +71,7 @@ export async function POST(request: NextRequest) {
                 storagePlace,
                 storageLocation,
                 storageImages,
-                diclaration,
+                declaration,
                 terms_condition
             },
         });

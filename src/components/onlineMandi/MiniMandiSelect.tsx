@@ -37,7 +37,7 @@ function MiniMandiSelect() {
         }
 
         if (!miniState || !minidistict) {
-            seterr("** please select minimandi state and distict")
+            seterr("** please select minimandi state and district")
             return
         }
         route.push(`/mandi/mini-mandi/${miniState}/${minidistict}`)
@@ -106,7 +106,7 @@ function MiniMandiSelect() {
 
                 <div className="sellingoption">
                     <div className='flex items-center'>
-                        <h1 className=" text-[#002f34] text-xl my-2">Mandi distict</h1>
+                        <h1 className=" text-[#002f34] text-xl my-2">Mandi district</h1>
                         <span className=" text-[#da4f43] text-xl my-2">*</span>
                     </div>
                     <Dropdown

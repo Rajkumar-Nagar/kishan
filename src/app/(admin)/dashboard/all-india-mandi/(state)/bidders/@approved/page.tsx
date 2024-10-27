@@ -2,11 +2,12 @@ import { DataTable } from '@/components/ui/data-table'
 import React from 'react'
 import { ColumnDef } from "@tanstack/react-table"
 import Link from 'next/link'
+import prisma from '@/lib/prisma'
 
 type Bidder = {
     id: string
     name: string
-    status: "pending" | "processing" | "success" | "failed"
+    status: "pending" | "approved"
     email: string
     state: string
     mandi: "mini-mandi" | "all-india-mandi"
@@ -35,6 +36,7 @@ const columns: ColumnDef<Bidder>[] = [
     },
 ]
 
+
 const data: Bidder[] = [
     {
         id: "1",
@@ -47,7 +49,7 @@ const data: Bidder[] = [
     {
         id: "2",
         name: "Jane Doe",
-        status: "processing",
+        status: "approved",
         email: "emal1@example.com",
         state: "Punjab",
         mandi: "all-india-mandi",
@@ -55,7 +57,7 @@ const data: Bidder[] = [
     {
         id: "3",
         name: "John Smith",
-        status: "success",
+        status: "approved",
         email: "emal1@example.com",
         state: "Haryana",
         mandi: "mini-mandi",
@@ -63,7 +65,7 @@ const data: Bidder[] = [
     {
         id: "4",
         name: "Jane Smith",
-        status: "failed",
+        status: "approved",
         email: "emal1@example.com",
         state: "Himachal Pradesh",
         mandi: "all-india-mandi",
@@ -78,12 +80,26 @@ const data: Bidder[] = [
     },
 ]
 
-const page = () => {
+const page = async () => {
+    const a = await prisma.user.findMany({
+        where: {
+            licenceId: {
+                not: null
+            },
+            is_licence: true
+        },
+        omit: {
+            password: true
+        },
+        include: {
+            licence: true
+        }
+    })
     return (
         <div className="flex-1 space-y-2 text-white">
-            {/* <DataTable columns={columns} data={data} /> */}
-            {data.map((bidder) => (
-                <Link href={`/dashboard/all-india-mandi/bidders/${bidder.id}`} key={bidder.id}>
+            <DataTable columns={columns} data={data.filter(s => s.status === "approved")} route='./bidders' />
+            {/* {data.filter(s => s.status === "approved").map((bidder) => (
+                <Link href={`/dashboard/all-india-mandi/bidders/${bidder.id}`} key={bidder.id} scroll={false}>
                     <div key={bidder.id} className="flex space-x-2 bg-gray-800 py-2 px-4 mb-2">
                         <div>{bidder.name}</div>
                         <div>{bidder.email}</div>
@@ -92,7 +108,7 @@ const page = () => {
                         <div>{bidder.status}</div>
                     </div>
                 </Link>
-            ))}
+            ))} */}
         </div>
     )
 }

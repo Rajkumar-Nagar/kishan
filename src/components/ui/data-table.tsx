@@ -20,18 +20,19 @@ import { useRouter } from "next/navigation"
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    route?: string
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    route
 }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
-
     const router = useRouter()
     return (
         <div className="rounded-md border">
@@ -60,7 +61,10 @@ export function DataTable<TData, TValue>({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
-                                onClick={() => router.push(`./bidders/${row.id}`)}
+                                onClick={() => {
+                                    route && router.push(`${route}/${(row.original as any).id}`, { scroll: false })
+                                }}
+                                className="cursor-pointer"
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
