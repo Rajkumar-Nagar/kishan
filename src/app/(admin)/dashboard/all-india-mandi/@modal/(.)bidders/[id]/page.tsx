@@ -1,17 +1,23 @@
 import CImage from '@/components/Cimage';
 import { Modal } from '@/components/modal';
-import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
-import { MandiType } from '@prisma/client';
+import { LicenceStatus, MandiType } from '@prisma/client';
+import LicenceActionButtons from '../../../bidders/[id]/licence-action-btn';
+import { isValidObjectId } from '@/lib/utils';
+import { notFound } from 'next/navigation';
 
 export default async function PhotoModal({
     params: { id },
 }: {
     params: { id: string };
 }) {
+
+    // if (!isValidObjectId(id)) notFound();
+
     const bidder = await prisma.user.findFirst({
         where: {
-            id: '67051ac26b77cd9a7a800a5a'
+            id: '67051ac26b77cd9a7a800a5a',
+            // licenceId: id
         },
         omit: {
             password: true,
@@ -20,12 +26,12 @@ export default async function PhotoModal({
             licence: true,
         }
     });
+    if (!bidder) notFound();
     return (
         <Modal>
-            <div className='dark flex-1 px-2'>
+            <div className='flex-1 px-2'>
                 <div className="btns flex md:justify-end gap-3 px-2 mb-2 sticky top-0 backdrop-blur-md py-1">
-                    <Button variant={'destructive'}>Reject</Button>
-                    <Button>Approve</Button>
+                    <LicenceActionButtons id={id} />
                 </div>
                 <div className="main space-y-6 divide-y [&>div]:p-2">
                     <div className='flex flex-wrap border divide-x py-4 px-2'>
@@ -37,9 +43,9 @@ export default async function PhotoModal({
                                 <p>Name: {bidder?.name}</p>
                                 <p>Email: {bidder?.email}</p>
                                 <p>Phone Number: {bidder?.phoneNumber}</p>
-                                <p>Additional Number: {bidder?.additional_number}</p>
+                                <p>Additional Number: {bidder?.additionalNumber}</p>
                                 <p>Address: {bidder?.address}</p>
-                                <p>Status: <span className={`${bidder?.is_licence ? 'text-green-400' : 'text-red-400'}`}>{bidder?.is_licence ? "Approved" : "Pending"}</span></p>
+                                <p>Status: <span className={`${bidder?.licence?.status === LicenceStatus.APPROVED ? 'text-green-400' : 'text-red-400'}`}>{bidder?.licence?.status}</span></p>
                             </div>
                         </div>
                     </div>
@@ -48,11 +54,11 @@ export default async function PhotoModal({
                         <h1 className='text-2xl'>Private Info</h1>
 
                         <div><h2>Aadhaar Details</h2>
-                            <p>Aadhaar Number: {bidder?.aadhar_number}</p>
+                            <p>Aadhaar Number: {bidder?.aadharNumber}</p>
 
                             <div className='flex gap-2 flex-wrap'>
-                                {bidder?.aadharphotos?.map((photo, index) => (
-                                    <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-48 h-48' />
+                                {bidder?.aadharPhotos?.map((photo, index) => (
+                                    <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-auto h-48 border' />
                                 ))}
                             </div>
                         </div>
@@ -85,7 +91,7 @@ export default async function PhotoModal({
                             </h2>
                             <div className='flex gap-2 flex-wrap'>
                                 {bidder?.licence?.storageImages.map((photo, index) => (
-                                    <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-48 h-48' />
+                                    <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-auto h-48 border' />
                                 ))}
                             </div>
                         </div>

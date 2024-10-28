@@ -1,15 +1,20 @@
 import { auth } from '@/auth'
 import CImage from '@/components/Cimage'
-import { Button } from '@/components/ui/button'
+import DImage from '@/components/DImage'
 import prisma from '@/lib/prisma'
-import { MandiType } from '@prisma/client'
+import { LicenceStatus, MandiType } from '@prisma/client'
 import React from 'react'
+import LicenceActionButtons from './licence-action-btn'
+import { isValidObjectId } from '@/lib/utils'
+import { notFound } from 'next/navigation'
 
 const page = async ({
     params
 }: {
     params: { id: string }
 }) => {
+    // if (!isValidObjectId(params.id)) notFound();
+
     const session = await auth();
     const bidder = await prisma.user.findFirst({
         where: {
@@ -22,15 +27,11 @@ const page = async ({
             licence: true,
         }
     });
-    console.log(bidder);
+    if (!bidder) notFound();
     return (
-        <div className='text-foreground flex-1 py-2 px-4'>
-            {/* <pre className=''>
-                {JSON.stringify(bidder, null, 2)}
-            </pre> */}
+        <div className='flex-1 py-2 px-4'>
             <div className="btns flex justify-end gap-3 mb-2">
-                <Button variant={'destructive'}>Reject</Button>
-                <Button>Approve</Button>
+                <LicenceActionButtons id={params.id} />
             </div>
             <div className="main space-y-6 divide-y [&>div]:p-2">
                 <div className='flex flex-wrap border divide-x py-4 px-2'>
@@ -42,9 +43,9 @@ const page = async ({
                             <p>Name: {bidder?.name}</p>
                             <p>Email: {bidder?.email}</p>
                             <p>Phone Number: {bidder?.phoneNumber}</p>
-                            <p>Additional Number: {bidder?.additional_number}</p>
+                            <p>Additional Number: {bidder?.additionalNumber}</p>
                             <p>Address: {bidder?.address}</p>
-                            <p>Status: <span className={`${bidder?.is_licence ? 'text-green-400' : 'text-red-400'}`}>{bidder?.is_licence ? "Approved" : "Pending"}</span></p>
+                            <p>Status: <span className={`${bidder?.licence?.status === LicenceStatus.APPROVED ? 'text-green-400' : 'text-red-400'}`}>{bidder?.licence?.status}</span></p>
                         </div>
                     </div>
                 </div>
@@ -53,11 +54,11 @@ const page = async ({
                     <h1 className='text-2xl'>Private Info</h1>
 
                     <div><h2>Aadhaar Details</h2>
-                        <p>Aadhaar Number: {bidder?.aadhar_number}</p>
+                        <p>Aadhaar Number: {bidder?.aadharNumber}</p>
 
                         <div className='flex gap-2 flex-wrap'>
-                            {bidder?.aadharphotos?.map((photo, index) => (
-                                <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-48 h-48' />
+                            {bidder?.aadharPhotos?.map((photo, index) => (
+                                <DImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-auto border h-48' />
                             ))}
                         </div>
                     </div>
@@ -90,7 +91,7 @@ const page = async ({
                         </h2>
                         <div className='flex gap-2 flex-wrap'>
                             {bidder?.licence?.storageImages.map((photo, index) => (
-                                <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-48 h-48' />
+                                <DImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-auto h-48 border' />
                             ))}
                         </div>
                     </div>

@@ -20,64 +20,65 @@ enum MandiType {
   OTHER
 }
 
+enum LicenceStatus {
+  APPLIED
+  APPROVED
+  REJECTED
+}
+
 model User {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  phoneNumber String  @unique
-  email       String?
-  address     String
-  password    String
-  is_licence  Boolean @default(false)
-
-  avatar          String?
-  backgroundImage String?
-  role            Role    @default(USER)
-
-  aadhar_number     String?
-  current_location  String?
-  additional_number String?
-  aadharphotos      String[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  bids      Bids[]
-
+  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  phoneNumber        String         @unique @map("phone_number")
+  email              String?
+  address            String
+  password           String
+  avatar             String?
+  backgroundImage    String?        @map("background_image")
+  role               Role           @default(USER)
+  aadharNumber       String?        @map("aadhar_number")
+  currentLocation    String?        @map("current_location")
+  additionalNumber   String?        @map("additional_number")
+  aadharPhotos       String[]       @map("aadhar_photos")
+  createdAt          DateTime       @default(now()) @map("created_at")
+  updatedAt          DateTime       @updatedAt @map("updated_at")
+  bids               Bids[]
   licence            Licence?       @relation(fields: [licenceId], references: [id])
-  licenceId          String?        @db.ObjectId
+  licenceId          String?        @unique @map("licence_id") @db.ObjectId
   savedProducts      SavedProduct[]
   products           Product[]
-  BiddingInformation BidDetails[]
+  biddingInformation BidDetails[]
 
   @@map("users")
 }
 
 model Product {
   id                   String             @id @default(auto()) @map("_id") @db.ObjectId
-  pesonalInfo          User               @relation(fields: [pesonalInfoId], references: [id], onDelete: Cascade)
-  pesonalInfoId        String             @db.ObjectId
-  ProductInfo          ProductInfo        @relation(fields: [productInfoId], references: [id], onDelete: Cascade)
-  productInfoId        String             @db.ObjectId
+  personalInfo         User               @relation(fields: [personalInfoId], references: [id], onDelete: Cascade)
+  personalInfoId       String             @map("personal_info_id") @db.ObjectId
+  productInfo          ProductInfo        @relation(fields: [productInfoId], references: [id], onDelete: Cascade)
+  productInfoId        String             @map("product_info_id") @db.ObjectId
   locationInfo         LocationInfo       @relation(fields: [locationInfoId], references: [id], onDelete: Cascade)
-  locationInfoId       String             @db.ObjectId
+  locationInfoId       String             @map("location_info_id") @db.ObjectId
   qualityMetrics       QualityMetrics     @relation(fields: [qualityMetricsId], references: [id], onDelete: Cascade)
-  qualityMetricsId     String             @db.ObjectId
+  qualityMetricsId     String             @map("quality_metrics_id") @db.ObjectId
   harvestStorage       HarvestStorage     @relation(fields: [harvestStorageId], references: [id], onDelete: Cascade)
-  harvestStorageId     String             @db.ObjectId
+  harvestStorageId     String             @map("harvest_storage_id") @db.ObjectId
   media                Media              @relation(fields: [mediaId], references: [id], onDelete: Cascade)
-  mediaId              String             @db.ObjectId
+  mediaId              String             @map("media_id") @db.ObjectId
   additionalServices   AdditionalServices @relation(fields: [additionalServicesId], references: [id], onDelete: Cascade)
-  additionalServicesId String             @db.ObjectId
-  createdAt            DateTime           @default(now())
-  updatedAt            DateTime           @updatedAt
+  additionalServicesId String             @map("additional_services_id") @db.ObjectId
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
   biddingDetails       BidDetails[]
-  SavedProducts        SavedProduct[]
+  savedProducts        SavedProduct[]
 }
 
 model Licence {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  mandiType       MandiType
-  mandiState      String?
-  madiDistrict    String?
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  mandiType       MandiType     @map("mandi_type")
+  mandiState      String?       @map("mandi_state")
+  madiDistrict    String?       @map("mandi_district")
   state           String
   district        String
   village         String
@@ -85,69 +86,70 @@ model Licence {
   pincode         String
   work            String
   income          String
-  storagePlace    String
-  storageLocation String
-  storageImages   String[]  @default([])
-  declaration     Boolean   @default(false)
-  terms_condition Boolean   @default(false)
+  storagePlace    String        @map("storage_place")
+  storageLocation String        @map("storage_location")
+  storageImages   String[]      @map("storage_images")
+  declaration     Boolean       @default(false)
+  terms_condition Boolean       @default(false) @map("terms_condition")
+  status          LicenceStatus @default(APPLIED)
   user            User[]
 }
 
 model SavedProduct {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String  @db.ObjectId
-  productId String  @db.ObjectId
+  userId    String  @map("user_id") @db.ObjectId
+  productId String  @map("product_id") @db.ObjectId
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductInfo {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  cropName          String
+  cropName          String    @map("crop_name")
   variety           String
-  quantityAvailable String
-  expectedPrice     String
+  quantityAvailable String    @map("quantity_available")
+  expectedPrice     String    @map("expected_price")
   units             String    @default("kg")
   isSold            Boolean   @default(false)
-  Product           Product[]
+  product           Product[]
 }
 
 model LocationInfo {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  districtCity String
+  districtCity String?   @map("district_city")
   state        String
   city         String
   village      String
   pincode      String
-  Product      Product[]
+  product      Product[]
 }
 
 model QualityMetrics {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  moistureContent String?
-  grainSize       String?
+  moistureContent String?   @map("moisture_content")
+  grainSize       String?   @map("grain_size")
   color           String
   purity          String
-  Product         Product[]
+  product         Product[]
 }
 
 model HarvestStorage {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  harvestDate     DateTime
-  storageLocation String
-  Product         Product[]
+  harvestDate     DateTime  @map("harvest_date")
+  storageLocation String    @map("storage_location")
+  product         Product[]
 }
 
 model Media {
   id      String    @id @default(auto()) @map("_id") @db.ObjectId
   photos  String[]
   videos  String[]
-  Product Product[]
+  product Product[]
 }
 
 model AdditionalServices {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  sampleRequest Boolean   @default(false)
-  liveStreaming Boolean   @default(false)
-  Product       Product[]
+  sampleRequest Boolean   @default(false) @map("sample_request")
+  liveStreaming Boolean   @default(false) @map("live_streaming")
+  product       Product[]
 }

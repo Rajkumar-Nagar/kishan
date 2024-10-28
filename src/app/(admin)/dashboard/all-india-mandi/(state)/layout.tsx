@@ -4,6 +4,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import prisma from "@/lib/prisma";
 
 
 const Stats = [
@@ -21,11 +22,20 @@ const Stats = [
     }
 ]
 
-export default function layout({
+export default async function layout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const data = await prisma.$transaction([
+        prisma.user.count({
+            where: {
+                licenceId: { not: null }
+            }
+        }),
+        prisma.product.count(),
+        prisma.bidDetails.count()
+    ])
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             <div className="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -35,7 +45,7 @@ export default function layout({
                             <CardTitle>{_.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-lg text-muted-foreground">{_.value}</p>
+                            <p className="text-lg text-muted-foreground">{data[index]}</p>
                         </CardContent>
                     </Card>
                 ))}

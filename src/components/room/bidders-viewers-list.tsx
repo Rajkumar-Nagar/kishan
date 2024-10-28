@@ -6,11 +6,11 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 
 interface Bidders_viewers_listProps {
-    buttonAcitve:string;
-    product:ProductType
+    buttonAcitve: string;
+    product: ProductType
 }
 
-function Bidders_viewers_list({ buttonAcitve, product }:Bidders_viewers_listProps) {
+function Bidders_viewers_list({ buttonAcitve, product }: Bidders_viewers_listProps) {
     const [downUp, setdownUp] = useState(true)
     const change = buttonAcitve == "viewers-list"
     return (
@@ -57,10 +57,10 @@ function Bidders_viewers_list({ buttonAcitve, product }:Bidders_viewers_listProp
                         >
                             <div className="flex items-center gap-2">
                                 {
-                                    product?.pesonalInfo.avatar ?
+                                    product?.personalInfo.avatar ?
                                         <CldImage
                                             alt="Uploaded Image"
-                                            src={product?.pesonalInfo.avatar}
+                                            src={product?.personalInfo.avatar}
                                             width={"170"}
                                             height={"170"}
                                             className='w-32 h-32 rounded-full'
@@ -70,7 +70,7 @@ function Bidders_viewers_list({ buttonAcitve, product }:Bidders_viewers_listProp
                                             }}
                                         /> : (
                                             <div className="profile w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-                                                <h1 className="text-[white] text-xl font-semibold">{product?.pesonalInfo?.name.slice(0, 1)}</h1>
+                                                <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
                                             </div>
                                         )
                                 }

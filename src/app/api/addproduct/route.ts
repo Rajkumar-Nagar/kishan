@@ -7,10 +7,10 @@ export async function POST(request: NextRequest) {
     try {
         const {
 
-            aadhar_number,
-            current_location,
-            additional_number,
-            aadharphotos,
+            aadharNumber,
+            currentLocation,
+            additionalNumber,
+            aadharPhotos,
 
             cropName,
             units,
@@ -40,9 +40,9 @@ export async function POST(request: NextRequest) {
 
         } = await request.json()
 
-        // if (!aadhar_number ||
-        //     !current_location ||
-        //     !aadharphotos || !cropName || !variety || !units || !quantityAvailable || !expectedPrice ||
+        // if (!aadharNumber ||
+        //     !currentLocation ||
+        //     !aadharPhotos || !cropName || !variety || !units || !quantityAvailable || !expectedPrice ||
         //     !districtCity || !state ||
         //     !color || !purity ||
         //     !harvestDate || !storageLocation ||
@@ -62,10 +62,10 @@ export async function POST(request: NextRequest) {
         //         },
         //     },
         //     data: {
-        //         aadhar_number: aadhar_number,
-        //         current_location: current_location,
-        //         additional_number: additional_number,
-        //         aadharphotos: aadharphotos,
+        //         aadharNumber: aadharNumber,
+        //         currentLocation: currentLocation,
+        //         additionalNumber: additionalNumber,
+        //         aadharPhotos: aadharPhotos,
         //     },
         // })
 
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
 
         // const product = await prisma.product.create({
         //     data: {
-        //         pesonalInfoId: `${user?.user.id}`,
+        //         personalInfoId: `${user?.user.id}`,
         //         productInfoId: productInfo.id,
         //         locationInfoId: locationInfo.id,
         //         qualityMetricsId: qualityMetrics.id,
@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
         //         additionalServicesId: additionalServices.id,
         //     },
         //     include: {
-        //         pesonalInfo: true,
-        //         ProductInfo: true,
+        //         personalInfo: true,
+        //         productInfo: true,
         //         locationInfo: true,
         //         qualityMetrics: true,
         //         harvestStorage: true,

@@ -77,7 +77,7 @@ const SlotCard: React.FC<SlotCardProps> = ({ slotName, date, startTime, endTime,
     const { isInSlot, remainingTime } = calculateTimeDifference(startTime, endTime);
 
     const handleMainMandi = (): void => {
-        router.push("/mandi/slot1");
+        router.push("/mandi/slot-1");
     }
 
     return (

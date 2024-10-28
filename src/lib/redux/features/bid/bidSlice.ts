@@ -15,7 +15,7 @@ export type Bidproduct = Prisma.ProductGetPayload<{
         qualityMetrics: true,
         media: true,
         locationInfo: true,
-        pesonalInfo: {
+        personalInfo: {
             select: {
                 id: true,
                 name: true,
@@ -23,11 +23,11 @@ export type Bidproduct = Prisma.ProductGetPayload<{
                 email: true,
                 address: true,
                 licence: true,
-                additional_number: true,
+                additionalNumber: true,
                 avatar: true,
             }
         },
-        ProductInfo: true,
+        productInfo: true,
         biddingDetails: {
             include: {
                 bids: true
@@ -66,8 +66,8 @@ const bidSlice = createSlice({
         initBid: (state, action: PayloadAction<Bidproduct>) => {
             const product = action.payload
             state.product = product
-            state.bidHistory = product.biddingDetails[0].bids
-            const latestBid = product.biddingDetails[0].bids.at(-1)
+            state.bidHistory = product.biddingDetails[0]?.bids ?? []
+            const latestBid = product.biddingDetails[0]?.bids.at(-1)
             if (latestBid) {
                 state.highestBid = latestBid.price
                 state.highestBidder = latestBid.bidderId

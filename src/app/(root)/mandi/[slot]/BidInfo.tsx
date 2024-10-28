@@ -75,16 +75,16 @@ function BidInfo({ product }: BasicDetailsProps) {
                                 src={"/party.png"}
                             />
                             <h1 className="text-[#002f34] text-4xl font-bold">₹{highestBid}</h1>
-                            <h1 className="text-gray-400 text-xl font-semibold">(BP:₹{product.ProductInfo.expectedPrice})</h1>
+                            <h1 className="text-gray-400 text-xl font-semibold">(BP:₹{product.productInfo.expectedPrice})</h1>
                         </div>
 
                         <div className="profile col-start-4 col-end-7 row-start-1 row-end-3 flex items-center justify-center px-6 py-4 gap-3 px border-b-[1px]"
                         >
                             {
-                                product?.pesonalInfo.avatar ?
+                                product?.personalInfo.avatar ?
                                     <CldImage
                                         alt="Uploaded Image"
-                                        src={product?.pesonalInfo.avatar}
+                                        src={product?.personalInfo.avatar}
                                         width={"170"}
                                         height={"170"}
                                         className='w-32 h-32 rounded-full'
@@ -94,12 +94,12 @@ function BidInfo({ product }: BasicDetailsProps) {
                                         }}
                                     /> : (
                                         <div className="profile w-14 h-14 rounded-full bg-gray-600 flex items-center justify-center">
-                                            <h1 className="text-[white] text-xl font-semibold">{product?.pesonalInfo?.name.slice(0, 1)}</h1>
+                                            <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
                                         </div>
                                     )
                             }
                             <div className='space-y-1'>
-                                <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.pesonalInfo.name}</h1>
+                                <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.personalInfo.name}</h1>
                                 <div className='flex items-center gap-2'>
                                     <span className='text-base text-[#2e054e]'>5</span>
                                     <Image
@@ -145,10 +145,10 @@ function BidInfo({ product }: BasicDetailsProps) {
 
                     <div className="profile col-start-4 col-end-7 row-start-1 row-end-3 flex items-center mt-4 gap-3">
                         {
-                            product?.pesonalInfo.avatar ?
+                            product?.personalInfo.avatar ?
                                 <CldImage
                                     alt="Uploaded Image"
-                                    src={product?.pesonalInfo.avatar}
+                                    src={product?.personalInfo.avatar}
                                     width={"170"}
                                     height={"170"}
                                     className='w-32 h-32 rounded-full'
@@ -158,7 +158,7 @@ function BidInfo({ product }: BasicDetailsProps) {
                                     }}
                                 /> : (
                                     <div className="profile w-20 h-20 rounded-full bg-gray-600 flex items-center justify-center">
-                                        <h1 className="text-[white] text-xl font-semibold">{product?.pesonalInfo?.name.slice(0, 1)}</h1>
+                                        <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
                                     </div>
                                 )
                         }

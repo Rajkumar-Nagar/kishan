@@ -10,10 +10,10 @@ export async function POST(request: NextRequest) {
             mandiType,
             mandiState,
             madiDistrict,
-            aadhar_number,
-            aadharphotos,
-            additional_number,
-            current_location,
+            aadharNumber,
+            aadharPhotos,
+            additionalNumber,
+            currentLocation,
             state,
             district,
             village,
@@ -31,9 +31,9 @@ export async function POST(request: NextRequest) {
         if (
             !mandiType ||
             (mandiType === MandiType.MINI_MANDI && (!mandiState || !madiDistrict)) ||
-            !aadhar_number ||
-            !aadharphotos ||
-            !current_location ||
+            !aadharNumber ||
+            !aadharPhotos ||
+            !currentLocation ||
             !state ||
             !district ||
             !village ||
@@ -88,10 +88,10 @@ export async function POST(request: NextRequest) {
                 },
             },
             data: {
-                aadhar_number: aadhar_number,
-                current_location: current_location,
-                additional_number: additional_number,
-                aadharphotos: aadharphotos,
+                aadharNumber: aadharNumber,
+                currentLocation: currentLocation,
+                additionalNumber: additionalNumber,
+                aadharPhotos: aadharPhotos,
                 licenceId: licenseInfo.id,
             },
         })

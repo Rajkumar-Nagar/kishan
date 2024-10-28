@@ -20,9 +20,9 @@ function BasicDetails({ product }: BasicDetailsProps) {
     return (
         <div className="basicdetails w-full py-3 space-y-2 rounded-xl my-4 border-[1px]">
             <div className="firstrow rounded-md px-5 flex items-center justify-between ">
-                <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.ProductInfo?.cropName}</h1>
+                <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.productInfo?.cropName}</h1>
                 <div className="secondrow flex items-center gap-8">
-                    <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product?.ProductInfo?.expectedPrice} / ${product.ProductInfo?.units}`}</h1>
+                    <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product?.productInfo?.expectedPrice} / ${product.productInfo?.units}`}</h1>
                 </div>
             </div>
 
@@ -31,21 +31,21 @@ function BasicDetails({ product }: BasicDetailsProps) {
                     <div className="otherDertaisl secondrow items-center gap-8">
                         <div className='flex items-center gap-2'>
                             <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
-                            <h1 className='text-base font-semibold text-[#64566f]'>{`${product?.ProductInfo?.quantityAvailable} kg `}</h1>
+                            <h1 className='text-base font-semibold text-[#64566f]'>{`${product?.productInfo?.quantityAvailable} kg `}</h1>
                         </div>
 
                         <div className='flex items-center gap-2'>
                             <h1 className='text-base font-semibold text-[#2e054e]'>Varity : </h1>
-                            <h1 className='text-base font-semibold text-[#64566f]'>{product?.ProductInfo?.variety} </h1>
+                            <h1 className='text-base font-semibold text-[#64566f]'>{product?.productInfo?.variety} </h1>
                         </div>
                     </div>
 
                     <div className="profile flex items-center gap-3">
                         {
-                            product?.pesonalInfo.avatar ?
+                            product?.personalInfo.avatar ?
                                 <CldImage
                                     alt="Uploaded Image"
-                                    src={product?.pesonalInfo.avatar}
+                                    src={product?.personalInfo.avatar}
                                     width={"170"}
                                     height={"170"}
                                     className='w-32 h-32 rounded-full'
@@ -55,12 +55,12 @@ function BasicDetails({ product }: BasicDetailsProps) {
                                     }}
                                 /> : (
                                     <div className="profile w-14 h-14 rounded-full bg-gray-600 flex items-center justify-center">
-                                        <h1 className="text-[white] text-xl font-semibold">{product?.pesonalInfo?.name.slice(0, 1)}</h1>
+                                        <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
                                     </div>
                                 )
                         }
                         <div className='space-y-1'>
-                            <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.pesonalInfo.name}</h1>
+                            <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.personalInfo.name}</h1>
                             <div className='flex items-center gap-2'>
                                 <span className='text-base text-[#2e054e]'>5</span>
                                 <Image

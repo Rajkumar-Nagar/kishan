@@ -8,7 +8,7 @@ import { productOptions } from "./include.options"
 export const getProducts = async (userId?: string) => {
     return prisma.product.findMany({
         where: {
-            pesonalInfoId: userId
+            personalInfoId: userId
         },
         include: productOptions
     })

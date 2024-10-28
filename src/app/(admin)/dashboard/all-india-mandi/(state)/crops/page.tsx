@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/ui/data-table'
+import prisma from '@/lib/prisma'
 import React from 'react'
 
 // id, crop name, variety, price, quantity, state, city, pincode
@@ -80,9 +81,29 @@ const data: ICrop[] = [
 
 const page = async () => {
 
+    const crop = await prisma.product.findMany({
+        include: {
+            productInfo: true,
+            locationInfo: true
+        },
+        take: 10
+    })
+
+    const transformedData = crop.map(c => {
+        return {
+            id: c.id,
+            crop: c.productInfo.cropName,
+            variety: c.productInfo.variety,
+            price: c.productInfo.expectedPrice,
+            quantity: c.productInfo.quantityAvailable + ' ' + c.productInfo.units,
+            state: c.locationInfo.state,
+            city: c.locationInfo.city,
+            pincode: c.locationInfo.pincode
+        }
+    })
     return (
         <div className="flex-1 space-y-2 text-white">
-            <DataTable columns={columns} data={data} route='./crops' />
+            <DataTable columns={columns} data={transformedData} route='./crops' />
         </div>
     )
 }

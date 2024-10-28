@@ -1,5 +1,3 @@
-// "use client"
-
 import { getDataFromId } from '@/actions/productId.actio'
 import Faq from '@/components/Faq'
 import { Product_details_slider } from '@/components/product_details_slider'
@@ -9,7 +7,6 @@ import Link from 'next/link'
 import { Dateconverter } from '@/utils/dateconverter'
 import Title from '@/components/ui/title'
 import { getProductById } from '@/actions/product.actions'
-// import React, { useEffect, useState } from 'react'
 
 
 
@@ -30,14 +27,14 @@ async function Page({ params }: { params: { productId: string } }) {
                             <Product_details_slider product={product} height={34} />
                         </div>
 
-                     
+
                     </div>
 
 
                     <div className='w-[30%] space-y-5  sticky top-20 h-full'>
                         <div className="basicdetails w-full h-72 py-5 px-5 space-y-2  rounded-md border-[1px] ">
                             <div className="firstrow  rounded-md flex items-center justify-between ">
-                                <h1 className='text-xl font-semibold text-[#2e054e]'>{product.ProductInfo?.cropName}</h1>
+                                <h1 className='text-xl font-semibold text-[#2e054e]'>{product.productInfo?.cropName}</h1>
 
                                 <div className='flex items-center gap-4'>
                                     <Image
@@ -59,17 +56,17 @@ async function Page({ params }: { params: { productId: string } }) {
                             <div className="secondrow flex items-center gap-8">
                                 <div className='flex items-center gap-2'>
                                     <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>{`${product.ProductInfo?.quantityAvailable} kg `}</h1>
+                                    <h1 className='text-base font-semibold text-[#64566f]'>{`${product.productInfo?.quantityAvailable} kg `}</h1>
                                 </div>
 
                                 <div className='flex items-center gap-2'>
                                     <h1 className='text-base font-semibold text-[#2e054e]'>Varity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>{product.ProductInfo?.variety} </h1>
+                                    <h1 className='text-base font-semibold text-[#64566f]'>{product.productInfo?.variety} </h1>
                                 </div>
                             </div>
 
                             <div className="secondrow flex items-center gap-8">
-                                <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product.ProductInfo?.expectedPrice} / ${product.ProductInfo?.units}`}</h1>
+                                <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product.productInfo?.expectedPrice} / ${product.productInfo?.units}`}</h1>
                             </div>
 
 
@@ -124,7 +121,7 @@ async function Page({ params }: { params: { productId: string } }) {
 
                                 </div>
                                 <div className='space-y-1'>
-                                    <h1 className='text-xl font-semibold text-[#2e054e]'>{product.pesonalInfo.name}</h1>
+                                    <h1 className='text-xl font-semibold text-[#2e054e]'>{product.personalInfo.name}</h1>
 
                                     <div className='flex items-center gap-2'>
                                         <span className='text-base text-[#2e054e]'>5</span>
@@ -205,8 +202,8 @@ async function Page({ params }: { params: { productId: string } }) {
 
             </div>
 
-                <Faq />
-           
+            <Faq />
+
 
 
         </div>

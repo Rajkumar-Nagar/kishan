@@ -86,7 +86,9 @@ const page = async () => {
             licenceId: {
                 not: null
             },
-            is_licence: true
+            licence: {
+                status: 'APPROVED'
+            }
         },
         omit: {
             password: true
@@ -95,6 +97,9 @@ const page = async () => {
             licence: true
         }
     })
+
+
+
     return (
         <div className="flex-1 space-y-2 text-white">
             <DataTable columns={columns} data={data.filter(s => s.status === "approved")} route='./bidders' />

@@ -52,7 +52,6 @@ export default async function Page({
 
         }
     })
-
     if (!product) return <p>No product found</p>
 
     return (

@@ -5,6 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const isValidObjectId = (id: string) => /^[a-fA-F0-9]{24}$/.test(id);
 
 export const checkEmptyField = (fields: Record<string, FormDataEntryValue>) => {
 

@@ -93,7 +93,7 @@ export default function SignIn() {
               </label>
               <label className="flex flex-col w-full space-y-1">
                 Phone Number
-                <input name="phoneNumber" maxLength={10} type="text" onChange={handlePhoneNumberChange} className="w-60 h-8 rounded-sm text-black px-2 w-full " />
+                <input name="phoneNumber" maxLength={10} type="text" onChange={handlePhoneNumberChange} className="h-8 rounded-sm text-black px-2 w-full " />
               </label>
               <label className="flex flex-col w-full space-y-1">
                 Email(optional)

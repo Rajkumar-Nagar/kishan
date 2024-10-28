@@ -1,14 +1,11 @@
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { DataTable } from "@/components/ui/data-table"
-import { ColumnDef } from "@tanstack/react-table"
 import { Chart } from "./chart"
+import prisma from "@/lib/prisma"
 
 type Bidder = {
     id: string
@@ -35,7 +32,16 @@ const Stats = [
     }
 ]
 
-export default function Page() {
+export default async function Page() {
+    const data = await prisma.$transaction([
+        prisma.user.count({
+            where: {
+                licenceId: { not: null }
+            }
+        }),
+        prisma.product.count(),
+        prisma.bidDetails.count()
+    ])
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             <div className="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -45,7 +51,7 @@ export default function Page() {
                             <CardTitle>{_.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-lg text-muted-foreground">{_.value}</p>
+                            <p className="text-lg text-muted-foreground">{data[index]}</p>
                         </CardContent>
                     </Card>
                 ))}

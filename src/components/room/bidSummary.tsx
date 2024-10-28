@@ -6,11 +6,11 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 
 interface BidSummaryProps {
-    buttonAcitve:string;
-    product:ProductType
+    buttonAcitve: string;
+    product: ProductType
 }
 
-function BidSummary({ buttonAcitve, product }:BidSummaryProps) {
+function BidSummary({ buttonAcitve, product }: BidSummaryProps) {
     const [downUp, setdownUp] = useState(true)
 
     return (
@@ -60,10 +60,10 @@ function BidSummary({ buttonAcitve, product }:BidSummaryProps) {
 
                                     <h1 className="text-gray-600 text-base font-semibold">1.</h1>
                                     {
-                                        product?.pesonalInfo.avatar ?
+                                        product?.personalInfo.avatar ?
                                             <CldImage
                                                 alt="Uploaded Image"
-                                                src={product?.pesonalInfo.avatar}
+                                                src={product?.personalInfo.avatar}
                                                 width={"170"}
                                                 height={"170"}
                                                 className='w-32 h-32 rounded-full'
@@ -73,7 +73,7 @@ function BidSummary({ buttonAcitve, product }:BidSummaryProps) {
                                                 }}
                                             /> : (
                                                 <div className="profile w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-                                                    <h1 className="text-[white] text-xl font-semibold">{product?.pesonalInfo?.name.slice(0, 1)}</h1>
+                                                    <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
                                                 </div>
                                             )
                                     }

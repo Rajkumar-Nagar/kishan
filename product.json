@@ -1,0 +1,62 @@
+[
+  {
+    "id": "6693cf898c662d052e6c2f30",
+    "personalInfoId": "67051ac26b77cd9a7a800a5a",
+    "productInfoId": "6693cf898c662d052e6c2f2a",
+    "locationInfoId": "6693cf898c662d052e6c2f2b",
+    "qualityMetricsId": "6693cf898c662d052e6c2f2c",
+    "harvestStorageId": "6693cf898c662d052e6c2f2d",
+    "mediaId": "6693cf898c662d052e6c2f2e",
+    "additionalServicesId": "6693cf898c662d052e6c2f2f",
+    "createdAt": "2024-07-14T13:15:53.947Z",
+    "updatedAt": "2024-10-28T12:30:21.480Z"
+  },
+  {
+    "id": "6694ddb18c662d052e6c2f37",
+    "personalInfoId": "67051ac26b77cd9a7a800a5a",
+    "productInfoId": "6694ddb08c662d052e6c2f31",
+    "locationInfoId": "6694ddb08c662d052e6c2f32",
+    "qualityMetricsId": "6694ddb08c662d052e6c2f33",
+    "harvestStorageId": "6694ddb08c662d052e6c2f34",
+    "mediaId": "6694ddb08c662d052e6c2f35",
+    "additionalServicesId": "6694ddb08c662d052e6c2f36",
+    "createdAt": "2024-07-15T08:28:33.025Z",
+    "updatedAt": "2024-10-28T12:30:21.480Z"
+  },
+  {
+    "id": "66a1310a1757b75b88f0fddf",
+    "personalInfoId": "6686ed7fed5af1da1512d128",
+    "productInfoId": "66a131091757b75b88f0fdd9",
+    "locationInfoId": "66a131091757b75b88f0fdda",
+    "qualityMetricsId": "66a131091757b75b88f0fddb",
+    "harvestStorageId": "66a1310a1757b75b88f0fddc",
+    "mediaId": "66a1310a1757b75b88f0fddd",
+    "additionalServicesId": "66a1310a1757b75b88f0fdde",
+    "createdAt": "2024-07-24T16:51:22.355Z",
+    "updatedAt": "2024-10-28T12:30:21.480Z"
+  },
+  {
+    "id": "66e25168d2f6656e26b5d0a0",
+    "personalInfoId": "66e24fa8d2f6656e26b5d099",
+    "productInfoId": "66e25168d2f6656e26b5d09a",
+    "locationInfoId": "66e25168d2f6656e26b5d09b",
+    "qualityMetricsId": "66e25168d2f6656e26b5d09c",
+    "harvestStorageId": "66e25168d2f6656e26b5d09d",
+    "mediaId": "66e25168d2f6656e26b5d09e",
+    "additionalServicesId": "66e25168d2f6656e26b5d09f",
+    "createdAt": "2024-09-12T02:26:48.565Z",
+    "updatedAt": "2024-10-28T12:30:21.480Z"
+  },
+  {
+    "id": "6710e3012d1f632d373f6d69",
+    "personalInfoId": "6686ed7fed5af1da1512d128",
+    "productInfoId": "6710e3002d1f632d373f6d63",
+    "locationInfoId": "6710e3002d1f632d373f6d64",
+    "qualityMetricsId": "6710e3002d1f632d373f6d65",
+    "harvestStorageId": "6710e3002d1f632d373f6d66",
+    "mediaId": "6710e3002d1f632d373f6d67",
+    "additionalServicesId": "6710e3002d1f632d373f6d68",
+    "createdAt": "2024-10-17T10:12:17.023Z",
+    "updatedAt": "2024-10-28T12:30:21.481Z"
+  }
+]

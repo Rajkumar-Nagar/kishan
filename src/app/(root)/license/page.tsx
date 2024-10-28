@@ -14,9 +14,9 @@ const licenceSchema = z.object({
   mandiType: z.string(),
   mandiState: z.string().optional(),
   madiDistrict: z.string().optional(),
-  aadhar_number: z.string().min(12, 'Aadhar number must be 12 digits').regex(/^\d{12}$/, 'Invalid Aadhar number'),
-  additional_number: z.string().optional(),
-  current_location: z.string().min(1, 'Current location is required'),
+  aadharNumber: z.string().min(12, 'Aadhar number must be 12 digits').regex(/^\d{12}$/, 'Invalid Aadhar number'),
+  additionalNumber: z.string().optional(),
+  currentLocation: z.string().min(1, 'Current location is required'),
   state: z.string().min(1, 'State is required'),
   district: z.string().min(1, 'District is required'),
   village: z.string().min(1, 'Village is required'),
@@ -26,7 +26,7 @@ const licenceSchema = z.object({
   income: z.string().min(1, 'Income is required'),
   storagePlace: z.string().min(1, 'Storage field is required'),
   storageLocation: z.string().min(1, 'Storage location is required'),
-  aadharphotos: z.array(z.string()).min(3, 'Upload front, back, and passport photos'),
+  aadharPhotos: z.array(z.string()).min(3, 'Upload front, back, and passport photos'),
   storageImages: z.array(z.string()).min(3, 'Upload at least 3 storage location photos'),
   declaration: z.boolean().refine(val => val === true, 'Declaration is required'),
   terms_condition: z.boolean().refine(val => val === true, 'Terms and conditions must be accepted')
@@ -50,10 +50,10 @@ export default function Licence() {
       mandiType: "",
       mandiState: "",
       madiDistrict: "",
-      aadhar_number: "",
-      additional_number: "",
-      aadharphotos: [],
-      current_location: "",
+      aadharNumber: "",
+      additionalNumber: "",
+      aadharPhotos: [],
+      currentLocation: "",
       state: "Rajasthan",
       district: "",
       village: "",
@@ -106,12 +106,12 @@ export default function Licence() {
 
   const handleAadharImage = {
     Add: (image: string) => {
-      const aadharphotos = watch("aadharphotos") as string[]
-      setValue("aadharphotos", [...aadharphotos, image])
+      const aadharPhotos = watch("aadharPhotos") as string[]
+      setValue("aadharPhotos", [...aadharPhotos, image])
     },
     Delete: (image: string) => {
-      const aadharphotos = watch("aadharphotos") as string[]
-      setValue("aadharphotos", aadharphotos.filter((item) => item !== image))
+      const aadharPhotos = watch("aadharPhotos") as string[]
+      setValue("aadharPhotos", aadharPhotos.filter((item) => item !== image))
     }
   }
 
@@ -226,14 +226,14 @@ export default function Licence() {
               <h1 className="tagline  text-[#002f34] font-semibold text-2xl ">Personal Information</h1>
 
               <div className="personal_informationfield space-y-2">
-                <div className="aadhar_number">
+                <div className="aadharNumber">
                   <div className='flex items-center'>
                     <h1 className=" text-[#002f34] text-xl my-2">Aadhar Number</h1>
                     <span className=" text-[#da4f43] text-xl my-2">*</span>
                   </div>
 
                   <Controller
-                    name="aadhar_number"
+                    name="aadharNumber"
                     control={control}
                     render={({ field }) => (
                       <input
@@ -244,7 +244,7 @@ export default function Licence() {
                         onChange={(e) => {
                           const formattedValue = formatAadharNumber(e.target.value);
                           field.onChange(formattedValue);
-                          setValue("aadhar_number", formattedValue.replace(/\s/g, ""))
+                          setValue("aadharNumber", formattedValue.replace(/\s/g, ""))
                         }}
                         placeholder="xxxx xxxx xxxx"
                       />
@@ -262,18 +262,18 @@ export default function Licence() {
                     <input
                       type="text"
                       className='Pinput w-full'
-                      {...register("current_location")}
+                      {...register("currentLocation")}
                     />
                   </div>
 
-                  <div className="additional_number">
+                  <div className="additionalNumber">
                     <div className='flex items-center'>
                       <h1 className=" text-[#002f34] text-xl my-2">other Number</h1>
                       {/* <span className=" text-[#da4f43] text-xl my-2">*</span> */}
                     </div>
 
                     <Controller
-                      name="additional_number"
+                      name="additionalNumber"
                       control={control}
                       render={({ field }) => (
                         <input
@@ -292,7 +292,7 @@ export default function Licence() {
                 </div>
 
 
-                <div className="aadharphotos flex items-center justify-evenly flex-wrap gap-4 [&>div_div:nth-child(2)]:mx-auto">
+                <div className="aadharPhotos flex items-center justify-evenly flex-wrap gap-4 [&>div_div:nth-child(2)]:mx-auto">
                   <div className="fortPhotos">
                     <div className='flex items-center'>
                       <h1 className=" text-[#002f34] text-xl my-2">Aadhar Front Photo</h1>

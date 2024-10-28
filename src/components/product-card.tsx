@@ -94,7 +94,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
                             translateZ="50"
                             className="text-base font-bold text-[#2e054e] dark:text-white"
                         >
-                            {`${product?.ProductInfo.cropName} / ${product?.ProductInfo.quantityAvailable}(kg)`}
+                            {`${product?.productInfo.cropName} / ${product?.productInfo.quantityAvailable}(kg)`}
                         </CardItem>
 
                         <CardItem
@@ -118,14 +118,14 @@ export default function ProductCard({ product }: { product: ProductType }) {
                             translateZ="60"
                             className="text-sm font-semibold text-[#74667f] dark:text-white"
                         >
-                            {`₹ ${product?.ProductInfo.expectedPrice} (${product?.ProductInfo.units}),`}
+                            {`₹ ${product?.productInfo.expectedPrice} (${product?.productInfo.units}),`}
                         </CardItem>
 
                         <CardItem
                             translateZ="60"
                             className="text-sm font-semibold text-[#74667f] dark:text-white"
                         >
-                            {product?.ProductInfo.variety}
+                            {product?.productInfo.variety}
                         </CardItem>
 
                         <CardItem

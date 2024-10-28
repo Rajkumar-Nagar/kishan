@@ -32,7 +32,7 @@ function BidderButtons() {
     const { highestBid, product } = useAppSelector(state => state.bidRoom);
 
     const handlePrice = useCallback(async (money: number) => {
-        const lastPrice = highestBid ? highestBid : +product?.ProductInfo?.expectedPrice!
+        const lastPrice = highestBid ? highestBid : +product?.productInfo?.expectedPrice!
         const currentPrice = money + lastPrice!
         setbidPrice(currentPrice);
 
