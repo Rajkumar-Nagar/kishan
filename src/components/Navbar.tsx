@@ -5,12 +5,12 @@ import NavigationMenuDemo from './Navbarfield';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { getDataFromId } from '@/actions/productId.actio';
 import { User } from '@prisma/client';
 import { useScrollWindow } from '@/hooks';
 import ProfileMenu from './profile-menu';
 import { MandiJoinButton } from './onlineMandi/joinButtion';
 import { useRouter } from 'next/navigation';
+import { userActions } from '@/actions';
 
 function Navbar() {
     const [user, setuser] = useState<User | null>(null)
@@ -22,7 +22,7 @@ function Navbar() {
     useEffect(() => {
         const handleuser = async () => {
             if (status === "authenticated" && session?.user?.id) {
-                const updateduser = await getDataFromId(session?.user.id, "user")
+                const updateduser = await userActions.getUserById(session?.user.id)
                 setuser(updateduser)
             }
         }

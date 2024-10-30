@@ -7,16 +7,6 @@ import {
 import { Chart } from "./chart"
 import prisma from "@/lib/prisma"
 
-type Bidder = {
-    id: string
-    name: string
-    status: "pending" | "processing" | "success" | "failed"
-    email: string
-    state: string
-    mandi: "mini-mandi" | "all-india-mandi"
-}
-
-
 const Stats = [
     {
         name: "Total Bidders",
@@ -34,11 +24,7 @@ const Stats = [
 
 export default async function Page() {
     const data = await prisma.$transaction([
-        prisma.user.count({
-            where: {
-                licenceId: { not: null }
-            }
-        }),
+        prisma.licence.count(),
         prisma.product.count(),
         prisma.bidDetails.count()
     ])

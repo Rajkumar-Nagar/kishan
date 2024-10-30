@@ -1,10 +1,8 @@
-import { getDataFromId } from '@/actions/productId.actio'
 import Faq from '@/components/Faq'
 import { Product_details_slider } from '@/components/product_details_slider'
 import { CarouselSize } from '@/components/product_slider'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Dateconverter } from '@/utils/dateconverter'
 import Title from '@/components/ui/title'
 import { getProductById } from '@/actions/product.actions'
 

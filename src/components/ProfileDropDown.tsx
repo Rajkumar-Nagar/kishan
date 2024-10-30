@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/navigation-menu"
 import Image from "next/image"
 import { Button } from "./ui/button"
-import { useRouter } from "next/navigation"
 import { CldImage } from "next-cloudinary"
 import { account } from "@/data"
 import { User } from "@prisma/client"
@@ -49,11 +48,11 @@ interface ProfileDemoProps {
 
 export default function ProfileDemo({ user }: ProfileDemoProps) {
 
-    const router = useRouter()
-
     const handleLogout = async () => {
-        await signOut()
-        router.push("/")
+        await signOut({
+            redirect: true,
+            redirectTo: "/login"
+        })
     }
 
     if (!user) return (

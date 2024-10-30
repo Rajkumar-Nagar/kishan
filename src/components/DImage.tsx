@@ -3,10 +3,11 @@
 import { CldImage } from 'next-cloudinary'
 import React, { useRef } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
+import { cn } from '@/lib/utils'
 
 type imageType = React.ComponentProps<typeof CldImage>
 
-function DImage(props: imageType) {
+function DImage({ className, ...props }: imageType) {
 
     const scale = useRef(1.2);
 
@@ -43,6 +44,7 @@ function DImage(props: imageType) {
                 <CldImage
                     width={100}
                     height={100}
+                    className={cn('cursor-pointer', className)}
                     {...props}
                 />
             </DialogTrigger>

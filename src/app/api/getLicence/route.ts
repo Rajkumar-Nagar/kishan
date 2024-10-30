@@ -72,7 +72,8 @@ export async function POST(request: NextRequest) {
                 storageLocation,
                 storageImages,
                 declaration,
-                terms_condition
+                terms_condition,
+                userId: session.user.id,
             },
         });
         if (!licenseInfo) {
@@ -92,7 +93,6 @@ export async function POST(request: NextRequest) {
                 currentLocation: currentLocation,
                 additionalNumber: additionalNumber,
                 aadharPhotos: aadharPhotos,
-                licenceId: licenseInfo.id,
             },
         })
 

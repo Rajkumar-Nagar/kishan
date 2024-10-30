@@ -1,7 +1,6 @@
 import { DataTable } from '@/components/ui/data-table'
 import React from 'react'
 import { ColumnDef } from "@tanstack/react-table"
-import Link from 'next/link'
 import prisma from '@/lib/prisma'
 
 type Bidder = {
@@ -81,20 +80,16 @@ const data: Bidder[] = [
 ]
 
 const page = async () => {
-    const a = await prisma.user.findMany({
+    const a = await prisma.licence.findMany({
         where: {
-            licenceId: {
-                not: null
-            },
-            licence: {
-                status: 'APPROVED'
-            }
-        },
-        omit: {
-            password: true
+            status: "APPROVED"
         },
         include: {
-            licence: true
+            user: {
+                omit: {
+                    password: true
+                }
+            }
         }
     })
 

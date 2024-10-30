@@ -43,11 +43,10 @@ model User {
   createdAt          DateTime       @default(now()) @map("created_at")
   updatedAt          DateTime       @updatedAt @map("updated_at")
   bids               Bids[]
-  licence            Licence?       @relation(fields: [licenceId], references: [id])
-  licenceId          String?        @unique @map("licence_id") @db.ObjectId
   savedProducts      SavedProduct[]
   products           Product[]
   biddingInformation BidDetails[]
+  licence            Licence[]
 
   @@map("users")
 }
@@ -92,7 +91,8 @@ model Licence {
   declaration     Boolean       @default(false)
   terms_condition Boolean       @default(false) @map("terms_condition")
   status          LicenceStatus @default(APPLIED)
-  user            User[]
+  userId          String        @map("user_id") @db.ObjectId
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model SavedProduct {

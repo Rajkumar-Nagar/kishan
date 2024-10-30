@@ -1,14 +1,12 @@
 "use client"
 
 import Link from "next/link"
-
 import React, { useState } from "react";
-import { loginServerAction } from "@/actions/loginAction";
 import { useRouter } from "next/navigation";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import InputOTPPattern from "@/components/OtpModel";
 import { checkEmptyField } from "@/lib/utils";
+import { signIn } from "next-auth/react";
 
 
 export default function SignIn() {
@@ -41,7 +39,11 @@ export default function SignIn() {
 
     try {
       setIsloading(true)
-      await loginServerAction(formdata);
+      signIn('credentials', {
+        phoneNumber,
+        password,
+        redirect: false,
+      });
       router.replace("/")
     } catch (error) {
       seterrMessage("Invalid Credentials")

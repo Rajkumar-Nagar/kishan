@@ -14,19 +14,20 @@ export default async function PhotoModal({
 
     // if (!isValidObjectId(id)) notFound();
 
-    const bidder = await prisma.user.findFirst({
+    const licence = await prisma.licence.findFirst({
         where: {
-            id: '67051ac26b77cd9a7a800a5a',
-            // licenceId: id
-        },
-        omit: {
-            password: true,
+            userId: '67051ac26b77cd9a7a800a5a',
         },
         include: {
-            licence: true,
+            user: {
+                omit: {
+                    password: true,
+                },
+            },
         }
     });
-    if (!bidder) notFound();
+    if (!licence) notFound();
+    const bidder = licence.user;
     return (
         <Modal>
             <div className='flex-1 px-2'>
@@ -45,7 +46,7 @@ export default async function PhotoModal({
                                 <p>Phone Number: {bidder?.phoneNumber}</p>
                                 <p>Additional Number: {bidder?.additionalNumber}</p>
                                 <p>Address: {bidder?.address}</p>
-                                <p>Status: <span className={`${bidder?.licence?.status === LicenceStatus.APPROVED ? 'text-green-400' : 'text-red-400'}`}>{bidder?.licence?.status}</span></p>
+                                <p>Status: <span className={`${licence?.status === LicenceStatus.APPROVED ? 'text-green-400' : 'text-red-400'}`}>{licence?.status}</span></p>
                             </div>
                         </div>
                     </div>
@@ -67,30 +68,30 @@ export default async function PhotoModal({
                         <h1 className='text-2xl'>Licence Info</h1>
                         <div className='space-y-2'>
                             <div className="[&_span]:text-muted-foreground grid lg:grid-cols-2">
-                                <p>Licence Type: <span>{bidder?.licence?.mandiType}</span></p>
+                                <p>Licence Type: <span>{licence?.mandiType}</span></p>
                                 {
-                                    bidder?.licence?.mandiType === MandiType.MINI_MANDI && (
+                                    licence?.mandiType === MandiType.MINI_MANDI && (
                                         <>
-                                            <p>Licence State: <span>{bidder?.licence?.mandiState}</span></p>
-                                            <p>Licence District: <span>{bidder?.licence?.madiDistrict}</span></p>
+                                            <p>Licence State: <span>{licence?.mandiState}</span></p>
+                                            <p>Licence District: <span>{licence?.madiDistrict}</span></p>
                                         </>
                                     )
                                 }
-                                <p>State: <span>{bidder?.licence?.state}</span></p>
-                                <p>District: <span>{bidder?.licence?.district}</span></p>
-                                <p>Village: <span>{bidder?.licence?.village}</span></p>
-                                <p>City: <span>{bidder?.licence?.city}</span></p>
-                                <p>Pincode: <span>{bidder?.licence?.pincode}</span></p>
-                                <p>Work: <span>{bidder?.licence?.work}</span></p>
-                                <p>Income: <span>{bidder?.licence?.income}</span></p>
-                                <p>Storage Place: <span>{bidder?.licence?.storagePlace}</span></p>
-                                <p>Storage Location: <span>{bidder?.licence?.storageLocation}</span></p>
+                                <p>State: <span>{licence?.state}</span></p>
+                                <p>District: <span>{licence?.district}</span></p>
+                                <p>Village: <span>{licence?.village}</span></p>
+                                <p>City: <span>{licence?.city}</span></p>
+                                <p>Pincode: <span>{licence?.pincode}</span></p>
+                                <p>Work: <span>{licence?.work}</span></p>
+                                <p>Income: <span>{licence?.income}</span></p>
+                                <p>Storage Place: <span>{licence?.storagePlace}</span></p>
+                                <p>Storage Location: <span>{licence?.storageLocation}</span></p>
                             </div>
                             <h2 className='text-2xl'>
                                 Store Images
                             </h2>
                             <div className='flex gap-2 flex-wrap'>
-                                {bidder?.licence?.storageImages.map((photo, index) => (
+                                {licence?.storageImages.map((photo, index) => (
                                     <CImage key={index} src={photo} alt={`Aadhar Photo ${index}`} className='w-auto h-48 border' />
                                 ))}
                             </div>

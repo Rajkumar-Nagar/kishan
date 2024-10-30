@@ -27,14 +27,16 @@ export default async function layout({
 }: {
     children: React.ReactNode;
 }) {
+
     const data = await prisma.$transaction([
-        prisma.user.count({
-            where: {
-                licenceId: { not: null }
-            }
-        }),
+        // prisma.user.count({
+        //     where: {
+        //         role: "BIDDER"
+        //     }
+        // }),
+        prisma.licence.count(),
         prisma.product.count(),
-        prisma.bidDetails.count()
+        prisma.bidDetails.count(),
     ])
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">

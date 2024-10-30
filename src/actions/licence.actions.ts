@@ -21,9 +21,6 @@ export const approveLicence = async (licenceId: string) => {
                 status: "APPROVED",
                 user: {
                     update: {
-                        where: {
-                            licenceId: licenceId
-                        },
                         data: {
                             role: 'BIDDER',
                         }
@@ -57,9 +54,6 @@ export const rejectLicence = async (licenceId: string) => {
                 status: "REJECTED",
                 user: {
                     update: {
-                        where: {
-                            licenceId: licenceId
-                        },
                         data: {
                             role: 'USER',
                         }
