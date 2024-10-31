@@ -59,11 +59,11 @@ export default function SignIn() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="relative backdrop-blur-sm w-full h-full flex md:p-8 p-6 text-white">
+      <div className="relative backdrop-blur-sm w-full h-full flex md:p-8 sm:p-6 p-0 text-white">
         <div className="w-full h-full flex flex-col md:flex-row shadow-lg rounded-md overflow-hidden">
-          <div className="form md:w-1/3 md:min-w-64 w-full order-2 md:order-1 pt-7 flex flex-col items-center h-full md:justify-center bg-[#7ab96c]">
+          <div className="form md:w-1/3 md:min-w-64 w-full order-2 md:order-1 pt-3 flex flex-col items-center h-full md:justify-center bg-[#7ab96c]">
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full px-10 md:w-80 lg:w-96 lg:min-w-60 space-y-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full sm:px-10 px-6 md:w-80 lg:w-96 lg:min-w-60 space-y-1 sm:space-y-2">
               <label className="flex flex-col w-full space-y-1">
                 Name
                 <input {...register("name")} type="text" className="h-8 w-full rounded-sm text-black px-2" />

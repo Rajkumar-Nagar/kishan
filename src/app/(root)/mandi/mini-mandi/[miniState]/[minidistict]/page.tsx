@@ -7,38 +7,12 @@ import React from 'react'
 import SlotCard from '../../../all-india-mandi/slotCard'
 import { ChevronDown } from 'lucide-react'
 import { HoverEffect } from '@/components/ui/card-hover-effect'
-import { projects } from '../../../all-india-mandi/page'
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
 import { testimonials } from '@/components/onlineMandi/review'
 import NoHeader from '@/components/no-header'
 import { LampDemo } from '@/components/ui/lamp'
+import { mandiSlots, projects } from '@/data'
 
-const mandiSlots = [
-  {
-    slotName: "Morning Slot",
-    date: "2024-10-17", // Example date, this should be dynamic if needed
-    startTime: 10, // 10 AM
-    endTime: 11,   // 11 AM
-    backgroundImage: "/down.jpg",
-    icon: "/sunrise.png"
-  },
-  {
-    slotName: "Afternoon Slot",
-    date: "2024-10-17",
-    startTime: 13, // 1 PM
-    endTime: 14,   // 2 PM
-    backgroundImage: "/natural.jpg",
-    icon: "/morning.png"
-  },
-  {
-    slotName: "Evening Slot",
-    date: "2024-10-17",
-    startTime: 15, // 3 PM
-    endTime: 16,   // 4 PM
-    backgroundImage: "/license.jpg",
-    icon: "/evening.png"
-  }
-];
 
 function page({ params }: { params: { miniState: string, minidistict: string } }) {
   return (
@@ -58,7 +32,7 @@ function page({ params }: { params: { miniState: string, minidistict: string } }
 
         <NoHeader />
         <div className="bg-[#1a1a1a] w-full">
-          <div className="container max-w-screen-xl py-5 pt-10 sm:px-8 xs:px-4 px-2">
+          <div className="container max-w-screen-xl py-5 pt-10 sm:px-8 xs:px-4 px-3">
             <div className="manditime">
               <h1 className='text-white text-3xl font-semibold'>Mandi Timing Cards</h1>
 
@@ -87,12 +61,12 @@ function page({ params }: { params: { miniState: string, minidistict: string } }
             </div>
 
             {/* <div className="soldProduct mt-4">
-                        <div className="heading pb-5 flex items-center justify-between ">
-                            <h1 className='text-white text-3xl font-semibold'>Sold Crops</h1>
-                            <h1 className='text-white text-3xl font-semibold'>Sorted It</h1>
-                        </div>
-                        <ExpandableCardDemo />
-                    </div> */}
+              <div className="heading pb-5 flex items-center justify-between ">
+                <h1 className='text-white text-3xl font-semibold'>Sold Crops</h1>
+                <h1 className='text-white text-3xl font-semibold'>Sorted It</h1>
+              </div>
+              <ExpandableCardDemo />
+            </div> */}
 
             <div className="soldProduct mt-5">
               <h1 className='text-white text-3xl font-semibold'>Step to Sold Crops</h1>
@@ -102,7 +76,7 @@ function page({ params }: { params: { miniState: string, minidistict: string } }
             </div>
           </div>
           <div className="py-6 flex flex-col mt-6 antialiased bg-black bg-grid-white/[0.05] relative overflow-hidden">
-            <div className="sm:px-8 xs:px-4 px-2">
+            <div className="sm:px-8 xs:px-4 px-3">
               <h1 className='text-white text-3xl font-semibold pb-2'>Reviews of Farmers</h1>
             </div>
             <InfiniteMovingCards

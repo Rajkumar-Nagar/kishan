@@ -398,8 +398,8 @@ export function GlobeDemo() {
     // useDarkTheme()
 
     return (
-        <div className="flex flex-row items-center justify-center h-full md:h-auto dark:bg-black relative w-full">
-            <div className="mx-auto w-full relative overflow-hidden h-full md:h-[50rem]">
+        <div className="flex flex-row items-center justify-center h-full dark:bg-black relative w-full">
+            <div className="mx-auto w-full relative overflow-hidden h-full md:hd-[50rem]">
                 <motion.div
                     initial={{
                         opacity: 0,

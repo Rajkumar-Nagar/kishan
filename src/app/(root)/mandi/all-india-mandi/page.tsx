@@ -10,86 +10,20 @@ import SlotCard from './slotCard'
 import { HoverEffect } from '@/components/ui/card-hover-effect'
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
 import { ChevronDown } from 'lucide-react'
-
-export const projects = [
-    {
-        title: "Stripe",
-        description:
-            "A technology company that builds economic infrastructure for the internet.",
-        link: "https://stripe.com",
-    },
-    {
-        title: "Netflix",
-        description:
-            "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-        link: "https://netflix.com",
-    },
-    {
-        title: "Google",
-        description:
-            "A multinational technology company that specializes in Internet-related services and products.",
-        link: "https://google.com",
-    },
-    {
-        title: "Meta",
-        description:
-            "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-        link: "https://meta.com",
-    },
-    {
-        title: "Amazon",
-        description:
-            "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-        link: "https://amazon.com",
-    },
-    {
-        title: "Microsoft",
-        description:
-            "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-        link: "https://microsoft.com",
-    },
-];
-
-const mandiSlots = [
-    {
-        slotName: "Morning Slot",
-        date: "2024-10-17", // Example date, this should be dynamic if needed
-        startTime: 10, // 10 AM
-        endTime: 11,   // 11 AM
-        backgroundImage: "/down.jpg",
-        icon: "/sunrise.png"
-    },
-    {
-        slotName: "Afternoon Slot",
-        date: "2024-10-17",
-        startTime: 13, // 1 PM
-        endTime: 14,   // 2 PM
-        backgroundImage: "/natural.jpg",
-        icon: "/morning.png"
-    },
-    {
-        slotName: "Evening Slot",
-        date: "2024-10-17",
-        startTime: 15, // 3 PM
-        endTime: 16,   // 4 PM
-        backgroundImage: "/license.jpg",
-        icon: "/evening.png"
-    }
-];
-
+import { mandiSlots, projects } from '@/data'
 
 
 function page() {
     return (
         <div className="maincontianer dark">
-            <div className="w-full h-full bg-black">
+            <div className="w-full h-dvh bg-black relative">
                 <ShootingStarsAndStarsBackgroundDemo >
                     <GlobeDemo />
                 </ShootingStarsAndStarsBackgroundDemo>
             </div>
             <NoHeader />
             <div className="bg-[#1a1a1a] w-full">
-                <div className="container max-w-screen-xl py-5 pt-10 sm:px-8 xs:px-4 px-2">
+                <div className="container max-w-screen-xl py-5 pt-10 sm:px-8 xs:px-4 px-3">
                     <div className="manditime">
                         <h1 className='text-white text-3xl font-semibold'>Mandi Timing Cards</h1>
 
@@ -133,7 +67,7 @@ function page() {
                     </div>
                 </div>
                 <div className="py-6 flex flex-col mt-6 antialiased bg-black bg-grid-white/[0.05] relative overflow-hidden">
-                    <div className="sm:px-8 xs:px-4 px-2">
+                    <div className="sm:px-8 xs:px-4 px-3">
                         <h1 className='text-white text-3xl font-semibold pb-2'>Reviews of Farmers</h1>
                     </div>
                     <InfiniteMovingCards

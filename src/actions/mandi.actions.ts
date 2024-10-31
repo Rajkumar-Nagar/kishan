@@ -1,7 +1,8 @@
 "use server"
 import { STATES } from "@/data";
+import prisma from "@/lib/prisma";
 
-interface MandiPrice {
+interface MandiPriceReq {
     offset?: number;
     limit?: number | 'all';
     state: keyof typeof STATES;
@@ -44,7 +45,7 @@ export const getMandiPrice = async ({
     commodity,
     variety,
     grade
-}: Partial<MandiPrice>) => {
+}: Partial<MandiPriceReq>) => {
     const apiKey = process.env.DATA_GOV_IN_API_KEY;
 
     const search = {
@@ -82,4 +83,26 @@ export const getMandiPrice = async ({
         count,
         records
     }
+}
+
+
+export const insertMandiPrice = async () => {
+    const { records } = await getMandiPrice({
+        limit: 3000
+    })
+
+    if (records) {
+        await prisma.mandiPrice.deleteMany({
+            where: {
+                createdAt: {
+                    gte: new Date().toISOString().split('T')[0]
+                }
+            }
+        });
+
+        const res = await prisma.mandiPrice.createMany({
+            data: records
+        });
+    }
+
 }
