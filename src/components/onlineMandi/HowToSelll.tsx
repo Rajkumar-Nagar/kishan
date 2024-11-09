@@ -10,39 +10,40 @@ export function CardHoverEffectDemo() {
 }
 export const projects = [
     {
-        title: "Stripe",
+        title: "List Your Crop",
         description:
-            "A technology company that builds economic infrastructure for the internet.",
-        link: "https://stripe.com",
+            "Start by listing your crop on the Kisan platform, choosing either the All India Mandi for national reach or a specific Mini Mandi for local sales. Ensure all necessary crop details are included to attract bidders.",
+        link: "https://kisan.com/list-crop",
     },
     {
-        title: "Netflix",
+        title: "Bidding",
         description:
-            "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-        link: "https://netflix.com",
+            "Participate in real-time online bidding for your crop, where potential buyers can place competitive bids in front of you. This live bidding process helps secure the best price for your produce.",
+        link: "https://kisan.com/bidding",
     },
     {
-        title: "Google",
+        title: "Sample or Live Stream Request",
         description:
-            "A multinational technology company that specializes in Internet-related services and products.",
-        link: "https://google.com",
+            "After bidding, your crop may be requested for sample verification or live streaming, allowing bidders to assess the crop quality virtually before finalizing the purchase.",
+        link: "https://kisan.com/sample-request",
     },
     {
-        title: "Meta",
+        title: "Bid Confirmation",
         description:
-            "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-        link: "https://meta.com",
+            "Once a bidder confirms their bid, your crop is reserved for them. This step ensures a clear commitment from the buyer to proceed with the transaction.",
+        link: "https://kisan.com/bid-confirmation",
     },
     {
-        title: "Amazon",
+        title: "Transportation to Bidder",
         description:
-            "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-        link: "https://amazon.com",
+            "Following bid confirmation, your crop is transported to the bidder's location. Our platform facilitates secure logistics to ensure a smooth delivery process.",
+        link: "https://kisan.com/transportation",
     },
     {
-        title: "Microsoft",
+        title: "Payment Completion",
         description:
-            "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-        link: "https://microsoft.com",
+            "Upon successful delivery, payment is securely processed, completing the transaction. This final step ensures prompt and guaranteed payment for your crop.",
+        link: "https://kisan.com/payment",
     },
 ];
+
