@@ -5,12 +5,12 @@ import NavigationMenuDemo from './Navbarfield';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { getDataFromId } from '@/actions/productId.actio';
 import { User } from '@prisma/client';
 import { useScrollWindow } from '@/hooks';
 import ProfileMenu from './profile-menu';
 import { MandiJoinButton } from './onlineMandi/joinButtion';
 import { useRouter } from 'next/navigation';
+import { userActions } from '@/actions';
 
 function Navbar() {
     const [user, setuser] = useState<User | null>(null)
@@ -22,7 +22,7 @@ function Navbar() {
     useEffect(() => {
         const handleuser = async () => {
             if (status === "authenticated" && session?.user?.id) {
-                const updateduser = await getDataFromId(session?.user.id, "user")
+                const updateduser = await userActions.getUserById(session?.user.id)
                 setuser(updateduser)
             }
         }
@@ -30,7 +30,7 @@ function Navbar() {
     }, [status, session])
 
     const handelJoinMandi = () => {
-        router.push("/mandi/joinMandi")
+        router.push("/mandi/join-mandi")
     }
 
 
@@ -53,7 +53,7 @@ function Navbar() {
             </div>
 
             <div className='flex flex-row items-center gap-4'>
-                <MandiJoinButton onClick={handelJoinMandi} />
+                <MandiJoinButton onClick={handelJoinMandi} hide />
                 <Link href={"/ai"} className="Kalyaan flex items-center justify-center gap-1">
                     <Image alt='' src={"/sun.png"} width={30} height={30} />
                     <span className='text-2xl font-bold text-[#4a9129]'>Ai</span>

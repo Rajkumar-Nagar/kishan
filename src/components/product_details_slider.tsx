@@ -23,7 +23,7 @@ export function Product_details_slider({ product, height }: Product_details_slid
     const media = product?.media?.photos ?? []
 
     return (
-        <Carousel className=" w-full h-full relative rounded-md overflow-hidden">
+        <Carousel className="w-full  min-h-max relative rounded-md overflow-hidden">
             <CarouselContent>
                 {media.map((item, index) => (
                     <CarouselItem key={index}>

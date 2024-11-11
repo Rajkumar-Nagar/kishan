@@ -13,7 +13,6 @@ import { CircleUserRound, Info, Phone } from "lucide-react"
 import React from 'react'
 import Image from "next/image"
 import { Button } from "./ui/button"
-import { useRouter } from "next/navigation"
 import { CldImage } from "next-cloudinary"
 import { account } from "@/data"
 import { User } from "@prisma/client"
@@ -29,11 +28,12 @@ interface ProfileDemoProps {
 
 
 const ProfileMenu = ({ user }: ProfileDemoProps) => {
-    const router = useRouter();
 
     const handleLogout = async () => {
-        await signOut()
-        router.push("/")
+        await signOut({
+            redirect: true,
+            redirectTo: "/login"
+        })
     }
     return (
         <DropdownMenu>
@@ -44,7 +44,7 @@ const ProfileMenu = ({ user }: ProfileDemoProps) => {
                         src={user?.avatar}
                         width={"170"}
                         height={"170"}
-                        className='w-10 h-10 rounded-full'
+                        className='w-10 h-10 rounded-full aspect-square'
                         crop={{
                             type: 'auto',
                             source: true

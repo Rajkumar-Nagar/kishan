@@ -22,7 +22,7 @@ const PrductList = async () => {
 
 
             <div className="rightpart flex-1 rounded-md border-2 space-y-2 px-5 py-4">
-                <div className="headerpart flex z-30 items-center justify-between">
+                <div className="headerpart flex z-30 items-center justify-between flex-wrap sm:flex-row flex-col-reverse gap-3">
                     <div className="left flex items-center gap-2">
                         <h1 className='text-[#2e054e] font-semibold'>1048</h1>
                         <h1 className='text-[#2e054e] text-sm'>Farmers in Katawer</h1>

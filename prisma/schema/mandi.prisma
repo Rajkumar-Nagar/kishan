@@ -6,7 +6,7 @@ model Mandi {
 
 model BidDetails {
     id               String    @id @default(auto()) @map("_id") @db.ObjectId
-    cropId           String    @db.ObjectId @unique
+    cropId           String    @unique @db.ObjectId
     crop             Product   @relation(fields: [cropId], references: [id])
     startedAt        DateTime?
     endedAt          DateTime?
@@ -25,7 +25,7 @@ model Bids {
     price        Int
     bidDetailsId String?     @db.ObjectId
     BidDetails   BidDetails? @relation(fields: [bidDetailsId], references: [id])
-    createdAt    DateTime  @default(now())
+    createdAt    DateTime    @default(now())
 }
 
 enum Slot {
@@ -35,9 +35,26 @@ enum Slot {
 }
 
 model SlotOption {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
-    currCropId String
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    currCropId   String
     pendingCrops String[]
-    status String
-    Type Slot @unique
+    status       String
+    Type         Slot     @unique
+}
+
+model MandiPrice {
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    state        String
+    district     String
+    market       String
+    commodity    String
+    variety      String
+    grade        String
+    arrival_date String
+    min_price    String
+    max_price    String
+    modal_price  String
+    price_unit   String?
+    createdAt    DateTime @default(now()) @map("created_at")
+    updatedAt    DateTime @updatedAt @map("updated_at")
 }

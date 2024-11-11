@@ -1,5 +1,4 @@
 "use client"
-import { getBgImageUser } from '@/actions/getBgImageUser'
 import CImage from '@/components/Cimage'
 import FileUploader from '@/components/fileUploader'
 import React, { useState } from 'react'
@@ -9,14 +8,15 @@ const ProfileBanner = ({
     bgImage
 }: {
     userId: string;
-    bgImage?: string;
+    bgImage?: string | null;
 }) => {
     const [image, setImage] = useState(bgImage)
 
     const handleBannerUpload = async (imageId: string) => {
         if (!userId) return
         setImage(imageId)
-        await getBgImageUser(userId, imageId)
+        //TODO: update user profile with new banner image
+        // await getBgImageUser(userId, imageId)
     }
 
     return (

@@ -10,7 +10,7 @@ const DropdownIcon = ({ condition, className, ...props }: DropdownIconProps) => 
     return (
         <ChevronDown className={cn(
             condition ? 'rotate-180' : 'rotate-0',
-            'transition-transform ease-in-out duration-100',
+            'transition-transform ease-in-out text-white duration-100',
             className
         )} {...props} />
     )

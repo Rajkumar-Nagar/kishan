@@ -15,7 +15,7 @@ export type Bidproduct = Prisma.ProductGetPayload<{
         qualityMetrics: true,
         media: true,
         locationInfo: true,
-        pesonalInfo: {
+        personalInfo: {
             select: {
                 id: true,
                 name: true,
@@ -23,11 +23,11 @@ export type Bidproduct = Prisma.ProductGetPayload<{
                 email: true,
                 address: true,
                 licence: true,
-                additional_number: true,
+                additionalNumber: true,
                 avatar: true,
             }
         },
-        ProductInfo: true,
+        productInfo: true,
         biddingDetails: {
             include: {
                 bids: true
@@ -66,11 +66,11 @@ const bidSlice = createSlice({
         initBid: (state, action: PayloadAction<Bidproduct>) => {
             const product = action.payload
             state.product = product
-            state.bidHistory = product.biddingDetails[0].bids
-            const latestBid = product.biddingDetails[0].bids.at(-1)
+            state.bidHistory = product.biddingDetails[0]?.bids ?? []
+            const latestBid = product.biddingDetails[0]?.bids.at(-1)
             if (latestBid) {
-                state.highestBid = latestBid?.price!
-                state.highestBidder = latestBid?.bidderId!
+                state.highestBid = latestBid.price
+                state.highestBidder = latestBid.bidderId
                 state.latestBid = latestBid;
             }
         },
@@ -94,11 +94,9 @@ const bidSlice = createSlice({
         },
         addBid: (state, action: PayloadAction<Bids>) => {
             state.bidHistory = [...state.bidHistory, action.payload];
-            console.log(JSON.stringify(state.bidHistory, null, 2))
             state.latestBid = action.payload;
             state.highestBidder = action.payload.bidderId
             state.highestBid = action.payload.price
-            console.log(state.highestBid)
         },
         setCountDown: (state, action: PayloadAction<number>) => {
             state.countDown = action.payload

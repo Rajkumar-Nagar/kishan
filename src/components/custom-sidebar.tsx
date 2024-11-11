@@ -1,6 +1,6 @@
 "use client"
 import { useWindowSize } from '@/hooks';
-import { GearIcon } from '@livekit/components-react';
+import { Settings } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { MdClose } from 'react-icons/md';
@@ -26,7 +26,7 @@ const SideBar: React.FC<PropsWithChildren> = ({
     return (
         <div className='relative'>
             <button className='p-2 sticky top-[calc(var(--header-height)_+_0.5rem)]' onClick={handleClick}>
-                <GearIcon />
+                <Settings />
             </button>
             {isOpened && <div className='w-screen h-screen z-40 bg-black/15 fixed inset-0' onClick={handleClick} />}
             <div className={`sidebar fixed h-screen bg-white z-50 p-4`}

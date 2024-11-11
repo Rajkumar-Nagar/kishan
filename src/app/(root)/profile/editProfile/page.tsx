@@ -1,6 +1,5 @@
 "use client"
 
-import { getDataFromId } from "@/actions/productId.actio"
 import FileUploader from "@/components/fileUploader"
 import { Button } from "@/components/ui/button"
 import { User } from "@prisma/client"
@@ -15,24 +14,6 @@ function ProfileEdit() {
 
     const { data, update } = useSession()
     const userID = data?.user.id
-
-
-    useEffect(() => {
-        if (!userID) return
-        getDataFromId(userID, "user")
-            .then((user) => {
-                setuser(user)
-                if (user) {
-                    setname(user.name)
-                    setavatar(user.avatar)
-                    setemail(user.email)
-                    setcurrentAddress(user.address)
-                    setphoneNumber(user.phoneNumber)
-                }
-            })
-    }, [userID])
-
-
     const router = useRouter()
 
     const [avatar, setavatar] = useState("")
@@ -44,6 +25,16 @@ function ProfileEdit() {
     const [phoneNumber, setphoneNumber] = useState("")
     const [email, setemail] = useState("")
     const [currentAddress, setcurrentAddress] = useState("")
+
+    useEffect(() => {
+        if (!data?.user) return
+        const user = data.user
+        setname(user.name)
+        setavatar(user.avatar ?? "")
+        setemail(user.email ?? "")
+        setcurrentAddress(user.address)
+        setphoneNumber(user.phoneNumber)
+    }, [data?.user])
 
 
     const handelPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {

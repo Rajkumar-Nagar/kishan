@@ -37,10 +37,10 @@ function MiniMandiSelect() {
         }
 
         if (!miniState || !minidistict) {
-            seterr("** please select minimandi state and distict")
+            seterr("** please select minimandi state and district")
             return
         }
-        route.push(`/mandi/miniMandi/${miniState}/${minidistict}`)
+        route.push(`/mandi/mini-mandi/${miniState}/${minidistict}`)
     }
 
     return (
@@ -106,7 +106,7 @@ function MiniMandiSelect() {
 
                 <div className="sellingoption">
                     <div className='flex items-center'>
-                        <h1 className=" text-[#002f34] text-xl my-2">Mandi distict</h1>
+                        <h1 className=" text-[#002f34] text-xl my-2">Mandi district</h1>
                         <span className=" text-[#da4f43] text-xl my-2">*</span>
                     </div>
                     <Dropdown
@@ -130,7 +130,7 @@ function MiniMandiSelect() {
 
             <div className="button flex gap-6 items-center mt-4">
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
-                    more details
+                    More details
                 </button>
                 <MandiJoinButton onClick={handelMiniMandi} />
                 {

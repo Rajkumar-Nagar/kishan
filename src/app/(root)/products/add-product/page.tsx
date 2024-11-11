@@ -34,10 +34,10 @@ function Page() {
     const [isloading, setisloading] = useState(false)
 
 
-    const [aadhar_number, setAadhar_number] = useState("")
-    const [current_location, setCurrent_location] = useState("")
-    const [additional_number, setAdditional_number] = useState("")
-    const [aadharphotos, setAadharphotos] = useState<string[]>([])
+    const [aadharNumber, setAadhar_number] = useState("")
+    const [currentLocation, setCurrent_location] = useState("")
+    const [additionalNumber, setAdditional_number] = useState("")
+    const [aadharPhotos, setAadharphotos] = useState<string[]>([])
 
 
     const [selectProduct, setselectProduct] = useState("")
@@ -55,7 +55,7 @@ function Page() {
     const [village, setVillage] = useState("")
     const [pincode, setpincode] = useState("")
     const [state, setstate] = useState<IStatesWithDistricts>("Rajasthan")
-    const [distict, setdistict] = useState("")
+    const [district, setdistict] = useState("")
 
 
     const [grading, setgrading] = useState("false")
@@ -93,11 +93,11 @@ function Page() {
 
     const hadleItemAdd = async () => {
 
-        // if (!aadhar_number || !current_location || !aadharphotos || !selectProduct || !quantity || !varity || !expectedPrize || !units || !mandiOption || !uploadImages || !city || !village || !pincode || !distict || !state || !Color || !harvestDate || !harvestLocation || !uploadImages || !liveStreaming || !setsampleRequest) {
+        // if (!aadharNumber || !currentLocation || !aadharPhotos || !selectProduct || !quantity || !varity || !expectedPrize || !units || !mandiOption || !uploadImages || !city || !village || !pincode || !district || !state || !Color || !harvestDate || !harvestLocation || !uploadImages || !liveStreaming || !setsampleRequest) {
         //     seterror("please fill all required field (*)")
         //     return;
         // }
-        // if (aadharphotos.length != 2) {
+        // if (aadharPhotos.length != 2) {
         //     seterror("please upload  aadhar  front and back both photos")
         //     return;
         // }
@@ -119,10 +119,10 @@ function Page() {
                 },
                 body: JSON.stringify({
 
-                    aadhar_number,
-                    current_location,
-                    additional_number,
-                    aadharphotos,
+                    aadharNumber,
+                    currentLocation,
+                    additionalNumber,
+                    aadharPhotos,
 
                     cropName: selectProduct,
                     variety: varity,
@@ -133,7 +133,7 @@ function Page() {
                     city: city,
                     village: village,
                     pincode: pincode,
-                    districtCity: distict,
+                    districtCity: district,
                     state: state,
 
                     moistureContent: Moisturecontent,
@@ -219,7 +219,7 @@ function Page() {
 
                         <div className=" personal_informationfield space-y-2">
 
-                            <div className="aadhar_number">
+                            <div className="aadharNumber">
 
                                 <div className='flex items-center'>
                                     <h1 className="text-[#002f34] text-xl my-2">Aadhar Number</h1>
@@ -229,7 +229,7 @@ function Page() {
                                 <input
                                     type="text"
                                     className='Pinput w-full'
-                                    value={aadhar_number}
+                                    value={aadharNumber}
                                     onChange={handleAadharNumber}
                                     maxLength={14} />
                             </div>
@@ -246,12 +246,12 @@ function Page() {
                                     <input
                                         type="text"
                                         className='Pinput w-full'
-                                        value={current_location}
+                                        value={currentLocation}
                                         onChange={(e) => { setCurrent_location(e.target.value) }} />
 
                                 </div>
 
-                                <div className="additional_number grow">
+                                <div className="additionalNumber grow">
 
                                     <div className='flex items-center'>
                                         <h1 className=" text-[#002f34] text-xl my-2">other Number</h1>
@@ -261,14 +261,14 @@ function Page() {
                                     <input
                                         type="text"
                                         className='Pinput w-full'
-                                        value={additional_number}
+                                        value={additionalNumber}
                                         onChange={handelMobilNumber} />
                                 </div>
 
                             </div>
 
 
-                            <div className="aadharphotos flex items-center justify-evenly [&>div_div:nth-child(2)]:mx-auto">
+                            <div className="aadharPhotos flex items-center justify-evenly [&>div_div:nth-child(2)]:mx-auto">
                                 <div className="fortPhotos">
                                     <div className='flex items-center'>
                                         <h1 className=" text-[#002f34] text-xl my-2">Aadhar Front Photo</h1>
@@ -407,12 +407,12 @@ function Page() {
 
                                 <div className="sellingoption grow">
                                     <div className='flex items-center'>
-                                        <h1 className=" text-[#002f34] text-xl my-2">distict</h1>
+                                        <h1 className=" text-[#002f34] text-xl my-2">district</h1>
                                         <span className=" text-[#da4f43] text-xl my-2">*</span>
                                     </div>
                                     <Dropdown
                                         Setquantity={setdistict}
-                                        quntity={distict}
+                                        quntity={district}
                                         fields={statesWithDistricts[state]}
                                         nameDrop="Option" />
                                 </div>

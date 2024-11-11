@@ -98,7 +98,7 @@ export default function CarouselDemo() {
                   style={{ zIndex: 1 }}
                 />
                 <div
-                  className="absolute inset-0 flex pt-20 sm:items-center items-start justify-center px-5 sm:px-10"
+                  className="absolute inset-0 flex pt-40 sm:pt-20 sm:items-center items-start justify-center px-5 sm:px-10"
                   style={{ zIndex: 1 }}
                 >
                   <div className="w-full max-w-md md:max-w-screen-sm text-white space-y-4 px-6 py-6 backdrop-blur-sm shadow-2xl bg-black/30 rounded-lg">
@@ -117,8 +117,8 @@ export default function CarouselDemo() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-5" />
-      <CarouselNext className="absolute right-5" />
+      <CarouselPrevious className="absolute left-2 md:left-5" />
+      <CarouselNext className="absolute right-2 md:right-5" />
     </Carousel >
   )
 }

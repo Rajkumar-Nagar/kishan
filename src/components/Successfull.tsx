@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 function Successfull({ ...props }) {
     return (
-        <div className="addedconfirmation w-full h-full"
+        <div className="addedconfirmation w-full h-body"
             style={{
                 backgroundImage: `url(${props.imgurl})`,
                 backgroundSize: 'cover',

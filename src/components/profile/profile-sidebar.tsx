@@ -1,6 +1,5 @@
 import React from 'react'
 import { account } from '@/data';
-import { getDataFromId } from '@/actions/productId.actio';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Buttonbox from '@/components/profile/Buttonbox';
@@ -11,7 +10,7 @@ import ProfileBanner from './profile-banner';
 
 const ProfileSidebar = async () => {
     const session = await auth();
-    const user = await getDataFromId(session!.user.id as string, "user")
+    const user = session?.user!
     return (
         <div className="leftpartContainer sticky top-20 w-[clamp(300px,_25vw,_360px)] h-max rounded-md border-2 overflow-hidden">
             <div className="profileDetails bg-gray-200 gap-3 pb-5 border-b-[1px] flex flex-col">

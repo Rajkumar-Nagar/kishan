@@ -6,7 +6,7 @@ export const productOptions: Prisma.ProductSelect = {
     qualityMetrics: true,
     media: true,
     locationInfo: true,
-    pesonalInfo: {
+    personalInfo: {
         select: {
             id: true,
             name: true,
@@ -14,9 +14,9 @@ export const productOptions: Prisma.ProductSelect = {
             email: true,
             address: true,
             licence: true,
-            additional_number: true,
+            additionalNumber: true,
             avatar: true,
         }
     },
-    ProductInfo: true,
+    productInfo: true,
 }

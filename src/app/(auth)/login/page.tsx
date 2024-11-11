@@ -1,14 +1,12 @@
 "use client"
 
 import Link from "next/link"
-
 import React, { useState } from "react";
-import { loginServerAction } from "@/actions/loginAction";
 import { useRouter } from "next/navigation";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import InputOTPPattern from "@/components/OtpModel";
 import { checkEmptyField } from "@/lib/utils";
+import { signIn } from "next-auth/react";
 
 
 export default function SignIn() {
@@ -41,7 +39,11 @@ export default function SignIn() {
 
     try {
       setIsloading(true)
-      await loginServerAction(formdata);
+      signIn('credentials', {
+        phoneNumber,
+        password,
+        redirect: false,
+      });
       router.replace("/")
     } catch (error) {
       seterrMessage("Invalid Credentials")
@@ -73,12 +75,6 @@ export default function SignIn() {
         backgroundPosition: 'center',
       }}
     >
-
-      {/* <div
-        className="absolute inset-0 bg-gray-800 bg-opacity-50 blur-md"
-        style={{ zIndex: 1 }}
-      /> */}
-
       <div className="relative backdrop-blur-sm w-full h-full flex md:p-8 sm:p-6 p-0  text-white">
 
         <div className="w-full h-full shadow-lg  flex flex-col md:flex-row rounded-md overflow-hidden" >
@@ -91,7 +87,7 @@ export default function SignIn() {
 
             <form
               onSubmit={handelSignIn}
-              className="flex flex-col justify-center xl:px-24 px-10  w-full md:min-w-72 items-center space-y-2  pt-6 pb-4"
+              className="flex flex-col justify-center xl:px-24 sm:px-10 px-6 w-full md:min-w-72 items-center space-y-2 pt-6 pb-4"
             >
               <label className="flex flex-col w-full space-y-1">
                 Phone Number

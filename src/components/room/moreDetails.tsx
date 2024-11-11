@@ -3,7 +3,7 @@ import { Dateconverter } from '@/utils/dateconverter'
 import Image from 'next/image'
 import React from 'react'
 
-function MoreDetails({ product }:{product:ProductType}) {
+function MoreDetails({ product }: { product: ProductType }) {
     return (
 
         <>
@@ -131,7 +131,7 @@ function MoreDetails({ product }:{product:ProductType}) {
                         gridColumn: "3 / 4",
                         gridRow: " 4/ 5"
                     }}>
-                    <h1 className='text-[#888]'>distict</h1>
+                    <h1 className='text-[#888]'>district</h1>
                     <h1 className='text-[#2e054e]'>{product.locationInfo?.districtCity}</h1>
                 </div>
             </div>

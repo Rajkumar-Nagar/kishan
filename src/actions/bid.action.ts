@@ -1,17 +1,17 @@
 "use server"
 import { auth } from "@/auth"
-import { error } from "console"
+import prisma from "@/lib/prisma"
 
 
-export const MakeBid = async ({ price, cropId }: { price: number, cropId: string }) => {
+export const MakeBid = async ({ price, cropId, createdAt }: { price: number, cropId: string, createdAt: string }) => {
     const session = await auth()
-    console.log(price)
+
     if (!session?.user) {
         return {
             error: "unauthorized"
         }
     }
-    const bidDetails = await prisma?.bidDetails.findFirst({
+    const bidDetails = await prisma.bidDetails.findFirst({
         where: {
             cropId
         }
@@ -19,27 +19,27 @@ export const MakeBid = async ({ price, cropId }: { price: number, cropId: string
 
     if (!bidDetails) {
         return {
-            error: "envalid Bid"
+            error: "Invalid Bid"
         }
     }
 
     if (!bidDetails.lowestBid) {
-        const bidDetails = await prisma?.bidDetails.update({
+        const bidDetails = await prisma.bidDetails.update({
             where: {
                 cropId
             },
             data: {
-                lowestBid:price
+                lowestBid: price
             }
         })
-
     }
 
-    const Bid = await prisma?.bids.create({
+    const Bid = await prisma.bids.create({
         data: {
             bidderId: session.user.id!,
             price,
-            bidDetailsId: bidDetails.id
+            bidDetailsId: bidDetails.id,
+            createdAt
         }
     })
 
@@ -47,10 +47,10 @@ export const MakeBid = async ({ price, cropId }: { price: number, cropId: string
 }
 
 
-export const WinningBid = async ({ cropId, highestBid,winning_bidderId }:{
-    cropId:string;
-    highestBid:number;
-    winning_bidderId:string
+export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
+    cropId: string;
+    highestBid: number;
+    winning_bidderId: string
 }) => {
     const session = await auth()
     if (!session?.user) {
@@ -59,7 +59,7 @@ export const WinningBid = async ({ cropId, highestBid,winning_bidderId }:{
         }
     }
 
-    const bidDetails = await prisma?.bidDetails.update({
+    const bidDetails = await prisma.bidDetails.update({
         where: {
             cropId
         },
@@ -69,7 +69,7 @@ export const WinningBid = async ({ cropId, highestBid,winning_bidderId }:{
         }
     })
 
-    if(bidDetails){
-        return {bidDetails}
+    if (bidDetails) {
+        return { bidDetails }
     }
 }
