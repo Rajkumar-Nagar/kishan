@@ -4,15 +4,15 @@ import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import { usePathname } from "next/navigation";
 
 export function MandiJoinButton({ ...props }) {
-    const pathName=usePathname()
+    const pathName = usePathname()
 
-    const canHide=pathName==="/mandi/join-mandi" && !!props.hide
+    const canHide = pathName === "/mandi/join-mandi" && !!props.hidden
 
-    if(canHide){
+    if (canHide) {
         return null
     }
     return (
-        <div className={`${props.hide ? "hidden sm:block":""}`}>
+        <div className={`${props.hidden ? "hidden sm:block" : ""}`}>
             <HoverBorderGradient
                 containerClassName="rounded-full p-0 "
                 {...props}

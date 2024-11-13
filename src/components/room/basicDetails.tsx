@@ -1,6 +1,5 @@
 
 "use client"
-import { Dateconverter } from '@/utils/dateconverter'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import MoreDetails from './moreDetails'
@@ -103,7 +102,7 @@ function BasicDetails({ product }: BasicDetailsProps) {
                         alt="thumbnail"
                     />
                     <span className="text-xs w-full font-semibold text-[#74667f] dark:text-white">{
-                        ` ${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
+                        `${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
                     }</span>
                 </div>
             </div>

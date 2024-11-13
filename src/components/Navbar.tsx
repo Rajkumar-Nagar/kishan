@@ -53,7 +53,7 @@ function Navbar() {
             </div>
 
             <div className='flex flex-row items-center gap-4'>
-                <MandiJoinButton onClick={handelJoinMandi} hide />
+                <MandiJoinButton onClick={handelJoinMandi} hidden />
                 <Link href={"/ai"} className="Kalyaan flex items-center justify-center gap-1">
                     <Image alt='' src={"/sun.png"} width={30} height={30} />
                     <span className='text-2xl font-bold text-[#4a9129]'>Ai</span>

@@ -63,11 +63,11 @@ export default async function Page({
             <NoHeader />
             <NoFooter />
             <div className="mainbox relative h-full flex flex-col">
-                <div className="header sticky bg-[#6cbdaf] h-16 top-0 w-full flex items-center justify-between px-10">
+                <div className="header sticky bg-[#6cbdaf] h-16 top-0 w-full flex items-center justify-between px-4 md:px-10">
                     <div className="left">
                         <h1 className="text-white text-3xl font-semibold">Kota,Rajashtan mandi</h1>
                     </div>
-                    <HeaderButton product={product} />
+                    <HeaderButton />
                 </div>
 
                 <div className="afterHeader flex-1 flex h-full overflow-hidden">
@@ -77,8 +77,8 @@ export default async function Page({
                             <div className="otherDetails">
                                 <BasicDetails product={product} />
                             </div>
-                            <BidInfoSliderSheet/>
-                            <BidderButtons className="fixed bottom-0 flex md:hidden bg-gray-500/50 left-0 right-0 " />
+                            <BidInfoSliderSheet />
+                            <BidderButtons className="fixed bottom-0 flex md:hidden bg-gray-500/50 left-0 right-0" />
                         </div>
                         <div className="flex-1 hidden md:block">
                             <BidInfo />

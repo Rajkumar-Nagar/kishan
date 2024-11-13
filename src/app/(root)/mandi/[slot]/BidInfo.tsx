@@ -1,18 +1,15 @@
 "use client"
 import BidderButtons from '@/components/room/bidderButton'
-import { SOCKET_EVENTS } from '@/constants'
 import { useAppSelector } from '@/lib/redux'
-import { ProductType } from '@/lib/types'
-import { useSocket } from '@/providers/socket-provider'
 import { Bids } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 
-const BidTimer = ({ latestBid }: { latestBid: Bids | null }) => {
-
-    const [currentTime, setCurrentTime] = useState(new Date().getTime()); // Store current time
+const BidTimer = () => {
+    const { latestBid } = useAppSelector((state) => state.bidRoom);
+    const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -21,13 +18,11 @@ const BidTimer = ({ latestBid }: { latestBid: Bids | null }) => {
 
         return () => clearInterval(interval);
     }, []);
-
     const timer = useMemo(() => {
         if (!latestBid) return 30;
 
         const time1 = new Date(latestBid.createdAt).getTime();
         const diffInSeconds = 30 - Math.floor((currentTime - time1) / 1000);
-
         if (diffInSeconds <= 0) {
             // alert("Your bid has ended! TimeOut!");
             return 0;
@@ -35,40 +30,35 @@ const BidTimer = ({ latestBid }: { latestBid: Bids | null }) => {
 
         return diffInSeconds;
     }, [latestBid, currentTime]);
-
     return (
-        <div className="timer md:w-32 md:h-32 lg:w-40 lg:h-40  bg-[#6cbdaf] rounded-full flex items-center justify-center ">
+        <div className="timer w-32 h-32 lg:w-40 lg:h-40  bg-[#6cbdaf] rounded-full flex items-center justify-center ">
             <h1 className="text-white text-5xl font-bold">{timer}</h1>
         </div>
     )
 }
 
-interface BasicDetailsProps {
-    product: ProductType
-}
+
 function BidInfo() {
 
     const { data } = useSession();
-   
-    const { highestBid,product, latestBid, bidHistory } = useAppSelector((state) => state.bidRoom);
+    const { highestBid, product, bidHistory } = useAppSelector((state) => state.bidRoom);
     const myBids = bidHistory.filter((bid: Bids) => bid.bidderId === data?.user.id);
-
-
 
     return (
         <div className="rightpart w-full h-full">
             <div className="h-full flex flex-col ">
                 <div className="selfProfilePart flex-1">
-                    <div className="topright flex border-[1px] rounded-md w-full h-72 "
+                    <div className="topright flex flex-col border-[1px] rounded-md w-full md:h-72 md:grid [&_div]:md:py-0 [&_div]:py-2"
                         style={{
-                            display: "grid",
                             gridTemplateColumns: "repeat(6, 1fr)",
-                            gridTemplateRows: "repeat(6, 1fr)"
+                            gridTemplateRows: "repeat(3, 1fr)"
                         }}>
-                        <div className="flex col-start-1 col-end-3 lg:col-end-4 row-start-1 row-end-5 items-center justify-center border-b-[1px] border-r-[1px]">
-                            <BidTimer latestBid={latestBid} />
+
+                        <div className="hidden md:flex col-start-1 col-end-3 lg:col-end-4 row-start-1 row-end-3 items-center justify-center border-b-[1px] border-r-[1px]">
+                            <BidTimer />
                         </div>
-                        <div className="price col-start-1 col-end-3 md:flex md:flex-col lg:flex-row lg:col-end-4 row-start-5 row-end-7 flex items-center justify-center gap-1 border-r-[1px]">
+
+                        <div className="price col-start-1 col-end-3 lg:col-end-4 row-start-3 row-end-4 flex-col lg:flex-row flex items-center justify-center gap-1 md:border-b-0 border-b-[1px] border-r-[1px]">
 
                             <div className='flex items-center gap-2'>
                                 <Image
@@ -84,8 +74,7 @@ function BidInfo() {
                             <h1 className="text-gray-400 lg:text-xl text-lg md font-semibold">(BP:₹{product?.productInfo.expectedPrice})</h1>
                         </div>
 
-                        <div className="profile col-start-3 lg:col-start-4  max-w-72 lg:max-w-full col-end-7 row-start-1 row-end-3 flex items-center px-6 py-4 gap-3 border-b-[1px]"
-                        >
+                        <div className="profile col-start-3 lg:col-start-4 col-end-7 row-start-1 row-end-2 flex items-center px-6 md:!py-4 gap-3 border-b-[1px]">
                             <div className='relative flex w-full max-w-16  justify-center'>
                                 {
                                     product?.personalInfo.avatar ?
@@ -133,7 +122,8 @@ function BidInfo() {
 
 
                         </div>
-                        <div className="lastbid col-start-3 lg:col-start-4 max-w-72 lg:max-w-full col-end-7 row-start-3 row-end-5 flex items-center px-10 gap-2 border-b-[1px]"
+
+                        <div className="lastbid col-start-3 lg:col-start-4 col-end-7 row-start-2 row-end-3 flex items-center px-10 gap-2 border-b-[1px]"
                         >
                             <Image
                                 width={100}
@@ -148,14 +138,14 @@ function BidInfo() {
                             </div>
                         </div>
 
-                        <div className="col-start-3 lg:col-start-4 max-w-72 lg:max-w-full col-end-7 row-start-5 row-end-7 flex items-center justify-center">
+                        <div className="summary col-start-3 lg:col-start-4 col-end-7 row-start-3 row-end-4 flex items-center justify-center">
                             <div className="flex items-center justify-center">
                                 <button className="w-40 h-9 rounded-md bg-orange-500 text-white font-semibold">Bid Summary</button>
                             </div>
                         </div>
                     </div>
 
-                    <div className="profile mx-auto lg:w-fit w-full py-10 border lg:px-10 px-6 flex flex-col md:flex-row items-center mt-4 gap-3">
+                    <div className="profile mx-auto lg:w-fit w-full py-4 border px-6 flex flex-col md:flex-row items-center mt-4 gap-3">
 
                         <div className='flex gap-3'>
 
@@ -205,7 +195,9 @@ function BidInfo() {
                         </div>
                     </div>
                 </div>
-                <BidderButtons />
+
+
+                <BidderButtons className='md:flex hidden [&>div]:sm:max-w-sm [&>div]:md:max-w-[400px] [&>div]:lg:max-w-full' />
             </div>
         </div>
     )
