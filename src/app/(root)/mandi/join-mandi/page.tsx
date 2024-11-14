@@ -18,12 +18,13 @@ function page() {
 
         <div className="afterHeader py-10">
           <div className="heading_dis space-y-4">
-            <div className="heading text-center text-5xl font-semibold">
+            <div className="heading text-center text-3xl md:text-5xl font-semibold">
               <span>
                 <span className='text-[#e7a137]'>Wel</span>
                 <span className='text-[#0d0d0d]'>come&nbsp;</span>
               </span>
-              <span className='text-[#30ab55]'>to Kisan Online Mandi</span>
+              <span className='text-[#30ab55]'>to Kisan </span>
+              <span className='text-[#30ab55] block'>Online Mandi</span>
             </div>
 
             <div className="dis">
@@ -35,9 +36,8 @@ function page() {
         </div>
 
         <div className="next pb-10">
-          <TracingBeam>
-
-            <div className="w-full max-w-3xl mx-auto">
+          <TracingBeam className='pl-5'>
+            <div className="w-full max-w-3xl px-6 md:px-0 mx-auto">
               <div className="AllINdiamandi">
                 <div className="antialiased pt-4 relative">
                   <div className="text-sm prose prose-sm dark:prose-invert">
@@ -48,12 +48,11 @@ function page() {
                       width="1000"
                       className="rounded-lg mb-4 object-cover"
                     />
-                    <h1 className='text-black font-semibold text-4xl py-4'>
+                    <h1 className='text-black font-semibold text-3xl md:text-4xl py-4'>
                       All India Mandi
                     </h1>
-                    <p className='text-justify text-gray-500 font-semibold text-base'>
+                    <p className='text-justify text-gray-400  text-base'>
                       Join our All India Mandi to connect with buyers from every corner of the country. This unique platform allows you to sell your crops on a national scale, ensuring you get the best prices and widest reach. With a single mandi catering to the entire nation, you can be assured of a highly competitive and transparent bidding process, giving you the best value for your produce.</p>
-
                     <Allindiamandijoin />
                   </div>
                 </div>
@@ -69,10 +68,10 @@ function page() {
                       width="1000"
                       className="rounded-lg mb-4 object-cover"
                     />
-                    <h1 className='text-black font-semibold text-4xl py-4'>
+                    <h1 className='text-black font-semibold text-3xl md:text-4xl py-4'>
                       Mini Mandis
                     </h1>
-                    <p className='text-gray-500 font-semibold text-base text-justify'>
+                    <p className='text-gray-400 text-base text-justify'>
                       Our Mini Mandis are designed for farmers who prefer to trade within their specific states and districts. Each mini mandi is strategically located to cater to the unique needs of its region. With multiple mini mandis spread across different states and districts, you can enjoy localized trading that saves time and reduces transportation costs. Each mini mandi location is supported by a dedicated Kisan Center, providing essential services and support to farmers
                     </p>
 
@@ -85,11 +84,11 @@ function page() {
               <div className="MandiQstion mt-10">
                 <div className="title py-4">
                   <div>
-                    <span className='text-5xl text-[#e7a137] font-semibold'>How To </span>
-                    <span className='text-5xl text-[#0d0d0d] font-semibold'>Sell</span>
+                    <span className='text-3xl md:text-5xl text-[#e7a137] font-semibold'>How To </span>
+                    <span className='text-3xl md:text-5xl text-[#0d0d0d] font-semibold'>Sell</span>
                   </div>
-                  <span className='text-5xl text-[#30ab55] font-semibold'>Crops</span>
-                  <span className='text-5xl text-[#30ab55] font-semibold'>  in Online Mandi</span>
+                  <span className='text-3xl md:text-5xl text-[#30ab55] font-semibold'>Crops</span>
+                  <span className='text-3xl md:text-5xl text-[#30ab55] font-semibold'>  in Online Mandi</span>
                 </div>
 
                 <div className="StickyScrollRevealDemo">

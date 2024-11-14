@@ -130,7 +130,7 @@ function MiniMandiSelect() {
 
             <div className="button flex gap-6 items-center mt-4">
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
-                    more details
+                    More details
                 </button>
                 <MandiJoinButton onClick={handelMiniMandi} />
                 {

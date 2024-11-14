@@ -12,6 +12,7 @@ import Faq from '@/components/Faq'
 import HomeTitle from '@/components/HomeTitle'
 import { TracingBeam } from '@/components/ui/tracing-beam'
 import { ChevronDown } from 'lucide-react'
+import JoinButton from '@/components/JoinButton'
 
 async function page() {
   return (
@@ -22,7 +23,7 @@ async function page() {
 
         <Services />
 
-        <TracingBeam>
+        <TracingBeam className='[&>div]:-left-0'>
 
           <div className="listedCrops container py-6 px-0">
 
@@ -47,7 +48,7 @@ async function page() {
           {/* <StickyScrollRevealDemo /> */}
           {/* <CardHoverEffectDemo /> */}
         </TracingBeam>
-
+        <JoinButton />
         <InfiniteMovingCardsDemo />
         <Faq />
       </div>

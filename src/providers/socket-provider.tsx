@@ -13,7 +13,7 @@ const SocketContext = React.createContext<SocketContextType | null>(null)
 export const useSocket = () => {
     const context = React.useContext(SocketContext)
     if (!context) {
-        throw new Error('useSocket must be used within a SocketProvider')
+        throw new Error('useSocket must be used within a `SocketProvider`')
     }
     return context
 }
@@ -43,8 +43,6 @@ const SocketProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
             socketInstance.disconnect();
         }
     }, [])
-
-    console.log('socket connected', isConnected)
 
     return (
         <SocketContext.Provider value={{ socket, isConnected }} >

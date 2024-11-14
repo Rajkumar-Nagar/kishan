@@ -1,6 +1,5 @@
 
 "use client"
-import { Dateconverter } from '@/utils/dateconverter'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import MoreDetails from './moreDetails'
@@ -20,14 +19,14 @@ function BasicDetails({ product }: BasicDetailsProps) {
     return (
         <div className="basicdetails w-full py-3 space-y-2 rounded-xl my-4 border-[1px]">
             <div className="firstrow rounded-md px-5 flex items-center justify-between ">
-                <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.productInfo?.cropName}</h1>
+                <h1 className='lg:text-xl text-lg font-semibold text-[#2e054e]'>{product?.productInfo?.cropName}</h1>
                 <div className="secondrow flex items-center gap-8">
-                    <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product?.productInfo?.expectedPrice} / ${product.productInfo?.units}`}</h1>
+                    <h1 className='lg:text-2xl text-xl font-bold text-[#2e054e]'>{`₹ ${product?.productInfo?.expectedPrice} / ${product.productInfo?.units}`}</h1>
                 </div>
             </div>
 
             <div className="flex items-center px-5 justify-between">
-                <div className="secondrow space-y-2">
+                <div className="secondrow  space-y-2">
                     <div className="otherDertaisl secondrow items-center gap-8">
                         <div className='flex items-center gap-2'>
                             <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
@@ -40,25 +39,28 @@ function BasicDetails({ product }: BasicDetailsProps) {
                         </div>
                     </div>
 
-                    <div className="profile flex items-center gap-3">
-                        {
-                            product?.personalInfo.avatar ?
-                                <CldImage
-                                    alt="Uploaded Image"
-                                    src={product?.personalInfo.avatar}
-                                    width={"170"}
-                                    height={"170"}
-                                    className='w-32 h-32 rounded-full'
-                                    crop={{
-                                        type: 'auto',
-                                        source: true
-                                    }}
-                                /> : (
-                                    <div className="profile w-14 h-14 rounded-full bg-gray-600 flex items-center justify-center">
-                                        <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
-                                    </div>
-                                )
-                        }
+                    <div className="profile pt-5 lg:pt-0  flex flex-wrap items-center gap-3">
+
+                        <div className=''>
+                            {
+                                product?.personalInfo.avatar ?
+                                    <CldImage
+                                        alt="Uploaded Image"
+                                        src={product?.personalInfo.avatar}
+                                        width={"170"}
+                                        height={"170"}
+                                        className='w-16 h-16  rounded-full'
+                                        crop={{
+                                            type: 'auto',
+                                            source: true
+                                        }}
+                                    /> : (
+                                        <div className="profile w-14 h-14 rounded-full bg-gray-600 flex items-center justify-center">
+                                            <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
+                                        </div>
+                                    )
+                            }
+                        </div>
                         <div className='space-y-1'>
                             <h1 className='text-xl font-semibold text-[#2e054e]'>{product?.personalInfo.name}</h1>
                             <div className='flex items-center gap-2'>
@@ -73,13 +75,16 @@ function BasicDetails({ product }: BasicDetailsProps) {
                                 <span className='text-base text-[#2e054e]'>(10 user)</span>
                             </div>
                         </div>
+
+                        <button onClick={() => { setseeDetails(!seeDetails) }} className="flex items-center justify-center gap-1 bg-[#6cbdaf] text-sm  border-2 px-2 py-2 rounded-sm">
+                            <h1 className="text-white ">{seeDetails ? "Hide " : "Show "}</h1>
+                            <DropdownIcon condition={seeDetails} />
+                        </button>
                     </div>
+
+
                 </div>
 
-                <button onClick={() => { setseeDetails(!seeDetails) }} className="flex items-center justify-center gap-1 bg-[#6cbdaf] w-36 h-10  border-2 border-black rounded-sm">
-                    <h1 className="text-white ">{seeDetails ? "Hide Details" : "More Details"}</h1>
-                    <DropdownIcon condition={seeDetails} />
-                </button>
             </div>
 
 
@@ -97,7 +102,7 @@ function BasicDetails({ product }: BasicDetailsProps) {
                         alt="thumbnail"
                     />
                     <span className="text-xs w-full font-semibold text-[#74667f] dark:text-white">{
-                        ` ${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
+                        `${product?.locationInfo.village}, ${product?.locationInfo.districtCity},${product?.locationInfo.state},${product?.locationInfo.pincode}`
                     }</span>
                 </div>
             </div>

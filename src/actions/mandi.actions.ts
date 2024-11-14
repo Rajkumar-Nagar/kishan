@@ -1,6 +1,8 @@
 "use server"
+import { auth } from "@/auth";
 import { STATES } from "@/data";
 import prisma from "@/lib/prisma";
+import { cookies } from "next/headers";
 
 interface MandiPriceReq {
     offset?: number;
@@ -86,23 +88,64 @@ export const getMandiPrice = async ({
 }
 
 
-export const insertMandiPrice = async () => {
-    const { records } = await getMandiPrice({
-        limit: 3000
-    })
+export const verifyToken = async (token: string="v", role: string) => {
 
-    if (records) {
-        await prisma.mandiPrice.deleteMany({
-            where: {
-                createdAt: {
-                    gte: new Date().toISOString().split('T')[0]
-                }
-            }
-        });
-
-        const res = await prisma.mandiPrice.createMany({
-            data: records
-        });
+    const session = await auth();
+    if (!session?.user) {
+        return { error: "user unauthorized" }
     }
 
+
+    if (role === "bidder") {
+
+       const user= await prisma.user.findFirst({
+            where: {
+                id: session.user.id,
+                role: "BIDDER",
+                licence: {
+                    some: {
+                        token
+                    }
+                }
+            }
+        })
+
+        if(!user){
+            return {error:"Invalid Token"}
+        }
+    }
+
+    if(role==="seller"){
+
+        const product=await prisma.product.findFirst({
+            where:{
+               personalInfoId:session.user.id, 
+               token,
+               productInfo:{
+                isSold:false
+               },
+
+            }
+        })
+
+        if(!product){
+            return {error:"Invalid token"}
+        }
+
+
+    }
+
+    const data={
+        role,
+        token,
+        userId:session.user.id
+    }
+    const cookieStore = cookies();
+    cookieStore.set({
+        name:"allindiamandi",
+        value:JSON.stringify(data)
+    })
+
 }
+
+

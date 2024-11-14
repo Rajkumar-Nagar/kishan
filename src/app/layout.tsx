@@ -4,6 +4,7 @@ import "./globals.css";
 import { StoreProvider } from "@/providers";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import prisma from "@/lib/prisma";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>

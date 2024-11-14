@@ -6,6 +6,7 @@ import { IStatesWithDistricts, statesWithDistricts } from '@/data'
 import Image from 'next/image'
 import { MandiJoinButton } from './joinButtion'
 import { useRouter } from 'next/navigation'
+import { verifyToken } from '@/actions/mandi.actions'
 
 function Allindiamandijoin() {
 
@@ -13,25 +14,28 @@ function Allindiamandijoin() {
 
     const [Indentity, setIndentity] = useState("")
     const [token_No, settoken_No] = useState("")
-    const [bidder_No, setbidder_No] = useState("")
     const [err, seterr] = useState("")
 
-    const handelAllindiaManid = () => {
+    const handelAllindiaManid = async () => {
+    
         if (!Indentity) {
             seterr("please select Identity")
             return
         }
-        if (Indentity == "Bidder") {
-            if (!bidder_No) {
-                seterr("please fill bidder token no")
-                return
-            }
+
+
+        if (Indentity !== "Viwer"&&!token_No) {
+            seterr("please fill Crop token no")
+            return
         }
-        if (Indentity == "Seller") {
-            if (!token_No) {
-                seterr("please fill Crop token no")
-                return
-            }
+
+
+
+        const res = await verifyToken(token_No, Indentity.toLowerCase())
+
+        if (res?.error) {
+            seterr(res.error)
+            return
         }
         route.push(`/mandi/all-india-mandi`)
     }
@@ -51,27 +55,13 @@ function Allindiamandijoin() {
                     nameDrop="Identity" />
             </div>
 
-            {
-                Indentity == "Bidder" && (
-                    <div className="IdentityNo">
-                        <div className='flex items-center'>
-                            <h1 className=" text-[#002f34] text-xl my-2">Biders Token</h1>
-                            <span className=" text-[#da4f43] text-xl my-2">*</span>
-                        </div>
-                        <input
-                            type="text"
-                            className='Pinput w-full'
-                            value={bidder_No}
-                            onChange={(e) => { setbidder_No(e.target.value) }} />
-                    </div>
-                )
-            }
+
 
             {
-                Indentity == "Seller" && (
+                Indentity && Indentity != "Viwer" && (
                     <div className="IdentityNo">
                         <div className='flex items-center'>
-                            <h1 className=" text-[#002f34] text-xl my-2">Crop Token</h1>
+                            <h1 className=" text-[#002f34] text-xl my-2"> Token</h1>
                             <span className=" text-[#da4f43] text-xl my-2">*</span>
                         </div>
                         <input
@@ -85,7 +75,7 @@ function Allindiamandijoin() {
 
             <div className="button flex gap-6 items-center mt-4">
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
-                    more details
+                    More details
                 </button>
                 <MandiJoinButton onClick={handelAllindiaManid} />
                 {

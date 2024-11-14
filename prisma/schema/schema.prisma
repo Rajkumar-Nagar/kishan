@@ -67,10 +67,13 @@ model Product {
   mediaId              String             @map("media_id") @db.ObjectId
   additionalServices   AdditionalServices @relation(fields: [additionalServicesId], references: [id], onDelete: Cascade)
   additionalServicesId String             @map("additional_services_id") @db.ObjectId
+  token                 String?
   createdAt            DateTime           @default(now()) @map("created_at")
   updatedAt            DateTime           @updatedAt @map("updated_at")
   biddingDetails       BidDetails[]
   savedProducts        SavedProduct[]
+
+  @@index([token])
 }
 
 model Licence {
@@ -91,6 +94,7 @@ model Licence {
   declaration     Boolean       @default(false)
   terms_condition Boolean       @default(false) @map("terms_condition")
   status          LicenceStatus @default(APPLIED)
+  token           String @unique @default("Sdf")
   userId          String        @map("user_id") @db.ObjectId
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

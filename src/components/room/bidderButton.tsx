@@ -6,25 +6,10 @@ import { useAppSelector } from '@/lib/redux'
 import { useSocket } from '@/providers/socket-provider'
 import { useSession } from 'next-auth/react'
 import React, { useCallback, useState } from 'react'
-import { Button } from '../ui/button'
-
-interface BidBoxProps {
-    money: number
-    handlePrice: (money: number) => void
-}
-
-const Bidbox = React.memo(({ money, handlePrice }: BidBoxProps) => {
-    return (
-        <button onClick={() => handlePrice(money)} className={`bg-orange-500 min-w-20 w-max h-10 px-4 text-white rounded-md items-center justify-center focus:border-2 focus:border-black`}>
-            {`+ ₹${money}`}
-        </button>
-    )
-})
-
-Bidbox.displayName = 'Bidbox'
+import { cn } from '@/lib/utils'
 
 
-function BidderButtons() {
+function BidderButtons({ className }: { className?: string }) {
     const [bidPrice, setbidPrice] = useState(0)
 
     const { socket } = useSocket();
@@ -50,18 +35,22 @@ function BidderButtons() {
 
 
     return (
-        <div className="maincontainer py-2 flex flex-col w-full px-4 items-center">
+        <div className={cn("maincontainer py-2 flex flex-col w-full px-4 items-center", className)}>
 
-            <div className="py-2 flex items-center gap-5 overflow-x-auto scrollbar">
-                {
-                    [50, 100, 200, 500, 1000].map((item, index) => (
-                        <Bidbox key={index} money={item} handlePrice={handlePrice} />
-                    ))
-                }
+            <div className='flex justify-center w-full overflow-x-auto scrollbar'>
+                <div className="py-1 flex items-center gap-5">
+                    {
+                        [50, 100, 200, 500, 1000].map((money, index) => (
+                            <button key={index} onClick={() => handlePrice(money)} className={`bg-orange-500 min-w-24 w-max h-10 px-4 text-white rounded-md items-center justify-center focus:border-2 focus:border-black`}>
+                                {`+ ₹${money}`}
+                            </button>
+                        ))
+                    }
+                </div>
             </div>
 
-            <div className="customeprize flex items-center gap-4">
 
+            <div className="customeprize flex items-center gap-4 mt-2">
                 <input
                     type="text"
                     value={bidPrice}

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Title from '@/components/ui/title'
 import { getProductById } from '@/actions/product.actions'
+import MoreDetails from '@/components/room/moreDetails'
 
 
 
@@ -24,7 +25,7 @@ async function Page({ params }: { params: { productId: string } }) {
                         <div className='w-full h-[500px]'>
                             <Product_details_slider product={product} height={34} />
                         </div>
-
+                        <MoreDetails product={product}/>
 
                     </div>
 
