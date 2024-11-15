@@ -11,16 +11,14 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import { Conversation } from "@prisma/client";
-import { useDarkTheme } from "@/hooks";
 
 interface NavItemProp {
     items: Conversation[]
 }
 
-export default  function NavItem({
+export default function NavItem({
     items
 }: NavItemProp) {
-    useDarkTheme()
     return (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
             <SidebarGroupLabel>Chats</SidebarGroupLabel>

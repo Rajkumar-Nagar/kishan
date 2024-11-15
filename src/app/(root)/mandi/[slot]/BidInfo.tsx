@@ -5,7 +5,7 @@ import { Bids } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import BidTimer from './bid-timer'
 
 
@@ -14,6 +14,7 @@ function BidInfo() {
     const { data } = useSession();
     const { highestBid, product, bidHistory } = useAppSelector((state) => state.bidRoom);
     const myBids = bidHistory.filter((bid: Bids) => bid.bidderId === data?.user.id);
+    const isSold = product?.productInfo.isSold;
 
     return (
         <div className="rightpart w-full h-full">
@@ -105,7 +106,7 @@ function BidInfo() {
                             />
                             <div className="flex items-center gap-1">
                                 <h1 className="text-gray-400 text-xl">Last Bid :</h1>
-                                <h1 className="text-[#002f34] text-xl font-bold">₹{bidHistory.at(-2)?.price}</h1>
+                                <h1 className="text-[#002f34] text-xl font-bold">₹{bidHistory.at(isSold ? -1 : -2)?.price}</h1>
                             </div>
                         </div>
 
@@ -116,55 +117,57 @@ function BidInfo() {
                         </div>
                     </div>
 
-                    <div className="profile mx-auto lg:w-fit w-full py-4 border px-6 flex flex-col md:flex-row items-center mt-4 gap-3">
+                    {data?.user.role === 'BIDDER' && (
+                        <div className="profile mx-auto lg:w-fit w-full py-4 border px-6 flex flex-col md:flex-row items-center mt-4 gap-3">
 
-                        <div className='flex gap-3'>
+                            <div className='flex gap-3'>
 
-                            {
-                                product?.personalInfo.avatar ?
-                                    <CldImage
-                                        alt="Uploaded Image"
-                                        src={product?.personalInfo.avatar}
-                                        width={"170"}
-                                        height={"170"}
-                                        className='w-16 h-16 rounded-full'
-                                        crop={{
-                                            type: 'auto',
-                                            source: true
-                                        }}
-                                    /> : (
-                                        <div className="profile w-20 h-20 rounded-full bg-gray-600 flex items-center justify-center">
-                                            <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
-                                        </div>
-                                    )
-                            }
-                            <div className='space-y-1'>
-                                <h1 className='text-xl font-semibold text-[#2e054e]'>You</h1>
-                                <div className='flex items-center gap-2'>
-                                    <span className='text-base text-[#2e054e]'>5</span>
-                                    <Image
-                                        width={20}
-                                        height={20}
-                                        alt='reload'
-                                        src={"/star.png"}
-                                    />
-                                    <span className='text-base text-[#2e054e]'>(10 user)</span>
+                                {
+                                    product?.personalInfo.avatar ?
+                                        <CldImage
+                                            alt="Uploaded Image"
+                                            src={product?.personalInfo.avatar}
+                                            width={"170"}
+                                            height={"170"}
+                                            className='w-16 h-16 rounded-full'
+                                            crop={{
+                                                type: 'auto',
+                                                source: true
+                                            }}
+                                        /> : (
+                                            <div className="profile w-20 h-20 rounded-full bg-gray-600 flex items-center justify-center">
+                                                <h1 className="text-[white] text-xl font-semibold">{product?.personalInfo?.name.slice(0, 1)}</h1>
+                                            </div>
+                                        )
+                                }
+                                <div className='space-y-1'>
+                                    <h1 className='text-xl font-semibold text-[#2e054e]'>You</h1>
+                                    <div className='flex items-center gap-2'>
+                                        <span className='text-base text-[#2e054e]'>5</span>
+                                        <Image
+                                            width={20}
+                                            height={20}
+                                            alt='reload'
+                                            src={"/star.png"}
+                                        />
+                                        <span className='text-base text-[#2e054e]'>(10 user)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="biddupdate">
+                                <div className="flex items-center gap-1">
+                                    <h1 className="text-gray-400 text-base">Your Last Bid :</h1>
+                                    <h1 className="text-[#002f34] text-base font-semibold">₹{myBids.at(-1)?.price ?? 0}</h1>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <h1 className="text-gray-400 text-base">Your total Bid :</h1>
+                                    <h1 className="text-[#002f34] text-base font-semibold">{myBids.length}</h1>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div className="biddupdate">
-                            <div className="flex items-center gap-1">
-                                <h1 className="text-gray-400 text-base">Your Last Bid :</h1>
-                                <h1 className="text-[#002f34] text-base font-semibold">₹{myBids.at(-1)?.price ?? 0}</h1>
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <h1 className="text-gray-400 text-base">Your total Bid :</h1>
-                                <h1 className="text-[#002f34] text-base font-semibold">{myBids.length}</h1>
-                            </div>
-                        </div>
-                    </div>
+                    )}
                 </div>
 
 

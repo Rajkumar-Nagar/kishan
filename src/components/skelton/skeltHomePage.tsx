@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export function SkelCropCard() {
   return (
@@ -236,14 +237,32 @@ export function FooterSkeleton() {
 }
 
 
-export function  ChatGpt(){
+export function ChatGpt() {
   return (
-    <div className="p-4 space-y-2" >
-      <Skeleton className="h-6 w-3/4" /> {/* Prompt question/title skeleton */}
-      <Skeleton className="h-4 w-full" /> {/* Answer line 1 */}
-      <Skeleton className="h-4 w-5/6" /> {/* Answer line 2 */}
-      <Skeleton className="h-10 w-24 mt-4 rounded" /> {/* Button skeleton */}
-    </div >
+    <div className="px-4 py-2 justify-center text-base md:gap-6 m-auto">
+      <div className="flex flex-1 text-base mx-auto gap-3 md:px-5 lg:px-1 xl:px-5 w-full group">
+        <div className='flex-shrink-0 flex flex-col relative items-end'>
+          <div>
+            <Avatar>
+              <AvatarImage src={''} />
+              <AvatarFallback>{'AI'}</AvatarFallback>
+            </Avatar>
+          </div>
+        </div>
+
+        <div className='relative flex w-full flex-col'>
+          {/* <div className='pb-2'>{'AI'}</div> */}
+          <div className="flex-1 overflow-x-auto">
+            <div className="space-y-2" >
+              <Skeleton className="h-6 w-3/4" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-10 w-24 mt-4 rounded" />
+            </div >
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

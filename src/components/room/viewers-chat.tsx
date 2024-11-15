@@ -1,10 +1,12 @@
 "use client";
-
+import React, { useState } from 'react'
+import AutoHeightTextarea from '../auto-height-textarea'
 import Image from 'next/image';
-import React, { useState, useEffect, useRef } from 'react';
-import AutoHeightTextarea from '../auto-height-textarea';
+import { useWindowSize } from '@/hooks';
 
-function Chatwithothers() {
+const ViewersChat = () => {
+    const { width } = useWindowSize();
+
     const [message, setMessage] = useState("");
 
     const handleSendMessage = () => {
@@ -13,9 +15,11 @@ function Chatwithothers() {
             setMessage("");
         }
     };
+    if (width < 1440) return null;
 
     return (
-        <div className="maincontainer flex h-full flex-col gap-2">
+        <div className="maincontainer flex h-full flex-col gap-2 bg-gray-300 p-2">
+            <h1 className='border-b text-lg border-b-[silver] text-zinc-500'>Chat with other viewers</h1>
             <div className="messagebox flex-1 overflow-y-auto">
                 {/* Message content will be displayed here */}
             </div>
@@ -30,7 +34,6 @@ function Chatwithothers() {
                     style={{ maxHeight: "120px" }}
                 />
 
-
                 <button onClick={handleSendMessage}>
                     <Image
                         width={28}
@@ -42,7 +45,7 @@ function Chatwithothers() {
                 </button>
             </div>
         </div>
-    );
+    )
 }
 
-export default Chatwithothers;
+export default ViewersChat

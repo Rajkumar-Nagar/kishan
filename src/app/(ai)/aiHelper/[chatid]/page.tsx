@@ -1,76 +1,88 @@
 "use client"
 
-import { AddChat, getChats } from '@/actions/prompt.actions';
-import InputBoxForAdd from '@/components/aiHelper/addMoreChat';
+import { createTitle, getChats } from '@/actions/prompt.actions';
+import InputBoxForAdd from '@/components/aiHelper/chat-form';
 import { ChatGpt } from '@/components/skelton/skeltHomePage';
 import { useAppDispatch, useAppSelector } from '@/lib/redux';
 import { aiAction } from '@/lib/redux/features';
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useChat } from "ai/react";
+import PreviewMessage from '@/components/aiHelper/preview-message';
 
-function page({ params }: { params: { chatid: string } }) {
+function Page({ params }: { params: { chatid: string } }) {
 
-
-    const [promptAns, setpromptAns] = useState("")
-    const [allconversation, setallconversation] = useState([])
     const dispatch = useAppDispatch()
 
-    const { conversation, chatSessionId, prompt } = useAppSelector((state) => state.ai)
-
+    const { conversation, prompt } = useAppSelector((state) => state.ai)
 
     useEffect(() => {
         const handelchatdata = async () => {
             const chats = await getChats(params.chatid);
-            console.log(chats)
-            dispatch(aiAction.setconversation(chats?.conversation.prompts))
+            chats?.conversation && dispatch(aiAction.setconversation(chats?.conversation.prompts))
         }
         handelchatdata()
     }, [params.chatid])
 
+    const { messages, handleSubmit, input, setInput, isLoading, stop, setMessages } = useChat({
+        id: params.chatid,
+        initialMessages: conversation.reduce((acc, item) => {
+            acc.push({ id: item.id + '-user', content: item.question, role: 'user', createdAt: new Date(item.createdAt) })
+            acc.push({ id: item.id, content: item.answer, role: 'assistant', createdAt: new Date(item.createdAt) })
+            return acc
+        }, [] as any)
+    });
 
     useEffect(() => {
-        if (!(chatSessionId || prompt)) return;
+        if (!(params.chatid || prompt)) return;
         const setPrompt = async () => {
-            console.log('useeffect call')
-            const res = await AddChat(params.chatid, prompt)
-            console.log(res)
-            if (res?.createdPrompt) {
-                setpromptAns(res?.createdPrompt.answer)
-                dispatch(aiAction.addConversation(res?.createdPrompt))
-                dispatch(aiAction.setPrompt(""));
-                setpromptAns("")
-            }
+            setInput(prompt);
+            dispatch(aiAction.setPrompt(""));
         }
-        const timeout = setTimeout(setPrompt, 200);
+        const timeout = setTimeout(setPrompt, 0);
         return () => clearTimeout(timeout)
     }, [prompt, params.chatid])
 
+    useEffect(() => {
+        if (input) {
+            handleSubmit({}, {
+                body: {
+                    chatId: params.chatid,
+                    prompt: input
+                }
+            })
+        }
+    }, [input, params.chatid]);
 
-    console.log(JSON.stringify(conversation, null, 2))
+    useEffect(() => {
+        if (params.chatid && prompt && messages.length === 0) {
+            createTitle(params.chatid, prompt).then(console.log)
+        }
+    }, [prompt, params.chatid, messages]);
+
+
+    const messagesEndRef = React.useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [messages])
 
     return (
-        <div className="maincoantiner relative flex flex-col w-full">
+        <div className="relative flex flex-col overflow-hidden w-full max-h-dvh">
+            <div className="chats flex-1 overflow-y-auto px-6 py-10 space-y-4">
+                {messages.map(message => (
+                    <PreviewMessage key={message.id} chat={message as any} />
+                ))}
 
-            {
-                conversation?.map((item, index) => (
-                    <div className="flex-1 p-6 overflow-y-auto" key={index}>
-                        <h1 className="text-3xl font-bold mb-8">{item.question}</h1>
-                        <div className="bg-gray-700 p-4 rounded-lg mb-4">
-                            <p>{item.answer}</p>
-                        </div>
-                    </div>
-                ))
-            }
-
-            {
-                prompt && !promptAns && <div className="flex-1 p-6 overflow-y-auto">
-                    <h1 className="text-3xl font-bold mb-8">{prompt}</h1>
+                {isLoading && messages[messages.length - 1].role !== "assistant" && (
                     <ChatGpt />
-                </div>
-            }
+                )}
+                <div ref={messagesEndRef} />
+            </div>
 
-            <InputBoxForAdd chatid={params.chatid} />
+            <InputBoxForAdd isLoading={isLoading} />
         </div>
     );
 }
 
-export default page
+export default Page

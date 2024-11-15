@@ -59,13 +59,35 @@ export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
         }
     }
 
+    const product = await prisma.product.findFirst({
+        where: {
+            id: cropId
+        },
+        include: {
+            productInfo: true
+        }
+    });
+
+    if (!product) {
+        return {
+            error: "product not found"
+        }
+    }
+
+    if (product?.productInfo?.isSold) {
+        return {
+            error: "product already sold"
+        }
+    }
+
     const bidDetails = await prisma.bidDetails.update({
         where: {
             cropId
         },
         data: {
             highestBid,
-            winning_bidderId
+            winning_bidderId,
+            endedAt: new Date().toISOString()
         }
     });
 

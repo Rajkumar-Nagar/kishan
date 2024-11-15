@@ -11,6 +11,8 @@ import { auth } from "@/auth";
 import BidderButtons from "@/components/room/bidderButton";
 import BidInfoSliderSheet from "./bidInfoSliderSheet";
 import BidTimer from "./bid-timer";
+import ViewersChat from "@/components/room/viewers-chat";
+import WinningScreen from "./winning-screen";
 
 
 const SLOTS = {
@@ -48,13 +50,22 @@ export default async function Page({
             biddingDetails: {
                 include: {
                     bids: true,
+                    winning_bidder: {
+                        select: {
+                            id: true,
+                            name: true,
+                            role: true,
+                            avatar: true,
+                            backgroundImage: true,
+                        }
+                    }
                 }
             },
 
         }
     })
     if (!product) return <p>No product found</p>
-    if (product.productInfo.isSold) return <p>Product is already sold</p>
+
     return (
 
         <div className="maincontainer h-dvh">
@@ -74,19 +85,30 @@ export default async function Page({
                         <div className="absolute z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                             <BidTimer />
                         </div>
+                        <BidInfoSliderSheet />
+                        <BidderButtons className="fixed bottom-0 flex md:hidden bg-gray-500/50 left-0 right-0 z-[53]" />
                     </div>
-                    <div className="flex-1 md:flex-row flex-col flex px-4 md:px-6 lg:px-8 xl:px-10 justify-center gap-5 py-4">
+
+
+                    <div className={`flex-1 md:flex-row flex-col flex px-4 md:px-6 lg:px-8 xl:px-10 justify-center gap-5 py-4 ${session?.user.role === 'USER' && "!pr-4"}`}>
                         <div className="product_slider lg:max-w-md md:max-w-sm h-full flex w-full flex-col overflow-y-auto">
                             <Product_details_slider product={product} height={20} />
                             <div className="otherDetails">
                                 <BasicDetails product={product} />
                             </div>
-                            <BidInfoSliderSheet />
-                            <BidderButtons className="fixed bottom-0 flex md:hidden bg-gray-500/50 left-0 right-0 z-[53]" />
                         </div>
                         <div className="flex-1 hidden md:block">
                             <BidInfo />
                         </div>
+
+
+                        {session?.user.role === 'USER' && (
+                            <ViewersChat />
+                        )}
+
+                        {product.productInfo.isSold && (
+                            <WinningScreen />
+                        )}
                     </div>
                 </div>
             </div>

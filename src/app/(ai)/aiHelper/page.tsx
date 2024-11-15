@@ -1,5 +1,5 @@
+import ChatForm from "@/components/aiHelper/chat-form";
 import ChatBox from "@/components/aiHelper/chatbox";
-import InputBox from "@/components/aiHelper/inputbox";
 import Sidebar from "@/components/aiHelper/siderbar";
 
 
@@ -9,7 +9,7 @@ export default function HomePage() {
 
       <div className="flex flex-col relative  w-full h-screen">
         <ChatBox />
-        <InputBox />
+        <ChatForm newChat />
       </div>
     </div>
   );

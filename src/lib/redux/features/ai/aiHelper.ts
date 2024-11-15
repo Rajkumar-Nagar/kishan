@@ -1,10 +1,16 @@
+import { Prompt } from "@prisma/client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface AiState {
+    chatSessionId: string;
+    conversation: Prompt[];
+    prompt: string;
+}
 
-const initialState = {
-    chatSessionId:"",
-    conversation:[],
-    prompt:""
+const initialState: AiState = {
+    chatSessionId: "",
+    conversation: [],
+    prompt: ""
 }
 
 const aiSlice = createSlice({
@@ -12,16 +18,16 @@ const aiSlice = createSlice({
     initialState,
     reducers: {
         setchatSessionId: (state, action) => {
-            state.chatSessionId=action.payload
+            state.chatSessionId = action.payload
         },
-        addConversation:(state,action)=>{
+        addConversation: (state, action) => {
             state.conversation.push(action.payload)
         },
-        setconversation:(state,action)=>{
-            state.conversation=action.payload
+        setconversation: (state, action) => {
+            state.conversation = action.payload
         },
-        setPrompt:(state,action)=>{
-            state.prompt=action.payload
+        setPrompt: (state, action) => {
+            state.prompt = action.payload
         },
 
     }

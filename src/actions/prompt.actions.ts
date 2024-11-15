@@ -1,118 +1,48 @@
 
 "use server"
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { error } from "console";
 import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
+import { generateText } from 'ai';
+import { google } from '@ai-sdk/google';
 
-const genAI = new GoogleGenerativeAI("AIzaSyBG5phnK2u_bjmENghqWsOCC4jSPfVI9ns");
+const model = google('gemini-1.5-flash');
 
-export const PromtAns = async (content: string) => {
-    try {
-        if (!content) {
-            throw new Error("please provid valid prompt");
-        }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent(content);
-        const response = await result.response;
-        const text = await response.text();
-        return text
-
-    } catch (error) {
-        console.log(error)
-        return { error }
-    }
+export const promptAns = async (prompt: string) => {
+    const result = await generateText({
+        model,
+        prompt
+    })
+    return result.text;
 }
 
 
-export const CreateChatSession = async () => {
+export const createChatSession = async () => {
 
     try {
-        const user = await auth();
-        if (!user) {
+        const session = await auth();
+        if (!session) {
             throw new Error("user is not authenticated")
         }
-        const ChatSession = await prisma?.chatSession?.create(
-            {
-                data: {
-                    userId: user.user.id,
-                    sessionName: "Kisan Ai"
-                }
-            }
-        )
-        if (!ChatSession) {
-            throw new Error("chatsession made failed")
-        }
+        const ChatSession = await prisma.chatSession.upsert({
+            where: {
+                userId: session?.user.id,
+            },
+            create: {
+                userId: session?.user.id,
+                sessionName: "Kisan Ai",
+            },
+            update: {}
+        });
+
+        return ChatSession;
     } catch (error) {
         console.log(error)
         return { error }
     }
-
 }
-
-
-export const AddChat = async (chatid: string, content: string) => {
-    try {
-        if (!content) {
-            throw new Error("prompt is empty")
-        }
-        console.log({ chatid })
-
-        const conversation = prisma.conversation.findFirst({
-            where: {
-                id: chatid
-            }
-        })
-
-        if (!conversation) {
-            throw new Error("Invalid conversation")
-        }
-
-        const ans = await PromtAns(content)
-
-        if (!ans) {
-            throw new Error("internal server error")
-        }
-
-        const updatedTitle = await PromtAns(` give me directley only one title not other things give me Title for given prompt in simple plain text ,this is ${content} `)
-        const updateConversation = await prisma.conversation.update({
-            where: {
-                id: chatid
-            },
-            data: {
-                title: updatedTitle
-            }
-        })
-
-        if (!updateConversation) {
-            throw new Error("internal server error")
-        }
-
-        const createdPrompt = await prisma.prompt.create({
-            data: {
-                conversationId: chatid,
-                question: content,
-                answer: ans,
-            }
-        })
-
-        if (!createdPrompt) {
-            throw new Error("prompt ans not generated")
-        }
-
-        revalidatePath('/aiHelper', "layout")
-
-        return { createdPrompt }
-
-    } catch (error) {
-        console.log(error)
-        return { error: "Error" }
-    }
-}
-
 
 export const getChats = async (chatid: string) => {
 
@@ -139,4 +69,42 @@ export const getChats = async (chatid: string) => {
 }
 
 
+export const createTitle = async (chatid: string, content: string) => {
+    try {
+        if (!content) {
+            throw new Error("prompt is empty")
+        }
 
+        const conversation = prisma.conversation.findFirst({
+            where: {
+                id: chatid
+            }
+        })
+
+        if (!conversation) {
+            throw new Error("Invalid conversation")
+        }
+
+        const updatedTitle = await promptAns(`give me directley only one title not other things give me Title for given prompt in simple plain text ,this is ${content} `)
+        const updateConversation = await prisma.conversation.update({
+            where: {
+                id: chatid
+            },
+            data: {
+                title: updatedTitle
+            }
+        })
+
+        if (!updateConversation) {
+            throw new Error("internal server error")
+        }
+
+        revalidatePath('/aiHelper', "layout")
+
+        return { updateConversation }
+
+    } catch (error) {
+        console.log(error)
+        return { error: "Error" }
+    }
+}

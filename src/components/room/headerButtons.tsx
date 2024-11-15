@@ -85,7 +85,7 @@ function HeaderButton() {
                     {
                         navItems.map((item, index) => (
                             <button key={index} onClick={() => handelModal(item.type)} className="relative flex justify-center group hover:bg-[#63a096] hover:rounded-full p-3 active:hover:bg-[#3d9485]">
-                                <h1 className="text-white group-hover:block hidden bg-gray-500 text-sm w-32 py-1 rounded-full absolute -bottom-9">{item.name}</h1>
+                                <h1 className="text-white group-hover:block hidden bg-gray-500 text-sm w-32 py-1 rounded-full absolute -bottom-9 z-[500]">{item.name}</h1>
                                 {
                                     !!item.count && <h1 className="text-white bg-gray-400 text-xs w-5 h-5 flex items-center justify-center rounded-full absolute -top-2 -right-0">{item.count}</h1>
                                 }

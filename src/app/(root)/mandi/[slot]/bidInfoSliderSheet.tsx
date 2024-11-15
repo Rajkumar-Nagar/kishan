@@ -8,8 +8,13 @@ import {
 } from "@/components/ui/sheet"
 import BidInfo from './BidInfo'
 import { useWindowSize } from '@/hooks'
+import { cn } from '@/lib/utils'
 
-function BidInfoSliderSheet() {
+function BidInfoSliderSheet({
+    className
+}: {
+    className?: string
+}) {
     const { width } = useWindowSize();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -19,7 +24,10 @@ function BidInfoSliderSheet() {
 
     return (
         <Sheet onOpenChange={setIsOpen} open={isOpen}>
-            <SheetTrigger className='fixed md:hidden block right-0 top-12 bg-green-500 px-4 py-2'>Open</SheetTrigger>
+            <SheetTrigger className={cn(
+                'fixed md:hidden block right-0 top-0 bg-green-500 px-4 py-2',
+                className
+            )}>Open</SheetTrigger>
             <SheetContent className='w-full pt-10'>
                 <BidInfo />
             </SheetContent>

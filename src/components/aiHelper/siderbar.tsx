@@ -5,21 +5,6 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, Sid
 import { NavUser } from "../nav-user";
 
 import {
-  Folder,
-  Forward,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from "lucide-react"
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
@@ -30,29 +15,6 @@ import {
 } from "@/components/ui/sidebar"
 import NavItem from "./nav-items";
 
-const data = {
-  navMain: [
-    {
-      title: "All India Mandi",
-      url: "/dashboard/all-india-mandi",
-      isActive: true,
-      items: [
-        {
-          title: "Bidders",
-          url: "/dashboard/all-india-mandi/bidders",
-        },
-        {
-          title: "Crops",
-          url: "/dashboard/all-india-mandi/crops",
-        },
-        {
-          title: "Bids",
-          url: "/dashboard/all-india-mandi/bids",
-        },
-      ],
-    },
-  ],
-}
 
 export default async function AiSidebar() {
 
@@ -74,10 +36,16 @@ export default async function AiSidebar() {
   return (
     <Sidebar collapsible="icon" >
       <SidebarHeader>
-        {/* <TeamSwitcher teams={data.teams} /> */}
+        <SidebarTrigger className="ml-2" />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <Link href={`/aiHelper`} className="text-gray-400 !line-clamp-1">New Chat</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarTrigger className="ml-2 dark:text-white" />
         <NavItem items={ChatSession?.conversations ?? []} />
       </SidebarContent>
       <SidebarFooter>
@@ -86,23 +54,4 @@ export default async function AiSidebar() {
       {/* <SidebarRail /> */}
     </Sidebar>
   )
-
-
-  return (
-    <aside className="w-80 bg-gray-800 p-4 h-screen overflow-y-auto">
-      <h2 className="text-xl font-semibold mb-4">ChatGPT</h2>
-      <Link href={"/aiHelper"} className="text-base font-semibold mb-4">New chat</Link>
-
-      <div className="space-y-2 mt-5">
-
-        {
-          ChatSession?.conversations?.map((item, index) => (
-            <Link key={index} href={`/aiHelper/${item.id}`} className="text-gray-400 line-clamp-1">{item.title}</Link>
-          ))
-        }
-
-      </div>
-      <button className="mt-8 text-blue-500">Upgrade Plan</button>
-    </aside>
-  );
 }
