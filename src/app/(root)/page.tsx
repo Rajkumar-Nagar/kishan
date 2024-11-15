@@ -13,6 +13,7 @@ import HomeTitle from '@/components/HomeTitle'
 import { TracingBeam } from '@/components/ui/tracing-beam'
 import { ChevronDown } from 'lucide-react'
 import JoinButton from '@/components/JoinButton'
+import AiButton from '@/components/aiHelper/aiButton'
 
 async function page() {
   return (
@@ -48,7 +49,11 @@ async function page() {
           {/* <StickyScrollRevealDemo /> */}
           {/* <CardHoverEffectDemo /> */}
         </TracingBeam>
-        <JoinButton />
+
+        <JoinButton cls={"block sm:hidden fixed left-1/2 -translate-x-1/2"} />
+
+        <AiButton/>
+
         <InfiniteMovingCardsDemo />
         <Faq />
       </div>
