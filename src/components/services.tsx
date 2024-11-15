@@ -2,6 +2,7 @@ import React from 'react'
 import Title from './ui/title'
 import Image from 'next/image';
 import HomeTitle from './HomeTitle';
+import { SkelServices } from './skelton/skeltHomePage';
 const services = [
     {
         title: "Online Mandi",

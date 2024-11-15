@@ -14,17 +14,17 @@ export const approveLicence = async (licenceId: string) => {
 
     try {
 
-        const last =await prisma.licence.findMany({
-            where:{
+        const last = await prisma.licence.findMany({
+            where: {
                 status: "APPROVED",
             },
-            orderBy:{
-                token:"desc"
+            orderBy: {
+                token: "desc"
             },
-            take:1
+            take: 1
         })
 
- const token=last[0]?+last[0].token.slice(3)+1:"BID500"
+        const token = last[0] ? +last[0].token.slice(3) + 1 : "BID500"
 
 
         const licence = await prisma.licence.update({
@@ -33,7 +33,7 @@ export const approveLicence = async (licenceId: string) => {
             },
             data: {
                 status: "APPROVED",
-                token:token.toString(),
+                token: token.toString(),
                 user: {
                     update: {
                         data: {

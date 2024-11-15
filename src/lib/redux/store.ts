@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { bidReducer, cropFilterReducer, productReducer } from './features';
+import { aiSliceReducer, bidReducer, cropFilterReducer, productReducer } from './features';
 //@ts-ignore
 import { persistStore, persistReducer } from 'redux-persist'
 //@ts-ignore
@@ -10,11 +10,17 @@ const persistConfig = {
     storage,
     blacklist: ['bidRoom', 'cropFilters'],
 }
+const aiConfig = {
+    key: 'ai',
+    storage,
+    blacklist: ['prompt'],
+}
 
 const rootReducer = combineReducers({
     bidRoom: bidReducer,
     product: productReducer,
-    cropFilters: cropFilterReducer
+    cropFilters: cropFilterReducer,
+    ai:persistReducer(aiConfig, aiSliceReducer)
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
