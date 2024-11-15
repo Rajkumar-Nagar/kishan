@@ -1,17 +1,17 @@
 
 "use client"
-import { ProductType } from '@/lib/types';
+import { useAppSelector } from '@/lib/redux';
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
 interface BidSummaryProps {
     buttonAcitve: string;
-    product: ProductType
 }
 
-function BidSummary({ buttonAcitve, product }: BidSummaryProps) {
+function BidSummary({ buttonAcitve }: BidSummaryProps) {
     const [downUp, setdownUp] = useState(true)
+    const { product } = useAppSelector(state => state.bidRoom);
 
     return (
         <div className="Bidders rounded-md mt-7">

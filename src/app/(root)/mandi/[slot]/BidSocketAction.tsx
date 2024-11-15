@@ -51,15 +51,14 @@ const BidSocketAction: React.FC<BiddingBoardProps> = ({ product, room, user }) =
     useEffect(() => {
         if (!socket) return;
         if (!bidders.find(b => b.userId === user.id)) {
-            console.log('no bidders')
             socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room, name: user.name, userId: user.id });
         }
     }, [socket, bidders, user.id, user.name, room])
 
     useEffect(() => {
         if (!socket) return;
-        socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room, name: "raj", userId: user.id });
-    }, [socket, room, user.id])
+        socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room, name: user.name, userId: user.id });
+    }, [socket, room, user.name, user.id])
 
     return null
 }

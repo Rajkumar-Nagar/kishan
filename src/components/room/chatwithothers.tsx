@@ -22,12 +22,12 @@ function Chatwithothers() {
     };
 
     return (
-        <div className="maincontainer">
-            <div className="messagebox">
+        <div className="maincontainer flex h-full flex-col gap-2">
+            <div className="messagebox flex-1 overflow-y-auto">
                 {/* Message content will be displayed here */}
             </div>
 
-            <div className="buttonsPart absolute bottom-3 bg-gray-200 rounded-xl flex items-center justify-between px-3 py-3 w-[21rem] gap-2">
+            <div className="buttonsPart bg-gray-200 rounded-xl flex items-center justify-between px-3 py-3 gap-2">
                 <textarea
                     id="prompt-textarea"
                     ref={textareaRef}

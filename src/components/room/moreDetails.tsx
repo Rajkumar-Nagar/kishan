@@ -7,7 +7,7 @@ function MoreDetails({ product }: { product: ProductType }) {
     return (
 
         <>
-            <div className="secondrow py-3 px-7">
+            <div className="secondrow py-3 px-7 sm:text-base text-sm">
                 <div className='flex items-center gap-2'>
                     <Image
                         width={45}
@@ -30,7 +30,7 @@ function MoreDetails({ product }: { product: ProductType }) {
                 </div>
             </div>
 
-            <div className="moredetails w-full h-72 rounded-md "
+            <div className="moredetails w-full h-72 rounded-md *:*:sm:scale-100 *:*:scale-90 *:text-center"
                 style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(3, 1fr)",

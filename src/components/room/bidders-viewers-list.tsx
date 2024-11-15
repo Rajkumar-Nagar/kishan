@@ -1,18 +1,18 @@
 
 "use client"
-import { ProductType } from '@/lib/types';
+import { useAppSelector } from '@/lib/redux';
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useState } from 'react'
 
 interface Bidders_viewers_listProps {
     buttonAcitve: string;
-    product: ProductType
 }
 
-function Bidders_viewers_list({ buttonAcitve, product }: Bidders_viewers_listProps) {
+function Bidders_viewers_list({ buttonAcitve }: Bidders_viewers_listProps) {
     const [downUp, setdownUp] = useState(true)
-    const change = buttonAcitve == "viewers-list"
+    const change = buttonAcitve == "viewers-list";
+    const { product } = useAppSelector(state => state.bidRoom);
     return (
         <div className="Bidders rounded-md mt-7">
             <h1 className="text-black text-base ">
@@ -24,7 +24,7 @@ function Bidders_viewers_list({ buttonAcitve, product }: Bidders_viewers_listPro
             </h1>
 
             <div className="list  border-[1px] rounded-lg mt-3">
-                <div className="listheader flex px-5 py-2  items-center border-b-[1px] justify-between">
+                <div className="listheader flex px-5 py-2 items-center border-b-[1px] justify-between">
                     <h1>
                         {
                             change ? "Viewers" : "Bidders"
@@ -53,7 +53,7 @@ function Bidders_viewers_list({ buttonAcitve, product }: Bidders_viewers_listPro
                     {
                         downUp &&
 
-                        <div className="profile  flex items-center justify-between px-5  py-4 "
+                        <div className="profile flex items-center justify-between px-5 py-4 "
                         >
                             <div className="flex items-center gap-2">
                                 {

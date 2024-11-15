@@ -87,7 +87,7 @@
     @apply bg-background text-foreground;
   }
 
-::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 0;
   }
 
@@ -108,7 +108,10 @@
   }
 }
 
-.scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) var(--background);
+.scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: gray;
 }
