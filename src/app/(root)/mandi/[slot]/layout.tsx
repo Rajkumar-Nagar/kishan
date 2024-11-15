@@ -1,5 +1,7 @@
 import React from 'react'
 import { SocketProvider } from "@/providers";
+import NoHeader from '@/components/no-header';
+import NoFooter from '@/components/no-footer';
 
 const layout = ({
     children,
@@ -8,6 +10,8 @@ const layout = ({
 }) => {
     return (
         <SocketProvider>
+            <NoHeader />
+            <NoFooter />
             {children}
         </SocketProvider>
     )

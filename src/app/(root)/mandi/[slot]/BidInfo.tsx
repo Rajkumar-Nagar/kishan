@@ -6,36 +6,7 @@ import { useSession } from 'next-auth/react'
 import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
-
-const BidTimer = () => {
-    const { latestBid } = useAppSelector((state) => state.bidRoom);
-    const [currentTime, setCurrentTime] = useState(new Date().getTime());
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTime(new Date().getTime());
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-    const timer = useMemo(() => {
-        if (!latestBid) return 30;
-
-        const time1 = new Date(latestBid.createdAt).getTime();
-        const diffInSeconds = 30 - Math.floor((currentTime - time1) / 1000);
-        if (diffInSeconds <= 0) {
-            // alert("Your bid has ended! TimeOut!");
-            return 0;
-        }
-
-        return diffInSeconds;
-    }, [latestBid, currentTime]);
-    return (
-        <div className="timer w-32 h-32 lg:w-40 lg:h-40  bg-[#6cbdaf] rounded-full flex items-center justify-center ">
-            <h1 className="text-white text-5xl font-bold">{timer}</h1>
-        </div>
-    )
-}
+import BidTimer from './bid-timer'
 
 
 function BidInfo() {

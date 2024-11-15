@@ -52,7 +52,7 @@ function HeaderButton() {
                     <DropdownMenuTrigger className='focus-visible:outline-none focus-visible:border-none'>
                         <MenuIcon color='white' size={24} />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className='bg-transparent backdrop-blur-lg mt-4 mr-1'>
+                    <DropdownMenuContent className='bg-green-500/40 border-green-500/75 backdrop-blur-md mt-4 mr-1'>
                         {
                             navItems.map((item, index) => (
                                 <DropdownMenuItem className='hover:!bg-white/30' key={index} onClick={() => handelModal(item.type)}>
@@ -71,7 +71,7 @@ function HeaderButton() {
                             ))
                         }
 
-                        <DropdownMenuSeparator />
+                        <DropdownMenuSeparator className='bg-green-500/50' />
                         <DropdownMenuItem className='hover:!bg-white/30 text-red-600'>
                             <LogOut size={22} />
                             <DropdownMenuLabel>Leave</DropdownMenuLabel>

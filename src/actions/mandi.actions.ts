@@ -72,7 +72,9 @@ export const getMandiPrice = async ({
 
     const searchParamsString = new URLSearchParams(nonEmptySearch).toString();
 
-    const res = await fetch(`https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?${searchParamsString}`).then(res => res.json());
+    const res = await fetch(`https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?${searchParamsString}`,
+        { cache: 'no-cache' })
+        .then(res => res.json());
 
     const { created_date, updated_date, status, total, count, records } = res as MandiPriceResponse;
     // return records.map(r => r.state).filter((v, i, a) => a.indexOf(v) === i);
@@ -88,7 +90,7 @@ export const getMandiPrice = async ({
 }
 
 
-export const verifyToken = async (token: string="v", role: string) => {
+export const verifyToken = async (token: string = "v", role: string) => {
 
     const session = await auth();
     if (!session?.user) {
@@ -98,7 +100,7 @@ export const verifyToken = async (token: string="v", role: string) => {
 
     if (role === "bidder") {
 
-       const user= await prisma.user.findFirst({
+        const user = await prisma.user.findFirst({
             where: {
                 id: session.user.id,
                 role: "BIDDER",
@@ -110,40 +112,40 @@ export const verifyToken = async (token: string="v", role: string) => {
             }
         })
 
-        if(!user){
-            return {error:"Invalid Token"}
+        if (!user) {
+            return { error: "Invalid Token" }
         }
     }
 
-    if(role==="seller"){
+    if (role === "seller") {
 
-        const product=await prisma.product.findFirst({
-            where:{
-               personalInfoId:session.user.id, 
-               token,
-               productInfo:{
-                isSold:false
-               },
+        const product = await prisma.product.findFirst({
+            where: {
+                personalInfoId: session.user.id,
+                token,
+                productInfo: {
+                    isSold: false
+                },
 
             }
         })
 
-        if(!product){
-            return {error:"Invalid token"}
+        if (!product) {
+            return { error: "Invalid token" }
         }
 
 
     }
 
-    const data={
+    const data = {
         role,
         token,
-        userId:session.user.id
+        userId: session.user.id
     }
     const cookieStore = cookies();
     cookieStore.set({
-        name:"allindiamandi",
-        value:JSON.stringify(data)
+        name: "allindiamandi",
+        value: JSON.stringify(data)
     })
 
 }

@@ -25,40 +25,26 @@ const BidSocketAction: React.FC<BiddingBoardProps> = ({ product, room, user }) =
         dispatch(bidActions.addBid(data));
     }, [dispatch])
 
-
-    const initBid = useCallback(() => {
-
-    }, [])
-
     useEffect(() => {
         dispatch(bidActions.initBid(product))
     }, [dispatch, product])
 
     useEffect(() => {
-        if (!socket) return
-        socket.on(SOCKET_EVENTS.USERS_LIST, handleUserList)
-        socket.on(SOCKET_EVENTS.MAKE_BID, handleBid)
-        socket.on(SOCKET_EVENTS.INIT_BID, initBid)
+        if (!socket) return;
+
+        if (!bidders.find(b => b.userId === user.id)) {
+            socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room, name: user.name, userId: user.id });
+        }
+
+        socket.on(SOCKET_EVENTS.USERS_LIST, handleUserList);
+        socket.on(SOCKET_EVENTS.MAKE_BID, handleBid);
 
         return () => {
             socket.off(SOCKET_EVENTS.USERS_LIST, handleUserList);
             socket.off(SOCKET_EVENTS.MAKE_BID, handleBid);
-            socket.off(SOCKET_EVENTS.INIT_BID, initBid);
-        }
-    }, [socket, handleUserList, handleBid, initBid])
+        };
+    }, [socket, room, user.name, user.id, bidders, handleUserList, handleBid]);
 
-
-    useEffect(() => {
-        if (!socket) return;
-        if (!bidders.find(b => b.userId === user.id)) {
-            socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room, name: user.name, userId: user.id });
-        }
-    }, [socket, bidders, user.id, user.name, room])
-
-    useEffect(() => {
-        if (!socket) return;
-        socket.emit(SOCKET_EVENTS.JOIN_ROOM, { room, name: user.name, userId: user.id });
-    }, [socket, room, user.name, user.id])
 
     return null
 }

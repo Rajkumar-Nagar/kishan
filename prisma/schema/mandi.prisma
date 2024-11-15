@@ -36,7 +36,7 @@ enum Slot {
 
 model SlotOption {
     id           String   @id @default(auto()) @map("_id") @db.ObjectId
-    currCropId   String
+    currCropId   String   @unique
     pendingCrops String[]
     status       String
     Type         Slot     @unique
