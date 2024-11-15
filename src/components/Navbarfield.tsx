@@ -21,19 +21,19 @@ import Image from "next/image"
 export const services: { title: string; href: string; image: string; description: string }[] = [
   {
     title: "Online Mandi",
-    href: "/services/mandi",
+    href: "/mandi/join-mandi",
     image: "/shopingCart.png",
     description: "Sell and buy your crops online. Licensed individuals can place bids for buying crops.",
   },
   {
     title: "Crop Rate Dashboard",
-    href: "/services/crop-rates",
+    href: "/daily-mandi-price",
     image: "/chart.png",
     description: "View and analyze crop rates with graphs. Check today's rates for different mandis.",
   },
   {
     title: "AI Bot Assistance",
-    href: "/services/ai-helper",
+    href: "/aiHelper",
     image: "/ai.png",
     description: "Ask any question and get solutions. Upload images to diagnose and find solutions for crop diseases.",
   },

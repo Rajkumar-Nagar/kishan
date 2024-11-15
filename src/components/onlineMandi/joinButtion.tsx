@@ -11,6 +11,7 @@ export function MandiJoinButton({ ...props }) {
     if (canHide) {
         return null
     }
+    
     return (
         <div className={`${props.hidden ? "hidden sm:block" : ""}`}>
             <HoverBorderGradient

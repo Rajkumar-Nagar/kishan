@@ -59,9 +59,7 @@ const columns: ColumnDef<IRecord>[] = [
 ]
 
 const page = async () => {
-    const data = await mandiActions.getMandiPrice({
-        limit: 50
-    });
+    const data = await fetch('http://localhost:3000/api/daily-mandi-price').then(res=>res.json());
     return (
         <div className='container py-3 max-w-screen-xl'>
             <h1 className='text-3xl my-3'>Mandi Prices</h1>
