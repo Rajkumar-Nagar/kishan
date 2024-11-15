@@ -4,7 +4,7 @@ import "./globals.css";
 import { StoreProvider } from "@/providers";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import prisma from "@/lib/prisma";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +30,7 @@ export default async function RootLayout({
             </div>
           </StoreProvider>
         </SessionProvider>
+        <NextTopLoader shadow={false} showSpinner={false} color="blue" />
       </body>
     </html>
   );

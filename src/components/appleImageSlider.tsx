@@ -3,10 +3,12 @@ import Image from "next/image";
 import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 import HomeTitle from "./HomeTitle";
+import { SkelAppleCard } from "./skelton/skeltHomePage";
 
 export function AppleCardsCarouselDemo() {
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} />
+   
   ));
 
   return (

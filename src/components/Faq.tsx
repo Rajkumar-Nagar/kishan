@@ -81,7 +81,6 @@ function Faq() {
     const [askqustied, setaskqustied] = useState("")
 
     return (
-
         <div className="listedProduct my-20 px-6 sm:px-20 container max-w-screen-lg" id='faqs'>
             <Title content='Freqenty Asked Qustion' />
             <div className='my-10'>
