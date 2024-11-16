@@ -35,11 +35,13 @@ enum Slot {
 }
 
 model SlotOption {
-    id           String   @id @default(auto()) @map("_id") @db.ObjectId
-    currCropId   String   @unique
-    pendingCrops String[]
+    id           String    @id @default(auto()) @map("_id") @db.ObjectId
+    currCropId   String    @unique @map("curr_crop_id") @db.ObjectId
+    startTime    DateTime? @map("start_time")
+    pendingCrops String[]  @map("pending_crops")
     status       String
-    Type         Slot     @unique
+    type         Slot      @unique
+    createdAt    DateTime  @default(now())
 }
 
 model MandiPrice {

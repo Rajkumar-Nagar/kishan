@@ -1,9 +1,10 @@
 "use client";
 import { WinningBid } from "@/actions/bid.action";
-import { useAppSelector } from "@/lib/redux";
+import { useAppDispatch, useAppSelector } from "@/lib/redux";
 import { useEffect, useRef } from "react";
 import confetti from 'canvas-confetti';
 import { useCounter } from "@/hooks";
+import { bidActions } from "@/lib/redux/features";
 
 
 const party = () => {
@@ -70,13 +71,14 @@ const party = () => {
 }
 
 const BidTimer = () => {
-    const { latestBid, product } = useAppSelector((state) => state.bidRoom);
+    const { latestBid, product, bidHistory } = useAppSelector((state) => state.bidRoom);
     const bidWon = useRef(false);
 
     const { seconds: timer } = useCounter(latestBid?.createdAt, 31);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!latestBid || !product || timer !== 0) return;
+        if (!latestBid || !product || timer !== 0 || bidHistory.length == 0) return;
         if (bidWon.current) return;
         WinningBid({
             cropId: product?.id!,
@@ -86,10 +88,15 @@ const BidTimer = () => {
             console.log(res);
             if (!res?.error) {
                 bidWon.current = true;
+                dispatch(bidActions.setBidEnd({
+                    endedAt: res?.bidDetails?.endedAt!,
+                    isSold: true,
+                    nextCropTime: res.nextBid?.startedAt!
+                }));
                 party();
             }
         })
-    }, [timer, latestBid, product]);
+    }, [dispatch, timer, latestBid, product, bidHistory.length]);
 
     return (
         <div className="timer w-32 h-32 lg:w-40 lg:h-40 bg-[#6cbdaf] rounded-full flex items-center justify-center">

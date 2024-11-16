@@ -1,13 +1,13 @@
 "use client"
 
 import { createTitle, getChats } from '@/actions/prompt.actions';
-import InputBoxForAdd from '@/components/aiHelper/chat-form';
 import { ChatGpt } from '@/components/skelton/skeltHomePage';
 import { useAppDispatch, useAppSelector } from '@/lib/redux';
 import { aiAction } from '@/lib/redux/features';
 import React, { useEffect } from 'react'
 import { useChat } from "ai/react";
 import PreviewMessage from '@/components/aiHelper/preview-message';
+import ChatForm from '@/components/aiHelper/chat-form';
 
 function Page({ params }: { params: { chatid: string } }) {
 
@@ -21,9 +21,9 @@ function Page({ params }: { params: { chatid: string } }) {
             chats?.conversation && dispatch(aiAction.setconversation(chats?.conversation.prompts))
         }
         handelchatdata()
-    }, [params.chatid])
+    }, [params.chatid, dispatch])
 
-    const { messages, handleSubmit, input, setInput, isLoading, stop, setMessages } = useChat({
+    const { messages, handleSubmit, input, setInput, isLoading, stop } = useChat({
         id: params.chatid,
         initialMessages: conversation.reduce((acc, item) => {
             acc.push({ id: item.id + '-user', content: item.question, role: 'user', createdAt: new Date(item.createdAt) })
@@ -40,7 +40,7 @@ function Page({ params }: { params: { chatid: string } }) {
         }
         const timeout = setTimeout(setPrompt, 0);
         return () => clearTimeout(timeout)
-    }, [prompt, params.chatid])
+    }, [prompt, params.chatid, dispatch, setInput])
 
     useEffect(() => {
         if (input) {
@@ -51,7 +51,7 @@ function Page({ params }: { params: { chatid: string } }) {
                 }
             })
         }
-    }, [input, params.chatid]);
+    }, [input, params.chatid, handleSubmit]);
 
     useEffect(() => {
         if (params.chatid && prompt && messages.length === 0) {
@@ -80,7 +80,10 @@ function Page({ params }: { params: { chatid: string } }) {
                 <div ref={messagesEndRef} />
             </div>
 
-            <InputBoxForAdd isLoading={isLoading} />
+            <ChatForm
+                isLoading={isLoading}
+                stop={stop}
+            />
         </div>
     );
 }

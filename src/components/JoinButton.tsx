@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
-function JoinButton({ cls }) {
+function JoinButton({ cls }: { cls?: string }) {
     return (
         <Link
             href={"/mandi/join-mandi"}

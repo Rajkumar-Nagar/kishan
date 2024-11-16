@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <StoreProvider>
-            <div className="">
+            <div className="w-full">
               {children}
             </div>
           </StoreProvider>

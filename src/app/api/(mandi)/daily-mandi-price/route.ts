@@ -14,8 +14,33 @@ export const GET = async (request: Request) => {
     const grade = searchParams.get('grade');
     const arrival_date = searchParams.get('arrival_date');
 
-    const today = new Date();
-    const arrival_date1 = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+    const today = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    }).format(new Date());
+
+    let [arrival_date1, time] = today.split(', ');
+    const [hour, minute] = time.split(':').map(Number);
+
+    if (hour > 0 && hour < 8) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayDate = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Kolkata',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(yesterday);
+        arrival_date1 = yesterdayDate;
+    }
+
+    // const res = await getMandiPrice({ limit: 15 });
+    // return NextResponse.json(res, { status: 200 });
 
     try {
         const res = await prisma.mandiPrice.findMany({

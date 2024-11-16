@@ -87,7 +87,7 @@ const FiltersList = () => {
         const pt = decodeURIComponent(params.toString());
         const pt1 = params.toString();
         route.replace(`${pathName}?${pt}`, { scroll: false });
-    }, 300);
+    }, 100);
 
     // Update search params on filter options change
     useEffect(() => {

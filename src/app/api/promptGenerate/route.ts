@@ -1,18 +1,10 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
-import { revalidatePath } from "next/cache";
-
-
-const genAI = new GoogleGenerativeAI("AIzaSyBG5phnK2u_bjmENghqWsOCC4jSPfVI9ns");
 
 export async function POST(request: NextRequest) {
     try {
-        const body = await request.json();
-        const { prompt } = body;
-
         const user = await auth();
 
         if (!user) {

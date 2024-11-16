@@ -34,7 +34,8 @@ export type Bidproduct = Prisma.ProductGetPayload<{
             }
         }
     }
-}>
+}> & { hasNext: boolean };
+
 export interface BidSliceState {
     product: Bidproduct | null,
     bidders: Bidder[],
@@ -43,8 +44,11 @@ export interface BidSliceState {
     countDown: number,
     viewers: Bidder[],
     latestBid: Bids | null,
-    highestBid: number
-
+    highestBid: number,
+    isSold: boolean,
+    endedAt: Date | null
+    nextCropTime: Date | null
+    hasNextCrop: boolean
 }
 
 const initialState: BidSliceState = {
@@ -55,7 +59,11 @@ const initialState: BidSliceState = {
     countDown: 30,
     viewers: [],
     highestBid: 0,
-    latestBid: null
+    latestBid: null,
+    isSold: false,
+    endedAt: null,
+    nextCropTime: null,
+    hasNextCrop: false
 };
 
 
@@ -64,15 +72,21 @@ const bidSlice = createSlice({
     initialState,
     reducers: {
         initBid: (state, action: PayloadAction<Bidproduct>) => {
-            const product = action.payload
-            state.product = product
-            state.bidHistory = product.biddingDetails[0]?.bids ?? []
-            const latestBid = product.biddingDetails[0]?.bids.at(-1)
+            const product = action.payload;
+            state.product = product;
+            state.isSold = product.productInfo.isSold;
+            state.bidHistory = product.biddingDetails[0]?.bids ?? [];
+            const latestBid = product.biddingDetails[0]?.bids.at(-1);
             if (latestBid) {
-                state.highestBid = latestBid.price
-                state.highestBidder = latestBid.bidderId
+                state.highestBid = latestBid.price;
+                state.highestBidder = latestBid.bidderId;
                 state.latestBid = latestBid;
+            } else {
+                state.highestBid = 0;
+                state.highestBidder = null;
+                state.latestBid = null;
             }
+            state.hasNextCrop = product.hasNext;
         },
         setProduct: (state, action: PayloadAction<Bidproduct>) => {
             state.product = action.payload;
@@ -81,7 +95,7 @@ const bidSlice = createSlice({
             state.bidders.pop();
         },
         setBidders: (state, action: PayloadAction<Bidder[]>) => {
-            state.bidders = action.payload
+            state.bidders = action.payload;
         },
         addBidder: (state, action: PayloadAction<Bidder>) => {
             state.bidders.push(action.payload);
@@ -95,11 +109,27 @@ const bidSlice = createSlice({
         addBid: (state, action: PayloadAction<Bids>) => {
             state.bidHistory = [...state.bidHistory, action.payload];
             state.latestBid = action.payload;
-            state.highestBidder = action.payload.bidderId
-            state.highestBid = action.payload.price
+            state.highestBidder = action.payload.bidderId;
+            state.highestBid = action.payload.price;
         },
         setCountDown: (state, action: PayloadAction<number>) => {
-            state.countDown = action.payload
+            state.countDown = action.payload;
+        },
+        setBidEnd: (state, action: PayloadAction<{ endedAt: Date; isSold: boolean; nextCropTime: Date }>) => {
+            state.endedAt = action.payload.endedAt;
+            state.isSold = action.payload.isSold;
+            state.nextCropTime = action.payload.nextCropTime;
+            if (!action.payload.nextCropTime) state.hasNextCrop = false;
+
+            if (state.product) {
+                state.product = {
+                    ...state.product,
+                    productInfo: {
+                        ...state.product.productInfo,
+                        isSold: action.payload.isSold
+                    }
+                }
+            }
         }
     },
     selectors: {

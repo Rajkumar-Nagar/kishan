@@ -1,6 +1,7 @@
 "use server"
 import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
+import { add } from "date-fns";
 import { revalidatePath } from "next/cache";
 
 
@@ -80,6 +81,8 @@ export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
         }
     }
 
+    const endedAt = new Date().toISOString();
+
     const bidDetails = await prisma.bidDetails.update({
         where: {
             cropId
@@ -87,7 +90,7 @@ export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
         data: {
             highestBid,
             winning_bidderId,
-            endedAt: new Date().toISOString()
+            endedAt
         }
     });
 
@@ -103,28 +106,54 @@ export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
             }
         }
     })
-
     const slotOption = await prisma.slotOption.findFirst({
         where: {
             currCropId: cropId
         }
+    });
+
+    if (!slotOption) return {
+        error: "Invalid slot"
+    }
+
+    if (slotOption?.pendingCrops.length === 0) {
+        const st = await prisma.slotOption.update({
+            where: {
+                id: slotOption?.id!
+            },
+            data: {
+                startTime: null
+            }
+        })
+        return { bidDetails, slotOption: st }
+    }
+    console.log({ object: slotOption?.pendingCrops[0] })
+
+    const nextCropId = slotOption.pendingCrops[0];
+
+    const nextBid = await prisma.bidDetails.update({
+        where: {
+            cropId: nextCropId
+        },
+        data: {
+            startedAt: add(new Date(endedAt), { seconds: 60 }).toISOString()
+        }
     })
 
-    await prisma.slotOption.update({
+    const slot = await prisma.slotOption.update({
         where: {
             id: slotOption?.id!
         },
         data: {
-            currCropId: slotOption?.pendingCrops[0],
+            currCropId: nextCropId,
             pendingCrops: {
-                set: slotOption?.pendingCrops.slice(1)
-            }
+                set: slotOption.pendingCrops.slice(1)
+            },
+            startTime: add(new Date(endedAt), { seconds: 60 }).toISOString()
         }
     })
 
-    revalidatePath(`/mandi`)
+    console.log(nextBid, slot)
 
-    if (bidDetails) {
-        return { bidDetails }
-    }
+    return { bidDetails, nextBid, slotOption: slot }
 }

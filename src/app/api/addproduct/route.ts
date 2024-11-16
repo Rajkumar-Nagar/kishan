@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
 import { Slot } from "@prisma/client"
-import jwt from "jsonwebtoken"
+
 export async function POST(request: NextRequest) {
 
     try {
@@ -83,16 +83,14 @@ export async function POST(request: NextRequest) {
             prisma.additionalServices.create({ data: { sampleRequest, liveStreaming } })
         ]);
 
-        const lastProduct=await prisma.product.findMany(
-            {
-                orderBy:{
-                    createdAt:"desc"
-                },
-                take:1
-            }
-        )
+        const lastProduct = await prisma.product.findMany({
+            orderBy: {
+                createdAt: "desc"
+            },
+            take: 1
+        })
 
-        const token=lastProduct[0].token?+lastProduct[0].token+1:10500
+        const token = lastProduct[0].token ? +lastProduct[0].token + 1 : 10500
 
         const product = await prisma.product.create({
             data: {
@@ -102,7 +100,7 @@ export async function POST(request: NextRequest) {
                 qualityMetricsId: qualityMetrics.id,
                 harvestStorageId: harvestStorage.id,
                 mediaId: media.id,
-                token:token.toString(),
+                token: token.toString(),
                 additionalServicesId: additionalServices.id,
             },
             include: {
@@ -116,7 +114,6 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        // const product = (await prisma.product.findFirst())!
         for (const item of Object.keys(Slot)) {
             const allBids = await prisma.bidDetails.findMany({
                 where: {
@@ -134,13 +131,14 @@ export async function POST(request: NextRequest) {
 
                 const slotOption = await prisma.slotOption.upsert({
                     where: {
-                        Type: Slot[item as keyof typeof Slot]
+                        type: Slot[item as keyof typeof Slot]
                     },
                     create: {
                         currCropId: product.id,
                         status: "pending",
                         pendingCrops: [product.id],
-                        Type: Slot[item as keyof typeof Slot]
+                        type: Slot[item as keyof typeof Slot],
+                        startTime: new Date(new Date().setHours(10, 0, 0, 0)),
                     },
                     update: {
                         pendingCrops: {
@@ -154,7 +152,7 @@ export async function POST(request: NextRequest) {
 
 
         console.log(product)
-        return NextResponse.json({product,token}, { status: 201 });
+        return NextResponse.json({ product, token }, { status: 201 });
     } catch (error) {
         console.error('Error creating product:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

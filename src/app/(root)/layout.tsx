@@ -29,7 +29,7 @@ export default async function RootLayout({
           </span>
         </Link>
       </div>
-      
+
     </div>
   );
 }

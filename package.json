@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^0.0.55",
-    "@google/generative-ai": "^0.21.0",
     "@hookform/resolvers": "^3.9.0",
     "@nanostores/react": "github:ai/react",
     "@prisma/client": "^5.16.0",
@@ -42,7 +41,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "dayjs": "^1.11.11",
     "embla-carousel-autoplay": "^8.1.5",
     "embla-carousel-react": "^8.1.5",
     "framer-motion": "^11.3.19",

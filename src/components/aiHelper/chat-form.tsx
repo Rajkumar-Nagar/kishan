@@ -37,7 +37,6 @@ export default function ChatForm({ newChat, isLoading, stop }: InputBoxForAddPro
 
             const res = await response.json();
             if (!res.error) {
-                // dispatch(aiAction.addConversation({ }))
                 route.push(`aiHelper/${res.Conversation.id}`)
             }
         } catch (error) {
@@ -46,8 +45,8 @@ export default function ChatForm({ newChat, isLoading, stop }: InputBoxForAddPro
     };
 
     return (
-        <div className="p-4 bg-gray-800 border-t w-full border-gray-700 flex flex-col items-center">
-            <div className="flex items-end w-full">
+        <div className="py-2 px-4 bg-gray-800 border-t w-full border-gray-700 flex flex-col items-center">
+            <div className="flex items-end gap-2 w-full">
                 <AutoHeightTextarea
                     placeholder="Type your message..."
                     value={input}
@@ -56,7 +55,7 @@ export default function ChatForm({ newChat, isLoading, stop }: InputBoxForAddPro
                 />
                 <button
                     disabled={isLoading}
-                    className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
                     onClick={handelAddchat}
                 >
                     {isLoading ? "Loading..." : "Send"}

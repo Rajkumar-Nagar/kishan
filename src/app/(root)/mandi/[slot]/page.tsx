@@ -32,11 +32,14 @@ export default async function Page({
 
     if (!(st in SLOTS)) notFound();
     let slot = SLOTS[st];
+    // await prisma.productInfo.updateMany({ data: { isSold: false } })
+    // await prisma.bids.deleteMany()
+    // await prisma.slotOption.updateMany({ data: { status: "pending", "currCropId": "6694ddb18c662d052e6c2f37", "startTime": "2024-11-16T04:30:00.000Z", "pendingCrops": ["6694ddb18c662d052e6c2f37", "66a1310a1757b75b88f0fddf", "6710e3012d1f632d373f6d69", "6693cf898c662d052e6c2f30", "66e25168d2f6656e26b5d0a0"], "type": "First" } })
 
     const session = await auth();
 
     const slotOption = await prisma.slotOption.findFirst({
-        where: { Type: slot }
+        where: { type: slot }
     })
 
     if (!slotOption) notFound()
@@ -64,12 +67,19 @@ export default async function Page({
 
         }
     })
+
     if (!product) return <p>No product found</p>
+
+    if (product.productInfo.isSold && slotOption.pendingCrops.length === 0) {
+        return (
+            <p>There is no crops in this slot</p>
+        )
+    }
 
     return (
 
         <div className="maincontainer h-dvh">
-            <BidSocketAction product={product as any} room={slot} user={session?.user as User} />
+            <BidSocketAction product={{ ...product, hasNext: slotOption.pendingCrops.length > 0 } as any} room={slot} user={session?.user as User} />
 
             <div className="mainbox relative h-full flex flex-col">
 
@@ -106,9 +116,9 @@ export default async function Page({
                             <ViewersChat />
                         )}
 
-                        {product.productInfo.isSold && (
-                            <WinningScreen />
-                        )}
+
+                        <WinningScreen />
+
                     </div>
                 </div>
             </div>

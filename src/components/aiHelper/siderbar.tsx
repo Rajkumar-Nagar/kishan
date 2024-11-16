@@ -14,6 +14,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import NavItem from "./nav-items";
+import { LogOut } from "lucide-react";
 
 
 export default async function AiSidebar() {
@@ -34,9 +35,13 @@ export default async function AiSidebar() {
   });
 
   return (
-    <Sidebar collapsible="icon" >
+    <Sidebar collapsible="offcanvas" >
       <SidebarHeader>
-        <SidebarTrigger className="ml-2" />
+        <Link className="relative ml-2 group/exit w-max" href={'/'}>
+          <LogOut className="rotate-180 cursor-pointer hover:text-gray-400 text-gray-500" />
+          <span className="absolute text-xs text-gray-400 top-1 group-hover/exit:left-8 transition-all -left-20 duration-200 ease-in-out">Exit</span>
+        </Link>
+
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton>

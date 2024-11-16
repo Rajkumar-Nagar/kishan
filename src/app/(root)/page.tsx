@@ -52,7 +52,7 @@ async function page() {
 
         <JoinButton cls={"block sm:hidden fixed left-1/2 -translate-x-1/2"} />
 
-        <AiButton/>
+        <AiButton />
 
         <InfiniteMovingCardsDemo />
         <Faq />
