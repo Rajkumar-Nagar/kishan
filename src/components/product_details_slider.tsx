@@ -23,7 +23,7 @@ export function Product_details_slider({ product, height }: Product_details_slid
     const media = product?.media?.photos ?? []
 
     return (
-        <Carousel className="w-full  min-h-max relative rounded-md overflow-hidden">
+        <Carousel className="w-full min-h-max relative rounded-md overflow-hidden">
             <CarouselContent>
                 {media.map((item, index) => (
                     <CarouselItem key={index}>
@@ -34,9 +34,7 @@ export function Product_details_slider({ product, height }: Product_details_slid
                             <div className="blackgradianrt absolute top-0 rounded-bl-lg right-0 py-3 px-3  flex items-center justify-center"
                                 style={{ background: 'linear-gradient(0deg, #00000080, #0000)' }}
                             >
-
                                 <h1 className='text-white text-2xl'>#22800</h1>
-
                             </div>
                             <CldImage
                                 alt="Uploaded Image"

@@ -8,7 +8,6 @@ import { getProductById } from '@/actions/product.actions'
 import MoreDetails from '@/components/room/moreDetails'
 
 
-
 async function Page({ params }: { params: { productId: string } }) {
     const product = await getProductById(params.productId)
 
@@ -18,20 +17,18 @@ async function Page({ params }: { params: { productId: string } }) {
 
     return (
         <div className="maincontainer w-full h-full">
-            <div className="crousalcontainer w-full justify-center  flex  px-20 py-8">
-                <div className="topbox w-full h-full  flex justify-center gap-5 relative">
+            <div className="crousalcontainer w-full justify-center flex md:px-10 lg:px-20 px-4 py-8">
+                <div className="topbox w-full h-full flex lg:flex-row flex-col justify-center gap-5 relative">
 
-                    <div className='w-[60%] h-full space-y-3'>
-                        <div className='w-full h-[500px]'>
-                            <Product_details_slider product={product} height={34} />
+                    <div className='h-full space-y-3'>
+                        <div className="w-full lg:max-w-screen-sm">
+                            <Product_details_slider product={product} height={26} />
                         </div>
-                        <MoreDetails product={product}/>
-
+                        <MoreDetails product={product} />
                     </div>
 
-
-                    <div className='w-[30%] space-y-5  sticky top-20 h-full'>
-                        <div className="basicdetails w-full h-72 py-5 px-5 space-y-2  rounded-md border-[1px] ">
+                    <div className='space-y-5  sticky top-20 h-full'>
+                        <div className="basicdetails w-full py-5 px-5 space-y-2  rounded-md border-[1px] ">
                             <div className="firstrow  rounded-md flex items-center justify-between ">
                                 <h1 className='text-xl font-semibold text-[#2e054e]'>{product.productInfo?.cropName}</h1>
 
@@ -49,25 +46,21 @@ async function Page({ params }: { params: { productId: string } }) {
                                         src={"/share.png"}
                                     />
                                 </div>
-
                             </div>
 
-                            <div className="secondrow flex items-center gap-8">
-                                <div className='flex items-center gap-2'>
-                                    <h1 className='text-base font-semibold text-[#2e054e]'>Quantity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>{`${product.productInfo?.quantityAvailable} kg `}</h1>
-                                </div>
-
-                                <div className='flex items-center gap-2'>
-                                    <h1 className='text-base font-semibold text-[#2e054e]'>Varity : </h1>
-                                    <h1 className='text-base font-semibold text-[#64566f]'>{product.productInfo?.variety} </h1>
-                                </div>
+                            <div className="secondrow flex flex-wrap items-center justify-between gap-2 text-base font-semibold ">
+                                <p className='text-[#2e054e]'>
+                                    Quantity:{" "}
+                                    <span className='text-[#64566f]'>{`${product.productInfo?.quantityAvailable} kg`}</span>
+                                </p>
+                                <p className='text-[#2e054e]'>Variety:{" "}
+                                    <span className='text-[#64566f]'>{product.productInfo?.variety}</span>
+                                </p>
                             </div>
 
                             <div className="secondrow flex items-center gap-8">
                                 <h1 className='text-2xl font-bold text-[#2e054e]'>{`₹ ${product.productInfo?.expectedPrice} / ${product.productInfo?.units}`}</h1>
                             </div>
-
 
                             <div className="locationpart border-t-2">
 
@@ -79,8 +72,10 @@ async function Page({ params }: { params: { productId: string } }) {
                                             alt='reload'
                                             src={"/live.png"}
                                         />
-                                        <h1 className='text-base font-semibold text-[#2e054e]'>Live Streaming : </h1>
-                                        <h1 className='text-base font-semibold text-[#64566f]'>Available </h1>
+                                        <p className='text-[#2e054e] text-base font-semibold'>
+                                            Live Streaming:{" "}
+                                            <span className='text-[#64566f]'>Available</span>
+                                        </p>
                                     </div>
 
                                     <div className='flex items-center gap-2'>
@@ -90,30 +85,31 @@ async function Page({ params }: { params: { productId: string } }) {
                                             alt='reload'
                                             src={"/sample.png"}
                                         />
-                                        <h1 className='text-base font-semibold text-[#2e054e]'>Sample Request : </h1>
-                                        <h1 className='text-base font-semibold text-[#64566f]'>Available</h1>
+
+                                        <p className='text-[#2e054e] text-base font-semibold'>
+                                            Sample Request:{" "}
+                                            <span className='text-[#64566f]'>Available</span>
+                                        </p>
                                     </div>
-
-
                                 </div>
 
 
-                                <div className='flex gap-3 border-t-2 py-3'>
+                                <div className='flex gap-3 border-t-2 pt-3'>
                                     <Image
                                         src="/location1.png"
                                         height="15"
                                         width="15"
                                         alt="thumbnail"
                                     />
-                                    <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
-                                        ` ${product.locationInfo.village}, ${product.locationInfo.districtCity},${product.locationInfo.state},${product.locationInfo.pincode}`
-                                    }</span>
+                                    <span className="text-xs w-full font-semibold text-[#74667f] dark:text-white">
+                                        {`${product.locationInfo.village}, ${product.locationInfo.districtCity},${product.locationInfo.state},${product.locationInfo.pincode}`}
+                                    </span>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div className="profile w-full  py-5 px-5 space-y-3  rounded-md border-[1px] ">
+                        <div className="profile w-full py-5 px-5 space-y-3 rounded-md border-[1px] ">
 
                             <div className="profile flex items-center gap-3">
                                 <div className="image w-14 h-14 rounded-full bg-indigo-700">
@@ -134,16 +130,11 @@ async function Page({ params }: { params: { productId: string } }) {
 
                                         <span className='text-base text-[#2e054e]'>(10 user)</span>
                                     </div>
-
-
                                 </div>
-
-
                             </div>
 
 
                             <div className="chatandcall flex flex-wrap gap-3">
-
                                 <div className="chat flex-grow flex items-center text-base hover:bg-[#5ddbbc] hover:text-[#ffff] hover:border-black cursor-pointer font-semibold text-[#2e054e] justify-center py-1  border-2 rounded-md gap-4">
                                     <Image
                                         width={30}
@@ -151,7 +142,7 @@ async function Page({ params }: { params: { productId: string } }) {
                                         alt='reload'
                                         src={"/message1.png"}
                                     />
-                                    <span >Message</span>
+                                    <span>Message</span>
                                 </div>
 
                                 <div className="chat flex-grow flex items-center text-base hover:bg-[#5ddbbc] hover:text-[#ffff] hover:border-black cursor-pointer font-semibold text-[#2e054e] justify-center py-1  border-2 rounded-md gap-4">
@@ -163,19 +154,18 @@ async function Page({ params }: { params: { productId: string } }) {
                                     />
                                     <span >Phone</span>
                                 </div>
-
                             </div>
 
-                            <div className='flex gap-3 border-t-2 py-3'>
+                            <div className='flex gap-3 border-t-2 pt-3'>
                                 <Image
                                     src="/location1.png"
                                     height="15"
                                     width="15"
                                     alt="thumbnail"
                                 />
-                                <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">{
-                                    ` ${product.locationInfo.village}, ${product.locationInfo.districtCity},${product.locationInfo.state},${product.locationInfo.pincode}`
-                                }</span>
+                                <span className="text-xs w-full font-semibold  text-[#74667f] dark:text-white">
+                                    {`${product.locationInfo.village}, ${product.locationInfo.districtCity},${product.locationInfo.state},${product.locationInfo.pincode}`}
+                                </span>
                             </div>
 
                         </div>
@@ -202,9 +192,6 @@ async function Page({ params }: { params: { productId: string } }) {
             </div>
 
             <Faq />
-
-
-
         </div>
     )
 }
