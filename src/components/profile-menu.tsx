@@ -98,33 +98,16 @@ const ProfileMenu = ({ user }: ProfileDemoProps) => {
                 </SignedOut>
                 < DropdownMenuSeparator className="bg-gray-200" />
 
-                {
-                    account.slice(0, 4).map((item, index) => (
-                        <Link href={item.url} key={index} className="w-full p-1 text-[#002f34] hover:bg-[#7e9dca] hover:[&>*]:text-white flex items-center rounded-md cursor-pointer">
-                            <DropdownMenuItem className="w-full !bg-transparent cursor-pointer group" key={index} >
-                                <Image alt='' src={item.image} width={25} height={25} />
-                                <span className="text-base group-hover:text-white">{item.title}</span>
-                            </DropdownMenuItem>
-                        </Link>
-                    ))
-                }
-
-                <DropdownMenuSeparator className="bg-gray-200" />
-
                 <Responsive.Show below={640}>
                     <DropdownMenuGroup>
-                        <DropdownMenuLabel>
-                            Services
-                        </DropdownMenuLabel>
-                        {services.map((item, index) => (
-                            <Link href={item.href} key={index} className="w-full p-1 text-[#002f34] hover:bg-[#7e9dca] hover:[&>*]:text-white flex items-center rounded-md cursor-pointer">
-                                <DropdownMenuItem className="w-full !bg-transparent cursor-pointer group" key={index} >
-                                    <Image alt='' src={item.image} width={25} height={25} />
-                                    <span className="text-base group-hover:text-white">{item.title}</span>
-                                </DropdownMenuItem>
-                            </Link>
-                        ))}
-                        <DropdownMenuSeparator className="bg-gray-200" />
+
+                        <Link href={"/"} className="w-full p-1 text-[#002f34] hover:bg-[#7e9dca] hover:[&>*]:text-white flex items-center rounded-md cursor-pointer">
+                            <DropdownMenuItem className="w-full !bg-transparent cursor-pointer group">
+                                <Image alt='' src={"/home.png"} width={20} height={20} />
+                                <span className="text-base group-hover:text-white">Home</span>
+                            </DropdownMenuItem>
+                        </Link>
+
                         <Link href="/contact-us">
                             <DropdownMenuItem className="px-2 py-2 rounded-md">
                                 <Phone size={20} />
@@ -137,9 +120,38 @@ const ProfileMenu = ({ user }: ProfileDemoProps) => {
                                 <span className="text-base">About</span>
                             </DropdownMenuItem>
                         </Link>
+
+                        <DropdownMenuSeparator className="bg-gray-200" />
+                        <DropdownMenuLabel>
+                            Services
+                        </DropdownMenuLabel>
+                        {services.map((item, index) => (
+                            <Link href={item.href} key={index} className="w-full p-1 text-[#002f34] hover:bg-[#7e9dca] hover:[&>*]:text-white flex items-center rounded-md cursor-pointer">
+                                <DropdownMenuItem className="w-full !bg-transparent cursor-pointer group" key={index} >
+                                    <Image alt='' src={item.image} width={25} height={25} />
+                                    <span className="text-base group-hover:text-white">{item.title}</span>
+                                </DropdownMenuItem>
+                            </Link>
+                        ))}
+                        <DropdownMenuSeparator className="bg-gray-200" />
+
                     </DropdownMenuGroup>
-                    <DropdownMenuSeparator className="bg-gray-200" />
+
                 </Responsive.Show>
+
+
+                {
+                    account.slice(1, 4).map((item, index) => (
+                        <Link href={item.url} key={index} className="w-full p-1 text-[#002f34] hover:bg-[#7e9dca] hover:[&>*]:text-white flex items-center rounded-md cursor-pointer">
+                            <DropdownMenuItem className="w-full !bg-transparent cursor-pointer group" key={index} >
+                                <Image alt='' src={item.image} width={25} height={25} />
+                                <span className="text-base group-hover:text-white">{item.title}</span>
+                            </DropdownMenuItem>
+                        </Link>
+                    ))
+                }
+
+                <DropdownMenuSeparator className="bg-gray-200" />
 
                 {
                     account.slice(5, 7).map((item, index) => (
@@ -151,6 +163,9 @@ const ProfileMenu = ({ user }: ProfileDemoProps) => {
                         </Link>
                     ))
                 }
+
+
+
 
 
                 <SignedIn>
