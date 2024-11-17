@@ -1,3 +1,4 @@
+import { services } from '@/data/services'
 import Link from 'next/link'
 import React from 'react'
 
@@ -25,6 +26,16 @@ function Footer() {
               <li><Link href="/blog" className="text-orange-400 hover:underline">Blog</Link></li>
               <li><Link href="#" className="text-orange-400 hover:underline">Contact</Link></li>
               <li><Link href="/#faqs" className="text-orange-400 hover:underline">FAQs</Link></li>
+            </ul>
+          </div>
+
+          <div className="w-full md:w-1/4 mb-6 md:mb-0">
+            <h4 className="text-lg font-semibold mb-4">Services</h4>
+            <ul className="space-y-2">
+              {services.map((item,index) => (
+                <li key={index} className=''><Link  href={item.href} className="text-orange-400 hover:underline">{item.title}</Link></li>
+              ))}
+
             </ul>
           </div>
 

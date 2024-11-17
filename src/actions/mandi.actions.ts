@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { STATES } from "@/data";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface MandiPriceReq {
     offset?: number;
@@ -148,6 +149,13 @@ export const verifyToken = async (token: string = "v", role: string) => {
         value: JSON.stringify(data)
     })
 
+}
+
+export const LeaveMandi = async () => {
+    const cookieStore = cookies();
+    cookieStore.delete("allindiamandi")
+
+    redirect("/mandi/join-mandi")
 }
 
 

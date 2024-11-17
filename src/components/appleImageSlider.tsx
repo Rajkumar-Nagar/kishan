@@ -8,7 +8,7 @@ import { SkelAppleCard } from "./skelton/skeltHomePage";
 export function AppleCardsCarouselDemo() {
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} />
-   
+
   ));
 
   return (

@@ -59,7 +59,9 @@ const columns: ColumnDef<IRecord>[] = [
 ]
 
 const page = async () => {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/daily-mandi-price`).then(res => res.json());
+    const data = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/daily-mandi-price`,{
+        cache:'no-cache'
+    }).then(res => res.json());
     return (
         <div className='container py-3 max-w-screen-xl'>
             <h1 className='text-3xl my-3'>Mandi Prices</h1>

@@ -18,9 +18,9 @@ import { account } from "@/data"
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { signOut } from "next-auth/react"
-import { services } from "./Navbarfield"
 import { SignedIn, SignedOut } from "./auth-component"
 import Responsive from "./responsive-component"
+import { services } from "@/data/services"
 
 interface ProfileDemoProps {
     user: User | null

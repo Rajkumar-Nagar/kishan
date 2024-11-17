@@ -12,6 +12,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogOut, MenuIcon } from 'lucide-react'
+import Link from 'next/link'
+import { LeaveMandi } from '@/actions/mandi.actions'
 
 
 export enum MandiHeaderOptions {
@@ -41,6 +43,13 @@ function HeaderButton() {
         { name: "Bidders", icon: "/customber.png", type: MandiHeaderOptions.biddersList, count: bidders.length },
         { name: "Viewers", icon: "/view1.png", type: MandiHeaderOptions.viewersList, count: 0 }
     ]), [bidders]);
+
+
+    const handelLeave=async()=>{
+    
+      await LeaveMandi()
+
+    }
 
 
     return (
@@ -102,7 +111,7 @@ function HeaderButton() {
                 </div>
 
                 <div className="right">
-                    <button className="px-4 py-2 rounded-lg text-white text-base bg-[#357e85] font-semibold">Leave</button>
+                    <button onClick={handelLeave} className="px-4 py-2 rounded-lg text-white text-base bg-[#357e85] font-semibold">Leave</button>
                 </div>
             </div>
         </>

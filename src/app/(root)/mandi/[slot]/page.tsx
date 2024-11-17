@@ -112,7 +112,7 @@ export default async function Page({
                         </div>
 
 
-                        {session?.user.role === 'USER' && (
+                        {session?.user.role !== 'BIDDER' && (
                             <ViewersChat />
                         )}
 

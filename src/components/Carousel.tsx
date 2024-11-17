@@ -26,44 +26,44 @@ const servicesData = [
   {
     title: "Online Mandi",
     description: "Experience the convenience of buying and selling crops online through Kisan's integrated mandi platform. Farmers can list their produce for sale, and licensed buyers can place bids, ensuring fair and efficient transactions.",
-    href: "/services/mandi",
+    href: "/",
     imgurl: "/Mandi.jpg"
   },
   {
     title: "Crop Rate Dashboard",
     description: "Stay informed with Kisan's comprehensive crop rate dashboard. Access real-time market data, including price trends and fluctuations across various mandis. Make informed decisions based on insightful graphs and analytics.",
-    href: "/services/crop-rates",
+    href: "/",
     imgurl: "/ChartAi.jpg"
 
   },
   {
     title: "AI Bot Assistance",
     description: "Get instant solutions to your farming queries with Kisan's AI-powered bot. Ask questions related to crop management, pest control, or irrigation strategies. Upload images of diseased crops for accurate diagnosis and recommended treatments.",
-    href: "/services/ai-helper",
+    href: "/",
     imgurl: "/Ai.jpg"
   },
   {
     title: "Transport Booking",
     description: "Effortlessly book transportation for your crops with Kisan's reliable truck and pickup booking service. Whether you need individual transport or prefer to collaborate with partners, Kisan ensures timely and secure delivery to mandis.",
-    href: "/services/transport",
+    href: "/",
     imgurl: "/TransporntAi.jpg"
   },
   {
     title: "Labour Booking",
     description: "Streamline your farming operations by hiring skilled labour through Kisan's easy booking system. Choose from a pool of verified workers for tasks such as planting, harvesting, and irrigation, ensuring efficiency and productivity.",
-    href: "/services/labour",
+    href: "/",
     imgurl: "/LaborAi.jpg"
   },
   {
     title: "Farmer Community",
     description: "Connect and collaborate with fellow farmers through Kisan's vibrant community platform. Share knowledge, exchange ideas, and seek advice on agricultural practices, fostering a supportive environment for continuous learning and growth.",
-    href: "/services/community",
+    href: "/",
     imgurl: "/GroupAi.jpg"
   },
   {
     title: "Land Transactions",
     description: "Explore opportunities to buy or rent agricultural land through Kisan's transparent and secure platform. Participate in auctions for permanent land purchases or annual lease options, facilitated with fair bidding processes.",
-    href: "/services/land",
+    href: "/",
     imgurl: "/LandAi.jpg"
 
   },

@@ -8,7 +8,6 @@ import { useSession } from 'next-auth/react';
 import { User } from '@prisma/client';
 import { useScrollWindow } from '@/hooks';
 import ProfileMenu from './profile-menu';
-import { MandiJoinButton } from './onlineMandi/joinButtion';
 import { useRouter } from 'next/navigation';
 import { userActions } from '@/actions';
 import JoinButton from './JoinButton';
@@ -34,11 +33,10 @@ function Navbar() {
         router.push("/mandi/join-mandi")
     }
 
-
     return (
         <header className={`navbar ${isScrolled ? 'bg-[#719c8a] text-white sticky' : 'bg-white sticky'} shadow-md top-0 z-[100] flex w-full justify-between py-2 md:px-10 px-3 h-16 transition-[background] duration-300 !pr-4`}>
             <Link href={'/'} className="logo flex items-center ">
-                <Image width={500} height={500} className='md:w-32 md:h-16 w-32 h-12 mt-2 shadow-slate-300' alt='Kisan' src={"/logo5.png"} />
+                <Image width={500} height={500} className={`md:w-32 md:h-16 w-32 h-12 mt-2 shadow-slate-300 ${isScrolled&&"drop-shadow-[3px_3px_3px_black]"}`} alt='Kisan' src={"/logo5.png"} />
             </Link>
 
             <div className="serveses sm:flex items-center hidden">

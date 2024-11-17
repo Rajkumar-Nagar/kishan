@@ -132,7 +132,8 @@ function MiniMandiSelect() {
                 <button className='px-4 py-2 rounded-full border-2 text-[#002f34] text-base font-semibold hover:bg-green-300 hover:text-white'>
                     More details
                 </button>
-                <MandiJoinButton onClick={handelMiniMandi} />
+                {/* <MandiJoinButton onClick={handelMiniMandi} /> */}
+                <h1>coming soon...</h1>
                 {
                     err && <h1 className='text-red-400 text-base px-4'>{err}</h1>
                 }

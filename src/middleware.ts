@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.nextUrl));
   }
 
-  if (pathname === '/mandi/all-india-mandi') {
+  if (pathname.startsWith('/mandi') && pathname!=='/mandi/join-mandi') {
     const cookie = cookies();
     const data = cookie.get('allindiamandi')?.value ?? "";
 
