@@ -24,12 +24,12 @@ const SideBar: React.FC<PropsWithChildren> = ({
     if (width > 768) return children;
 
     return (
-        <div className='relative'>
+        <div className='relative '>
             <button className='p-2 sticky top-[calc(var(--header-height)_+_0.5rem)]' onClick={handleClick}>
                 <Settings />
             </button>
             {isOpened && <div className='w-screen h-screen z-40 bg-black/15 fixed inset-0' onClick={handleClick} />}
-            <div className={`sidebar fixed h-screen bg-white z-50 p-4`}
+            <div className={`sidebar fixed h-screen overflow-y-scroll pb-12 bg-white z-50 p-4`}
                 style={{
                     left: isOpened ? -0 : -400,
                     top: 'var(--header-height)',

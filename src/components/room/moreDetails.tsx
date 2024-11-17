@@ -7,7 +7,7 @@ function MoreDetails({ product }: { product: ProductType }) {
     return (
 
         <>
-            <div className="secondrow py-3 px-7 sm:text-base text-sm">
+            <div className="secondrow py-3 px-7 sm:text-base text-sm border rounded-md">
                 <div className='flex items-center gap-2'>
                     <Image
                         width={45}
@@ -30,13 +30,13 @@ function MoreDetails({ product }: { product: ProductType }) {
                 </div>
             </div>
 
-            <div className="moredetails w-full h-72 rounded-md *:*:sm:scale-100 *:*:scale-90 *:text-center"
+            <div className="moredetails w-full h-72 mt-4  border rounded-md *:*:sm:scale-100 *:*:scale-90 *:text-center"
                 style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(3, 1fr)",
                     gridTemplateRows: "repeat(4, 1fr)"
                 }}>
-                <div className="detailsbox flex flex-col items-center justify-center border-b-2 border-t-2"
+                <div className="detailsbox flex flex-col items-center justify-center border-b-2 "
                     style={{
                         gridColumn: "1 / 2",
                         gridRow: "1 / 2",
@@ -45,7 +45,7 @@ function MoreDetails({ product }: { product: ProductType }) {
                     <h1 className='text-[#2e054e]'>{Dateconverter(product.harvestStorage.harvestDate)}</h1>
                 </div>
 
-                <div className="detailsbox flex flex-col items-center justify-center border-b-2 border-t-2"
+                <div className="detailsbox flex flex-col items-center justify-center border-b-2 "
                     style={{
                         gridColumn: "2 / 3",
                         gridRow: "1 / 2"
@@ -53,7 +53,7 @@ function MoreDetails({ product }: { product: ProductType }) {
                     <h1 className='text-[#888]'>Listed Date</h1>
                     <h1 className='text-[#2e054e]'>{Dateconverter(product.createdAt)}</h1>
                 </div>
-                <div className="detailsbox flex flex-col justify-center items-center border-b-2 border-t-2"
+                <div className="detailsbox flex flex-col justify-center items-center border-b-2 "
                     style={{
                         gridColumn: "3 / 4",
                         gridRow: "1 / 2"

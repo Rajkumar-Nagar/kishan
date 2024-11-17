@@ -11,7 +11,7 @@ async function Profile({ children }: { children: React.ReactNode }) {
 
 
     return (
-        <div className="container relative max-w-screen-2xl md:px-8 xs:px-4 px-2 rounded-md flex gap-6 py-4">
+        <div className="container  relative max-w-screen-2xl  flex-col md:flex-row  md:px-8 xs:px-4 px-2 rounded-md flex gap-6 py-4">
 
             <SideBar>
                 <ProfileSidebar />

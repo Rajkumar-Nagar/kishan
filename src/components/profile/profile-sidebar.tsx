@@ -12,9 +12,9 @@ const ProfileSidebar = async () => {
     const session = await auth();
     const user = session?.user!
     return (
-        <div className="leftpartContainer sticky top-20 w-[clamp(300px,_25vw,_360px)] h-max rounded-md border-2 overflow-hidden">
+        <div className="leftpartContainer sticky overflow-y-scroll top-20 w-[clamp(300px,_25vw,_360px)] h-max rounded-md border-2 overflow-hidden">
             <div className="profileDetails bg-gray-200 gap-3 pb-5 border-b-[1px] flex flex-col">
-                <div className="profilePicture relative flex justify-center h-20 bg-slate-300">
+                <div className="profilePicture relative flex  justify-center h-20 bg-slate-300">
                     <ProfileBanner userId={user.id} bgImage={user.backgroundImage} />
                     <div className="profileImage absolute -bottom-12">
                         {

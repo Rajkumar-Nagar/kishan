@@ -1,5 +1,11 @@
 export const account = [
     {
+        title: "Home",
+        url: "/",
+        image: "/home.png",
+        nav: "Add New Crop"
+    },
+    {
         title: "Add New Crop",
         url: "/products/add-product",
         image: "/plus.png",

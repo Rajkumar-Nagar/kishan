@@ -6,28 +6,37 @@ import Link from 'next/link'
 import Title from '@/components/ui/title'
 import { getProductById } from '@/actions/product.actions'
 import MoreDetails from '@/components/room/moreDetails'
+import CImage from '@/components/Cimage'
+import { auth } from '@/auth'
 
 
 async function Page({ params }: { params: { productId: string } }) {
     const product = await getProductById(params.productId)
+    const session=await auth()
 
+    
     if (!product) {
         throw new Error("product details fetching failed")
     }
 
     return (
         <div className="maincontainer w-full h-full">
-            <div className="crousalcontainer w-full justify-center flex md:px-10 lg:px-20 px-4 py-8">
+            <div className="crousalcontainer w-full justify-center flex md:px-10 lg:px-20 px-2 xs:px-4 py-2 md:py-8">
                 <div className="topbox w-full h-full flex lg:flex-row flex-col justify-center gap-5 relative">
 
                     <div className='h-full space-y-3'>
                         <div className="w-full lg:max-w-screen-sm">
                             <Product_details_slider product={product} height={26} />
                         </div>
-                        <MoreDetails product={product} />
+                        {/* <button className="hidButoon">
+                            <Image src={"/down.png"} width={80} height={80} alt='relaod' className='w-5 h-5' />
+                        </button> */}
+                        <div className='hidden md:block'>
+                            <MoreDetails product={product} />
+                        </div>
                     </div>
 
-                    <div className='space-y-5  sticky top-20 h-full'>
+                    <div className='space-y-5  md:sticky top-20 h-full'>
                         <div className="basicdetails w-full py-5 px-5 space-y-2  rounded-md border-[1px] ">
                             <div className="firstrow  rounded-md flex items-center justify-between ">
                                 <h1 className='text-xl font-semibold text-[#2e054e]'>{product.productInfo?.cropName}</h1>
@@ -109,12 +118,28 @@ async function Page({ params }: { params: { productId: string } }) {
 
                         </div>
 
-                        <div className="profile w-full py-5 px-5 space-y-3 rounded-md border-[1px] ">
+                        <div className="profile w-full p-2 xs:p-5 space-y-3 rounded-md border-[1px] ">
 
                             <div className="profile flex items-center gap-3">
-                                <div className="image w-14 h-14 rounded-full bg-indigo-700">
+                                {
+                                   session?. user?.avatar ?
+                                        <CImage
+                                            alt="Uploaded Image"
+                                            src={session?.user?.avatar}
+                                            width={"170"}
+                                            height={"170"}
+                                            className='w-20 h-20 rounded-full'
+                                            crop={{
+                                                type: 'auto',
+                                                source: true
+                                            }}
+                                        /> : (
+                                            <div className="profile w-24 h-24 rounded-full bg-gray-600 flex items-center justify-center">
+                                                <h1 className="text-[#002f34] text-xl font-semibold">{session?.user?.name?.slice(0, 1)}</h1>
+                                            </div>
+                                        )
+                                }
 
-                                </div>
                                 <div className='space-y-1'>
                                     <h1 className='text-xl font-semibold text-[#2e054e]'>{product.personalInfo.name}</h1>
 
@@ -171,6 +196,10 @@ async function Page({ params }: { params: { productId: string } }) {
                         </div>
                     </div>
 
+                    <div className='block md:hidden'>
+                        <MoreDetails product={product} />
+                    </div>
+
                 </div>
             </div>
 
@@ -178,7 +207,7 @@ async function Page({ params }: { params: { productId: string } }) {
 
                 <Title content={"Similar Crops"} />
 
-                <div className='w-full px-20 py-7'>
+                <div className='w-full md:px-20 px-6 py-7'>
                     <CarouselSize />
                 </div>
 

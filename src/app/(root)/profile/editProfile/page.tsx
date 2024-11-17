@@ -90,7 +90,7 @@ function ProfileEdit() {
     }
 
 
-    if (!user) return <h1>loading...</h1>
+    // if (!user) return <h1>loading...</h1>
 
     return (
         <>
