@@ -1,9 +1,10 @@
 import Sidebar from '@/components/aiHelper/siderbar';
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import DarkMode from '@/components/dark-mode';
 import { promptActions } from '@/actions';
+import SidebarIcon from '@/components/aiHelper/sidebar-icon';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await auth();
@@ -16,7 +17,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <Sidebar />
       <SidebarInset>
         <div className="flex flex-1">
-          <SidebarTrigger className="ml-2 absolute top-2 left-1 z-50" />
+          <SidebarIcon />
           {children}
         </div>
       </SidebarInset>

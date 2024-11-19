@@ -2,6 +2,9 @@ import { getMandiPrice } from "@/actions/mandi.actions";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
+
 export const GET = async () => {
     const { records } = await getMandiPrice({
         limit: 30000
