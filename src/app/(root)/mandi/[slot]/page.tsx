@@ -34,7 +34,7 @@ export default async function Page({
     let slot = SLOTS[st];
     // await prisma.productInfo.updateMany({ data: { isSold: false } })
     // await prisma.bids.deleteMany()
-    // await prisma.slotOption.updateMany({ data: { status: "pending", "currCropId": "6694ddb18c662d052e6c2f37", "startTime": "2024-11-16T04:30:00.000Z", "pendingCrops": ["6694ddb18c662d052e6c2f37", "66a1310a1757b75b88f0fddf", "6710e3012d1f632d373f6d69", "6693cf898c662d052e6c2f30", "66e25168d2f6656e26b5d0a0"], "type": "First" } })
+    // await prisma.slotOption.updateMany({ data: { status: "pending", "currCropId": "6694ddb18c662d052e6c2f37", "startTime": "2024-11-16T04:30:00.000Z", "pendingCrops": ["66a1310a1757b75b88f0fddf", "6710e3012d1f632d373f6d69", "6693cf898c662d052e6c2f30", "66e25168d2f6656e26b5d0a0"], "type": "First" } })
 
     const session = await auth();
 
