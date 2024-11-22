@@ -136,7 +136,7 @@ export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
             cropId: nextCropId
         },
         data: {
-            startedAt: add(new Date(endedAt), { seconds: 60 }).toISOString()
+            startedAt: add(new Date(endedAt), { seconds: 30 }).toISOString()
         }
     })
 
@@ -149,7 +149,7 @@ export const WinningBid = async ({ cropId, highestBid, winning_bidderId }: {
             pendingCrops: {
                 set: slotOption.pendingCrops.slice(1)
             },
-            startTime: add(new Date(endedAt), { seconds: 60 }).toISOString()
+            startTime: add(new Date(endedAt), { seconds: 30 }).toISOString()
         }
     })
 

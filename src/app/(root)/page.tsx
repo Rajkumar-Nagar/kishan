@@ -14,8 +14,12 @@ import { TracingBeam } from '@/components/ui/tracing-beam'
 import { ChevronDown } from 'lucide-react'
 import JoinButton from '@/components/JoinButton'
 import AiButton from '@/components/aiHelper/aiButton'
+import { auth } from '@/auth'
 
 async function page() {
+
+ 
+
   return (
     <div className='w-full h-full'>
       <CarouselDemo />

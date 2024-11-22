@@ -21,7 +21,9 @@ const WinningScreen = () => {
             router.refresh();
         }
     }, [timer, router])
+
     if (!isSold) return null;
+    
     return (
         <div className="absolute inset-0 backdrop-blur-md z-50 flex items-center flex-col justify-center">
             <h1 className='my-3 text-2xl'>Next bid starts in</h1>

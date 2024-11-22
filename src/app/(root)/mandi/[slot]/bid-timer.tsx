@@ -7,7 +7,7 @@ import { useCounter } from "@/hooks";
 import { bidActions } from "@/lib/redux/features";
 
 
-const party = () => {
+export const party = () => {
     var count = 200;
     var defaults = {
         origin: { y: 0.7 }

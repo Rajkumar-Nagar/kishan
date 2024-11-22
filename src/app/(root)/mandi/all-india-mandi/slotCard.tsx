@@ -118,7 +118,7 @@ const SlotCard: React.FC<SlotCardProps> = ({ slotName, date, startTime, endTime,
                 </div>
 
                 {/* Conditionally show the button */}
-                {isInSlot ? (
+                {!isInSlot ? (
                     <MandiJoinButton onClick={handleMainMandi} />
                 ) : (null
                     // <p className='text-[#b9bcbd] text-sm '>{remainingTime}</p>
