@@ -2,7 +2,7 @@ import { convertToCoreMessages, streamText } from 'ai';
 import { google } from '@ai-sdk/google';
 import prisma from '@/lib/prisma';
 
-export const maxDuration = 30;
+export const maxDuration = 60;
 const model = google('gemini-1.5-flash-002');
 
 export async function POST(req: Request) {

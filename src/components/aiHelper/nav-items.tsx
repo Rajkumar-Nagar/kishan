@@ -24,7 +24,7 @@ export default function NavItem({
             <SidebarGroupLabel>Chats</SidebarGroupLabel>
             <SidebarMenu>
                 {items.map((item) => (
-                    <SidebarMenuItem key={item.title} className="">
+                    <SidebarMenuItem key={item.id} className="">
                         <SidebarMenuButton asChild>
                             <Link key={item.id} href={`/aiHelper/${item.id}`} className="text-gray-400 !line-clamp-1">{item.title}</Link>
                         </SidebarMenuButton>

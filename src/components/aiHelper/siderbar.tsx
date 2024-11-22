@@ -37,10 +37,14 @@ export default async function AiSidebar() {
   return (
     <Sidebar collapsible="offcanvas" >
       <SidebarHeader>
-        <Link className="relative ml-2 group/exit w-max" href={'/'}>
-          <LogOut className="rotate-180 cursor-pointer hover:text-gray-400 text-gray-500" />
-          <span className="absolute text-xs text-gray-400 top-1 group-hover/exit:left-8 transition-all -left-20 duration-200 ease-in-out">Exit</span>
-        </Link>
+
+        <div className="flex items-center justify-between">
+          <Link className="relative ml-2 group/exit w-max" href={'/'}>
+            <LogOut className="rotate-180 cursor-pointer hover:text-gray-400 text-gray-500" />
+            <span className="absolute text-xs text-gray-400 top-1 group-hover/exit:left-8 transition-all -left-20 duration-200 ease-in-out">Exit</span>
+          </Link>
+          <SidebarTrigger className="text-gray-400 hover:text-gray-300" />
+        </div>
 
         <SidebarMenu>
           <SidebarMenuItem>
@@ -54,7 +58,7 @@ export default async function AiSidebar() {
         <NavItem items={ChatSession?.conversations ?? []} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        {/* <NavUser /> */}
       </SidebarFooter>
       {/* <SidebarRail /> */}
     </Sidebar>
